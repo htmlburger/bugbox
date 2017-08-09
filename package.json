@@ -9,7 +9,11 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue": "^2.4.2"
+    "axios": "^0.16.2",
+    "babel-preset-stage-2": "^6.24.1",
+    "scroll": "^2.0.0",
+    "vue": "^2.4.2",
+    "vuex": "^2.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
