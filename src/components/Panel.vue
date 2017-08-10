@@ -1,55 +1,50 @@
 <template>
 	<div class="panel">
-		<user :user="user" />
+		<loader v-if="isLoading" />
 
-		<issues />
+		<template v-else>
+			<panel-head />
 
-		<new-project />
-
-		&nbsp;&nbsp;<button @click.prevent="initTagging" class="btn">+ Add Issue</button>
-
-		<issue-form />
+			<panel-body v-if="isAuthorized" />
+		</template>
 	</div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import { panelStyles } from '../assets/styles';
-import User from './User.vue';
-import Issues from './Issues.vue';
-import IssueForm from './IssueForm.vue';
-import NewProject from './NewProject.vue';
+import Loader from './Loader.vue';
+import PanelHead from './PanelHead.vue';
+import PanelBody from './PanelBody.vue';
 
 export default {
 	name: 'panel',
 
 	components: {
-		User,
-		Issues,
-		IssueForm,
-		NewProject,
+		Loader,
+		PanelHead,
+		PanelBody
 	},
 
 	props: ['frame'],
 
-	data () {
-		return {
-			state: '',
-		};
-	},
-
 	computed: {
 		...mapGetters([
-			'user',
-			'issues',
-			'tagManager'
+			'status'
 		]),
-	},
 
-	methods: {
-		...mapActions([
-			'initTagging'
-		]),
+		isAuthorized() {
+			return this.status !== 'unauthorized';
+		},
+
+		isLoading() {
+			const loadingStatuses = [
+				'fetching_user',
+				'fetching_project',
+			];
+
+			return loadingStatuses.indexOf(this.status) >= 0;
+		}
 	},
 
 	watch: {

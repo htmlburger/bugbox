@@ -79,9 +79,23 @@ const actions = {
 	authorize({ commit, dispatch }) {
 		return tracker.authorize()
 			.then((token) => {
-				commit('SET_STATUS', 'unauthorized');
+				commit('SET_STATUS', 'authorized');
 
 				return dispatch('getInitialData');
+			});
+	},
+
+	/**
+	 * Unauthorize in tracker action
+	 * @param  {Function} options.commit
+	 * @param  {Function} options.dispatch
+	 * @return {Promise}
+	 */
+	unauthorize({ commit, dispatch }) {
+		return tracker.unauthorize()
+			.then((token) => {
+				commit('SET_USER', null);
+				return commit('SET_STATUS', 'unauthorized');
 			});
 	},
 

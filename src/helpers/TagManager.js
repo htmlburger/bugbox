@@ -28,6 +28,7 @@ export default class TagManager {
 		/**
 		 * Bind Handlers
 		 */
+		this.cancel                  = this.cancel.bind(this);
 		this.tagTargetElement        = this.tagTargetElement.bind(this);
 		this.highlightTargetElement  = this.highlightTargetElement.bind(this);
 		this.resizeScreenshotPadding = this.resizeScreenshotPadding.bind(this);
@@ -42,20 +43,38 @@ export default class TagManager {
 		this.bind();
 	}
 
+	/**
+	 * Bind handlers
+	 * @return {Void}
+	 */
 	bind() {
 		document.addEventListener('mousemove', this.highlightTargetElement);
 		document.addEventListener('click', this.tagTargetElement);
 		document.addEventListener('mousewheel', this.resizeScreenshotPadding);
 		document.addEventListener('resize', this.updateScreenshotArea);
 		document.addEventListener('scroll', this.updateScreenshotArea);
+		document.addEventListener('keydown', this.cancel);
 	}
 
+	/**
+	 * Unbind handlers
+	 * @return {Void}
+	 */
 	unbind() {
 		document.removeEventListener('mousemove', this.highlightTargetElement);
 		document.removeEventListener('mousewheel', this.resizeScreenshotPadding);
 		document.removeEventListener('click', this.tagTargetElement);
 		document.removeEventListener('resize', this.updateScreenshotArea);
 		document.removeEventListener('scroll', this.updateScreenshotArea);
+		document.removeEventListener('keydown', this.cancel);
+	}
+
+	/**
+	 * Cancel tagging
+	 * @return {Void}
+	 */
+	cancel(event) {
+		console.log(event.keyCode);
 	}
 
 	/**
@@ -174,8 +193,8 @@ export default class TagManager {
 		if (event.ctrlKey) {
 			event.preventDefault();
 
-			const shouldIncrease = event.deltaY > 0 ? -1 : 1;
-			const step = 50 * shouldIncrease;
+			const maxStep = 25
+			const step = Math.max(-maxStep, Math.min(maxStep, event.deltaY * -1));
 
 			this.screenshotPadding += step;
 			this.screenshotPadding = Math.max(0, this.screenshotPadding);

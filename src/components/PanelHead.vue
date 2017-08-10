@@ -1,0 +1,69 @@
+<template>
+	<div class="panel__head">
+		<template v-if="user">
+			<button @click.prevent="initTagging" class="btn">Add Issue</button>
+
+			<div class="panel__dropdown">
+				<a @click.prevent href="#" class="panel__dropdown-trigger">
+					<i>Show menu</i>
+				</a>
+
+				<ul class="panel__dropdown-menu">
+					<li>
+						<user :user="user" />
+					</li>
+
+					<li>
+						<a @click.prevent="unauthorize" href="#">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</template>
+
+		<template v-else>
+			<a @click.prevent="authorize" href="#" class="btn">Authorize</a> &nbsp; <span>You are not authorized</span>
+		</template>
+	</div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+import { panelStyles } from '../assets/styles';
+import User from './User.vue';
+
+export default {
+	name: 'panel-head',
+
+	components: {
+		User
+	},
+
+	computed: {
+		...mapGetters([
+			'user'
+		]),
+	},
+
+	methods: {
+		...mapActions([
+			'initTagging',
+			'authorize',
+			'unauthorize'
+		])
+	},
+
+	watch: {
+		frame() {
+			const frameDocument = this.frame && this.frame.contentDocument;
+
+			if (frameDocument && frameDocument.body) {
+				const panelStylesheet = document.createElement('style');
+				panelStylesheet.innerHTML = panelStyles;
+
+				frameDocument.body.appendChild(this.$el);
+				frameDocument.head.appendChild(panelStylesheet);
+			}
+		}
+	}
+}
+</script>

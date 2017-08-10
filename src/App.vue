@@ -119,7 +119,7 @@ export default {
 	.bugbox .bugbox__screenshot-area { position: fixed; z-index: 2147483647; left: 0; top: 0; width: 100%; height: 100%; background: transparent; border-style: solid; border-color: rgba(0,0,0,.5); border-width: 0; visibility: hidden; pointer-events: none; transition: border-width .2s; }
 	.bugbox .bugbox__screenshot-area span { position: absolute; left: 0; top: 100%; max-width: 100%; padding: 2px 0; color: #fff; font-family: sans-serif; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-	.bugbox .bugbox__panel { position: fixed; z-index: 2147483647; right: 0; top: 0; width: 300px; height: 100%; box-shadow: 0 10px 40px 0 rgba(0,0,0,.15); background: #fff; transition: all .2s; }
+	.bugbox .bugbox__panel { position: fixed; z-index: 2147483647; right: 0; top: 0; width: 300px; height: 100%; box-shadow: 0 10px 40px 0 rgba(0,0,0,.15); transition: all .2s; }
 	.bugbox .bugbox__panel iframe { border: 0; padding: 0; margin: 0; width: 100%; height: 100%; }
 
 	.bugbox .bugbox__pins { transition: all .2s; }

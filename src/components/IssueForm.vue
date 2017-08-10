@@ -19,9 +19,13 @@
 			</div>
 
 			<div class="form__row">
-				<div v-if="tagged.screenshot" class="form__preview">
-					<a :href="tagged.screenshot" target="_blank">
-						<img :src="tagged.screenshot" alt="Screenshot">
+				<div v-if="screenshot" class="form__preview">
+					<a @click.prevent="removeScreenshot" href="#" class="form__preview-remove">
+						&times;
+					</a>
+
+					<a :href="screenshot" target="_blank">
+						<img :src="screenshot" alt="Screenshot">
 					</a>
 				</div>
 			</div>
@@ -52,6 +56,7 @@ export default {
 			title: null,
 			description: null,
 			group: null,
+			screenshot: null
 		};
 	},
 
@@ -72,6 +77,10 @@ export default {
 			'resetTagged'
 		]),
 
+		removeScreenshot() {
+			this.screenshot = null;
+		},
+
 		reset() {
 			this.resetTagged();
 
@@ -85,6 +94,14 @@ export default {
 
 			this.addIssue({ title, description, group, meta });
 		},
+	},
+
+	watch: {
+		tagged() {
+			if (this.tagged && this.tagged.screenshot) {
+				this.screenshot = this.tagged.screenshot
+			}
+		}
 	}
 }
 </script>

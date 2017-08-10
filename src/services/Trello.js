@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { popupWindow } from '../helpers/utils';
+import { popupWindow, dataURItoFile } from '../helpers/utils';
 import Tracker from '../services/Tracker';
 import config from '../config/config';
 
@@ -51,7 +51,7 @@ export default class Trello extends Tracker  {
 		if (token) {
 			return localStorage.setItem(this.getLocalStorageTokenKey(), token);
 		} else {
-			localStorage.removeItem(this.getLocalStorageTokenKey());
+			return localStorage.removeItem(this.getLocalStorageTokenKey());
 		}
 	}
 
@@ -128,7 +128,7 @@ export default class Trello extends Tracker  {
 	 * @return {Promise}
 	 */
 	unauthorize() {
-		return Promise.resolve(null);
+		return Promise.resolve(this.setToken(null));
 	}
 
 	/**
@@ -321,8 +321,15 @@ export default class Trello extends Tracker  {
 
 		const request = this.client.post('/cards', cardPayload, options);
 
+		if (issue.meta && issue.meta.screenshot) {
+			issue.screenshot = issue.meta.screenshot;
+
+			delete issue.meta.screenshot;
+		}
+
 		return request
-			.then(({data}) => this.addIssueMeta(data, issue.meta));
+			.then(({data}) => this.addIssueMeta(data, issue.meta))
+			.then((card) => this.addIssueScreenshot(card, issue.screenshot));
 	}
 
 	/**
@@ -343,6 +350,30 @@ export default class Trello extends Tracker  {
 		return request.then(({data}) => {
 			card.attachments = (card.attachments || []).concat(data);
 			card = this.mapCardsMeta(card);
+
+			return card;
+		});
+	}
+
+	/**
+	 * Add issue screenshot as attachment
+	 * @param {Object} card
+	 * @param {String} screenshot
+	 * @return {Promise}
+	 */
+	addIssueScreenshot(card, screenshot) {
+		if (!screenshot) {
+			return Promise.resolve(card);
+		}
+
+		const data = new FormData();
+		data.append('name', 'Screenshot');
+		data.append('file', dataURItoFile(screenshot, 'screenshot.png'));
+
+		const request = this.client.post(`/cards/${card.id}/attachments`, data);
+
+		return request.then(({data}) => {
+			card.attachments = (card.attachments || []).concat(data);
 
 			return card;
 		});
