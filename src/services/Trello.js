@@ -28,7 +28,7 @@ export default class Trello extends Tracker  {
 	 * @return {String}
 	 */
 	getLocalStorageTokenKey() {
-		return 'beatleTrelloToken';
+		return 'BugboxTrelloToken';
 	}
 
 	/**
@@ -71,7 +71,7 @@ export default class Trello extends Tracker  {
 		const { key, authorizeURL } = config.trackers.trello;
 
 		const origin = window.location.origin;
-		const name = 'Beatle';
+		const name = 'Bugbox';
 
 		const urlParams = {
 			return_url: origin,
@@ -239,7 +239,7 @@ export default class Trello extends Tracker  {
 	 */
 	initProject(name) {
 		const request = this.client.post('boards/', {
-			name: `Beatle: ${name}`,
+			name: `Bugbox: ${name}`,
 			defaultLists: true,
 			defaultLabels: true,
 		});

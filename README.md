@@ -1,4 +1,4 @@
-# beatle
+# bugbox
 
 > Bug Tracker
 

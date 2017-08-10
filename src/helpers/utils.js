@@ -14,6 +14,47 @@ export const popupWindow = (url, name, opts) => {
 };
 
 /**
+ * Bind custom event
+ * @param  {String} eventName
+ * @param  {Function} eventHandler
+ * @param  {Boolean} once
+ * @return {Void}
+ */
+export const onEvent = (eventName, eventHandler, once) => {
+	const handler = function(event) {
+		let details = (event || {}).detail || {};
+
+		if ( typeof details === 'string' ) {
+			details = JSON.parse(details);
+		}
+
+		eventHandler.call(this,details);
+
+		if (once) {
+			document.removeEventListener(eventName, handler);
+		}
+	}
+
+	document.addEventListener(eventName, handler);
+};
+
+/**
+ * Emit custom event
+ * @param  {String} eventName
+ * @param  {Any} eventData
+ * @return {Void}
+ */
+export const emitEvent = (eventName, eventData) => {
+	// Create Event
+	const event = document.createEvent('CustomEvent');
+
+	// Fire Event
+	event.initCustomEvent(eventName, true, true, JSON.stringify(eventData));
+	document.dispatchEvent(event);
+};
+
+
+/**
  * Get element's index in parent container
  * @param  {Element} element
  * @return {Number}
@@ -192,13 +233,20 @@ export const getOSName = () => {
  * Get Document Height
  * @return {Number}
  */
-export const getDocumentHeight = () =>  {
+export const getDocumentHeight = () => {
 	const body = document.body;
 	const html = document.documentElement;
 
 	return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 }
 
+/**
+ * Get Document Scrollbar width
+ * @return {Number}
+ */
+export const getDocumentScrollbar = () => {
+	return Math.max(0, window.innerWidth - document.getElementsByTagName('html')[0].offsetWidth)
+}
 
 /**
  * Get levenshtein measuring difference between two strings

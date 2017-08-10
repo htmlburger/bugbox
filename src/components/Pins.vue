@@ -1,5 +1,5 @@
 <template>
-	<div class="beatle__pins">
+	<div class="bugbox__pins">
 		<pin v-for="issue in issues" :key="issue.id" :issue="issue" :selected="issue.id === selectedIssueId" />
 	</div>
 </template>

@@ -67,6 +67,9 @@ a:hover { text-decoration: underline; }
 .form .form__row { margin-bottom: 10px; }
 .form .form__row:last-child { margin-bottom: 0; }
 
+.form .form__preview { display: inline-block; vertical-align: top; max-width: 200px; max-height: 200px; border: 2px solid #ddd; }
+.form .form__preview img { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+
 
 /* ------------------------------------------------------------ *\
 	Panel
@@ -114,7 +117,9 @@ a:hover { text-decoration: underline; }
 	Issue Details
 \* ------------------------------------------------------------ */
 
-.issue-details .issue__back { display: block; padding: 12px 8px; background: #eee; border-bottom: 1px solid #ddd; color: #555; text-decoration: none; }
+.issue-details .issue__back { display: block; padding: 12px 8px; background: #eee; border-bottom: 1px solid #ddd; color: #555; text-decoration: none; transition: all .2s; }
+.issue-details .issue__back:hover { background: #fff; }
+
 .issue-details .issue__inner { padding: 8px; }
 
 

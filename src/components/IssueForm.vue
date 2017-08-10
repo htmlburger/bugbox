@@ -18,6 +18,14 @@
 				</div>
 			</div>
 
+			<div class="form__row">
+				<div v-if="tagged.screenshot" class="form__preview">
+					<a :href="tagged.screenshot" target="_blank">
+						<img :src="tagged.screenshot" alt="Screenshot">
+					</a>
+				</div>
+			</div>
+
 			<pre>
 {{tagged.browser.vendor}} {{tagged.browser.version}}
 {{tagged.browser.os}}

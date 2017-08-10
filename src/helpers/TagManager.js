@@ -1,9 +1,12 @@
 import {
+	onEvent,
+	emitEvent,
 	getElementSelector,
 	getElementOffset,
 	getElementOuterHtml,
 	getBrowserInfo,
-	getOSName
+	getOSName,
+	getDocumentScrollbar
 } from './utils';
 
 export default class TagManager {
@@ -25,8 +28,10 @@ export default class TagManager {
 		/**
 		 * Bind Handlers
 		 */
-		this.tagTargetElement = this.tagTargetElement.bind(this);
-		this.highlightTargetElement = this.highlightTargetElement.bind(this);
+		this.tagTargetElement        = this.tagTargetElement.bind(this);
+		this.highlightTargetElement  = this.highlightTargetElement.bind(this);
+		this.resizeScreenshotPadding = this.resizeScreenshotPadding.bind(this);
+		this.updateScreenshotArea    = this.updateScreenshotArea.bind(this);
 	}
 
 	/**
@@ -40,11 +45,17 @@ export default class TagManager {
 	bind() {
 		document.addEventListener('mousemove', this.highlightTargetElement);
 		document.addEventListener('click', this.tagTargetElement);
+		document.addEventListener('mousewheel', this.resizeScreenshotPadding);
+		document.addEventListener('resize', this.updateScreenshotArea);
+		document.addEventListener('scroll', this.updateScreenshotArea);
 	}
 
 	unbind() {
 		document.removeEventListener('mousemove', this.highlightTargetElement);
+		document.removeEventListener('mousewheel', this.resizeScreenshotPadding);
 		document.removeEventListener('click', this.tagTargetElement);
+		document.removeEventListener('resize', this.updateScreenshotArea);
+		document.removeEventListener('scroll', this.updateScreenshotArea);
 	}
 
 	/**
@@ -77,7 +88,7 @@ export default class TagManager {
 
 			this.currentElement = targetElement;
 
-			this.resizeScreenshotArea();
+			this.updateScreenshotArea();
 		}
 	}
 
@@ -88,8 +99,7 @@ export default class TagManager {
 	 */
 	toggleElementHighlight(element) {
 		if (element) {
-			// const boxShadowHighlight = 'inset 0 0 0 10000px rgba(0,150,255,.2)';
-			const boxShadowHighlight = '';
+			const boxShadowHighlight = 'inset 0 0 0 10000px rgba(0,150,255,.2)';
 			const boxShadowComputed = window.getComputedStyle(element).boxShadow;
 			const hasBoxShadowComputed = boxShadowComputed && boxShadowComputed !== 'none';
 
@@ -118,39 +128,83 @@ export default class TagManager {
 		if (this.currentElement) {
 			const boundingRect = this.currentElement.getBoundingClientRect();
 
+			const rightPaddingCorrection = Math.min(0, boundingRect.left - screenshotPadding);
+			const bottomPaddingCorrection = Math.min(0, boundingRect.top - screenshotPadding);
 
 			left   = Math.max(0, boundingRect.left - screenshotPadding);
 			top    = Math.max(0, boundingRect.top - screenshotPadding);
-			width  = Math.min(window.innerWidth - left, boundingRect.width + screenshotPadding * 2);
-			height = Math.min(window.innerHeight - top, boundingRect.height + screenshotPadding * 2);
-
-			console.log(width, height, left, top);
+			width  = Math.min(window.innerWidth - left, boundingRect.width + screenshotPadding * 2 + rightPaddingCorrection);
+			height = Math.min(window.innerHeight - top, boundingRect.height + screenshotPadding * 2 + bottomPaddingCorrection);
 		}
 
 		return {
 			left,
 			top,
 			width,
-			height
+			height,
+			devicePixelRatio: 1
 		};
 	}
 
 	/**
-	 * Resize screenshot area DOM element
+	 * Update size of screenshot area DOM element
 	 * @return {Void}
 	 */
-	resizeScreenshotArea() {
+	updateScreenshotArea() {
 		if (!this.screenshotArea) {
 			return;
 		}
 
 		const { left, top, width, height } = this.getScreenshotCoords();
+		const scrollbarCorrection = getDocumentScrollbar();
 		const borderLeftWidth = left + 'px';
 		const borderTopWidth = top + 'px';
-		const borderRightWidth = (window.innerWidth - (width + left)) + 'px';
-		const borderBottomWidth = (window.innerHeight - (height + top)) + 'px';
+		const borderRightWidth = Math.max(0, (window.innerWidth - (width + left + scrollbarCorrection))) + 'px';
+		const borderBottomWidth = Math.max(0, (window.innerHeight - (height + top))) + 'px';
 
 		this.screenshotArea.style.borderWidth = `${borderTopWidth} ${borderRightWidth} ${borderBottomWidth} ${borderLeftWidth}`;
+	}
+
+	/**
+	 * Resize screenshot area
+	 * @param  {Event} event
+	 * @return {Void}
+	 */
+	resizeScreenshotPadding(event) {
+		if (event.ctrlKey) {
+			event.preventDefault();
+
+			const shouldIncrease = event.deltaY > 0 ? -1 : 1;
+			const step = 50 * shouldIncrease;
+
+			this.screenshotPadding += step;
+			this.screenshotPadding = Math.max(0, this.screenshotPadding);
+
+			this.updateScreenshotArea();
+		}
+	}
+
+	/**
+	 * Request screenshot
+	 * @return {Promise}
+	 */
+	requestScreenshot() {
+		const screenshotTimeoutTime = 1000;
+		const dimensions = this.getScreenshotCoords();
+		const payload = {
+			action: 'screenshot',
+			dimensions
+		};
+
+		return new Promise((resolve, reject) => {
+			/**
+			 * Set screenshot taking timeout
+			 */
+			let screenshotTimeout = setTimeout(resolve, screenshotTimeoutTime);
+
+			onEvent('orbit:responseScreenshot', resolve, true);
+			emitEvent('orbit:requestScreenshot', payload);
+		});
 	}
 
 	/**
@@ -160,11 +214,19 @@ export default class TagManager {
 	 */
 	tagTargetElement(event) {
 		this.unbind();
+
+		return this.requestScreenshot()
+			.then((response) => {
+				const payload = this.getTargetElementData(event);
+
+				if (response.status === 'success') {
+					payload['screenshot'] = response.data;
+				}
+
 		this.toggleElementHighlight(this.currentElement);
-
-		this.onTagged(this.getTargetElementData());
-
-		this.currentElement = null;
+				this.onTagged(payload);
+				this.currentElement = null;
+			});
 	}
 
 	/**
@@ -172,7 +234,7 @@ export default class TagManager {
 	 * @param  {Element} element
 	 * @return {Object}
 	 */
-	getTargetElementData(element = this.currentElement) {
+	getTargetElementData(event, element = this.currentElement) {
 		const offset = getElementOffset(element);
 		const pinOffsetX = event.pageX - offset.left;
 		const pinOffsetY = event.pageY - offset.top;
