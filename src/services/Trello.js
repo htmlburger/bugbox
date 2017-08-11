@@ -36,7 +36,7 @@ export default class Trello extends Tracker  {
 	 * @return {String}
 	 */
 	getToken() {
-		return localStorage.getItem(this.getLocalStorageTokenKey());
+		return window.localStorage.getItem(this.getLocalStorageTokenKey());
 	}
 
 	/**
@@ -49,9 +49,37 @@ export default class Trello extends Tracker  {
 		}
 
 		if (token) {
-			return localStorage.setItem(this.getLocalStorageTokenKey(), token);
+			return window.localStorage.setItem(this.getLocalStorageTokenKey(), token);
 		} else {
-			return localStorage.removeItem(this.getLocalStorageTokenKey());
+			return window.localStorage.removeItem(this.getLocalStorageTokenKey());
+		}
+	}
+
+	/**
+	 * Get session storage key for selected project id item
+	 * @return {String}
+	 */
+	getSessionStorageProjectKey() {
+		return 'BugboxTrelloProject';
+	}
+
+	/**
+	 * Get selected project id from session storage
+	 * @return {String}
+	 */
+	getSelectedProject() {
+		return window.sessionStorage.getItem(this.getSessionStorageProjectKey());
+	}
+
+	/**
+	 * Set trello token in local storage
+	 * @param {String} token
+	 */
+	setSelectedProject(id) {
+		if (id) {
+			return window.sessionStorage.setItem(this.getSessionStorageProjectKey(), id);
+		} else {
+			return window.sessionStorage.removeItem(this.getSessionStorageProjectKey());
 		}
 	}
 
@@ -152,12 +180,12 @@ export default class Trello extends Tracker  {
 	 * @return {Promise}
 	 */
 	findProject(project) {
-		const query = `Project Meta: ${project}`;
+		const query = `Project Meta: URL ${project}`;
 
 		const request = this.client.get('/search', {
 			params: {
 				query,
-				card_fields: 'name',
+				card_fields: 'name,desc',
 				card_board: true,
 				card_list: true,
 				partial: false,
@@ -165,13 +193,24 @@ export default class Trello extends Tracker  {
 		});
 
 		return request
-			.then((response) => {
-				if (response.data.cards && response.data.cards.length) {
-					const card = response.data.cards[0];
-					const boardId = card.board.id;
-
-					return this.getProject(boardId);
+			.then(({data}) => {
+				if (!data.cards || !data.cards.length) {
+					return [];
 				}
+
+				const location = window.location.href;
+				const selectedProjectIndex = data.cards.findIndex(card => card.board.id === this.getSelectedProject());
+				const hasSelectedProject = selectedProjectIndex >= 0;
+
+				if (hasSelectedProject) {
+					data.cards = data.cards.filter(card => card.board.id === this.getSelectedProject());
+				}
+
+				return data.cards
+					.filter((card) => {
+						return location.indexOf(card.desc) >= 0;
+					})
+					.map(card => card.board);
 			});
 	}
 
@@ -206,6 +245,7 @@ export default class Trello extends Tracker  {
 						issues
 					};
 
+					this.setSelectedProject(id);
 					resolve(project);
 				})
 				.catch(error => reject(error));
@@ -237,17 +277,17 @@ export default class Trello extends Tracker  {
 	 * Initialize new project
 	 * @return {Promise}
 	 */
-	initProject(name) {
+	initProject(payload) {
 		const request = this.client.post('boards/', {
-			name: `Bugbox: ${name}`,
+			name: `Bugbox: ${payload.name}`,
 			defaultLists: true,
 			defaultLabels: true,
 		});
 
 		return request
-			.then((response) => this.initMetaList(response, name))
-			.then((response) => this.closeMetaList(response, name))
-			.then((response) => this.initMetaCard(response, name));
+			.then((response) => this.initMetaList(response, payload))
+			.then((response) => this.closeMetaList(response, payload))
+			.then((response) => this.initMetaCard(response, payload));
 	}
 
 	/**
@@ -256,11 +296,11 @@ export default class Trello extends Tracker  {
 	 * @param  {String} name
 	 * @return {Promise}
 	 */
-	initMetaList(response, name) {
+	initMetaList(response, payload) {
 		const board = response.data;
 		const boardId = board.id;
 		const request = this.client.post(`boards/${boardId}/lists`, {
-			name: `Project Meta: ${name}`,
+			name: `Project Meta`,
 			closed: true,
 		});
 
@@ -273,7 +313,7 @@ export default class Trello extends Tracker  {
 	 * @param  {String} name
 	 * @return {Promise}
 	 */
-	closeMetaList(response, name) {
+	closeMetaList(response, payload) {
 		const list = response.data;
 		const listId = list.id;
 
@@ -290,12 +330,12 @@ export default class Trello extends Tracker  {
 	 * @param  {String} name
 	 * @return {Promise}
 	 */
-	initMetaCard(response, name) {
+	initMetaCard(response, payload) {
 		const list = response.data;
 		const listId = list.id;
 		const request = this.client.post(`lists/${listId}/cards`, {
-			name: `Project Meta: ${window.location.host}`,
-			desc: window.location.href,
+			name: 'Project Meta: URL',
+			desc: payload.baseUrl,
 		});
 
 		return request;

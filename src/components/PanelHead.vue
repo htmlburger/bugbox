@@ -1,7 +1,7 @@
 <template>
 	<div class="panel__head">
 		<template v-if="user">
-			<button @click.prevent="initTagging" class="btn">Add Issue</button>
+			<button v-if="project" @click.prevent="initTagging" class="btn">Add Issue</button>
 
 			<div class="panel__dropdown">
 				<a @click.prevent href="#" class="panel__dropdown-trigger">
@@ -40,7 +40,8 @@ export default {
 
 	computed: {
 		...mapGetters([
-			'user'
+			'user',
+			'project'
 		]),
 	},
 

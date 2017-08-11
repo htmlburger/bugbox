@@ -5,6 +5,8 @@
 
 			<issues v-else-if="issuesVisible" />
 
+			<select-project v-else-if="selectProjectVisible" />
+
 			<new-project v-else-if="newProjectVisible" />
 		</transition>
 	</div>
@@ -15,6 +17,7 @@ import { mapGetters } from 'vuex';
 import Issues from './Issues.vue';
 import IssueForm from './IssueForm.vue';
 import NewProject from './NewProject.vue';
+import SelectProject from './SelectProject.vue';
 
 export default {
 	name: 'panel-body',
@@ -23,10 +26,12 @@ export default {
 		Issues,
 		IssueForm,
 		NewProject,
+		SelectProject
 	},
 
 	computed: {
 		...mapGetters([
+			'status',
 			'project',
 			'tagged'
 		]),
@@ -37,6 +42,10 @@ export default {
 
 		newProjectVisible() {
 			return !this.project;
+		},
+
+		selectProjectVisible() {
+			return this.status === 'await_project_selection';
 		},
 
 		issueFormVisible() {

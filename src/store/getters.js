@@ -3,6 +3,10 @@
  * @type {Object}
  */
 const getters = {
+	panelCollapsed(state, getters) {
+		return state.panelCollapsed;
+	},
+
 	status(state, getters) {
 		return state.status;
 	},
@@ -13,6 +17,11 @@ const getters = {
 
 	project(state, getters) {
 		return state.project;
+	},
+
+
+	projectsList(state, getters) {
+		return state.projectsList;
 	},
 
 	issues(state, getters) {

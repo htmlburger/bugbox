@@ -118,17 +118,17 @@ export default class TagManager {
 	 */
 	toggleElementHighlight(element) {
 		if (element) {
-			const boxShadowHighlight = 'inset 0 0 0 10000px rgba(0,150,255,.2)';
-			const boxShadowComputed = window.getComputedStyle(element).boxShadow;
-			const hasBoxShadowComputed = boxShadowComputed && boxShadowComputed !== 'none';
+			// const boxShadowHighlight = 'inset 0 0 0 10000px rgba(0,150,255,.2)';
+			// const boxShadowComputed = window.getComputedStyle(element).boxShadow;
+			// const hasBoxShadowComputed = boxShadowComputed && boxShadowComputed !== 'none';
 
-			let boxShadow = boxShadowHighlight;
+			// let boxShadow = boxShadowHighlight;
 
-			if (hasBoxShadowComputed) {
-				boxShadow = `${boxShadow}, ${boxShadowComputed}`;
-			}
+			// if (hasBoxShadowComputed) {
+			// 	boxShadow = `${boxShadow}, ${boxShadowComputed}`;
+			// }
 
-			element.style.boxShadow = !element.style.boxShadow ? boxShadow : '';
+			// element.style.boxShadow = !element.style.boxShadow ? boxShadow : '';
 		}
 	}
 

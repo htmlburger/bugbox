@@ -3,6 +3,14 @@
  * @type {Object}
  */
 const mutations = {
+	TOGGLE_PANEL_COLLAPSED(state, payload) {
+		if (typeof payload === 'boolean') {
+			state.panelCollapsed = payload;
+		} else {
+			state.panelCollapsed = !state.panelCollapsed;
+		}
+	},
+
 	SET_STATUS(state, payload) {
 		state.status = payload;
 	},
@@ -13,6 +21,10 @@ const mutations = {
 
 	SET_PROJECT(state, payload) {
 		state.project = payload;
+	},
+
+	SET_PROJECTS_LIST(state, payload) {
+		state.projectsList = payload;
 	},
 
 	SET_TAG_MANAGER(state, payload) {

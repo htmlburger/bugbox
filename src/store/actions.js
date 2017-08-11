@@ -9,6 +9,15 @@ const tracker = new Trello();
  */
 const actions = {
 	/**
+	 * Toggle panel expanded
+	 * @param  {Function} options.commit
+	 * @return {Promise}
+	 */
+	togglePanel({ commit }, payload) {
+		return commit('TOGGLE_PANEL_COLLAPSED', payload);
+	},
+
+	/**
 	 * Store initialize action
 	 * @param  {Function} options.commit
 	 * @param  {Function} options.dispatch
@@ -31,10 +40,10 @@ const actions = {
 	 * @return {Promise}
 	 */
 	getInitialData({ dispatch }) {
-		const location = window.location.host;
+		const location = window.location.origin;
 
 		return dispatch('getUser')
-			.then(() => dispatch('getProject', location));
+			.then(() => dispatch('findProject', location));
 	},
 
 	/**
@@ -53,20 +62,36 @@ const actions = {
 	},
 
 	/**
-	 * Get project data
+	 * Find project related project
+	 * @param  {Function} options.commit
+	 * @param  {Any} payload
+	 * @return {Promise}
+	 */
+	findProject({ commit, dispatch }, payload) {
+		commit('SET_STATUS', 'fetching_project');
+
+		return tracker.findProject(payload)
+			.then((projects) => {
+				if (projects.length && projects.length > 1) {
+					commit('SET_STATUS', 'await_project_selection');
+					return commit('SET_PROJECTS_LIST', projects);
+				} else if (projects.length) {
+					return dispatch('getProject', projects[0].id);
+				}
+			});
+	},
+
+	/**
+	 * Get a project project
 	 * @param  {Function} options.commit
 	 * @param  {Any} payload
 	 * @return {Promise}
 	 */
 	getProject({ commit }, payload) {
-		commit('SET_STATUS', 'fetching_project');
-
-		return tracker.findProject(payload)
+		return tracker.getProject(payload)
 			.then((project) => {
 				commit('SET_STATUS', 'fetched_project');
 				commit('SET_PROJECT', project);
-
-				return project;
 			});
 	},
 
@@ -107,17 +132,11 @@ const actions = {
 	 * @return {Promise}
 	 */
 	initProject({ commit, dispatch }, payload) {
-		const projectName = payload;
-
-		return tracker.initProject(projectName)
+		return tracker.initProject(payload)
 			.then((response) => {
 				if (response.data && response.data.idBoard) {
-					return tracker.getProject(response.data.idBoard)
+					return dispatch('getProject', response.data.idBoard)
 				}
-			})
-			.then((project) => {
-				commit('SET_STATUS', 'fetched_project');
-				commit('SET_PROJECT', project);
 			});
 	},
 
@@ -190,7 +209,11 @@ const actions = {
 	 * @return {Promise}
 	 */
 	selectIssue({ commit }, payload) {
-		return commit('SET_SELECTED_ISSUE', payload);;
+		if (payload) {
+			commit('TOGGLE_PANEL_COLLAPSED', false);
+		}
+
+		return commit('SET_SELECTED_ISSUE', payload);
 	},
 
 	/**
