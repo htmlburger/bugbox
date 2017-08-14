@@ -144,10 +144,6 @@ export const getElementOuterHtml = (element) => {
 	let container;
 	let html;
 
-	if (element.getAttribute('style') === '') {
-		element.removeAttribute('style');
-	}
-
 	if (!element) {
 		return '';
 	} else if (typeof element['outerHTML'] !== 'undefined') {

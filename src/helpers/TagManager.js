@@ -102,33 +102,8 @@ export default class TagManager {
 		const targetElement = this.getElementFromEvent(event);
 
 		if (targetElement !== this.currentElement) {
-			this.toggleElementHighlight(this.currentElement);
-			this.toggleElementHighlight(targetElement);
-
 			this.currentElement = targetElement;
-
 			this.updateScreenshotArea();
-		}
-	}
-
-	/**
-	 * Toggle element highlight styles
-	 * @param  {Element} element
-	 * @return {Void}
-	 */
-	toggleElementHighlight(element) {
-		if (element) {
-			// const boxShadowHighlight = 'inset 0 0 0 10000px rgba(0,150,255,.2)';
-			// const boxShadowComputed = window.getComputedStyle(element).boxShadow;
-			// const hasBoxShadowComputed = boxShadowComputed && boxShadowComputed !== 'none';
-
-			// let boxShadow = boxShadowHighlight;
-
-			// if (hasBoxShadowComputed) {
-			// 	boxShadow = `${boxShadow}, ${boxShadowComputed}`;
-			// }
-
-			// element.style.boxShadow = !element.style.boxShadow ? boxShadow : '';
 		}
 	}
 
@@ -242,7 +217,6 @@ export default class TagManager {
 					payload['screenshot'] = response.data;
 				}
 
-		this.toggleElementHighlight(this.currentElement);
 				this.onTagged(payload);
 				this.currentElement = null;
 			});
