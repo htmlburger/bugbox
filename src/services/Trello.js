@@ -8,19 +8,21 @@ export default class Trello extends Tracker  {
 		super();
 
 		const { baseURL, key } = config.trackers.trello;
-		const token = this.getToken();
 
 		/**
 		 * Initialize requests client
 		 * @type {Object}
 		 */
-		this.client = axios.create({
-			baseURL,
-			params: {
-				key,
-				token
-			}
+		this.getToken().then((token) => {
+			this.client = axios.create({
+				baseURL,
+				params: {
+					key,
+					token
+				}
+			});
 		});
+
 	}
 
 	/**
@@ -33,14 +35,33 @@ export default class Trello extends Tracker  {
 
 	/**
 	 * Get trello token from local storage
-	 * @return {String}
+	 * @return {Promise}
 	 */
 	getToken() {
-		return window.localStorage.getItem(this.getLocalStorageTokenKey());
+		const localToken = window.localStorage.getItem(this.getLocalStorageTokenKey());
+
+		if (localToken) {
+			return Promise.resolve(localToken);
+		}
+
+		if ('chrome' in window && 'runtime' in window.chrome) {
+			return new Promise((resolve, reject) => {
+				const message = {
+					action: 'getTrelloToken'
+				};
+
+				chrome.runtime.sendMessage(message, (response) => {
+					this.setLocalToken(response.payload);
+					resolve(response.payload);
+				});
+			});
+		}
+
+		return Promise.resolve(null);
 	}
 
 	/**
-	 * Set trello token in local storage
+	 * Set trello token in browser and local storage
 	 * @param {String} token
 	 */
 	setToken(token) {
@@ -48,6 +69,23 @@ export default class Trello extends Tracker  {
 			this.client.defaults.params['token'] = token;
 		}
 
+		if ('chrome' in window && 'runtime' in window.chrome) {
+			const message = {
+				action: 'setTrelloToken',
+				payload: token
+			};
+
+			chrome.runtime.sendMessage(message);
+		}
+
+		this.setLocalToken(token);
+	}
+
+	/**
+	 * Set trello token in local storage
+	 * @param {String} token
+	 */
+	setLocalToken(token) {
 		if (token) {
 			return window.localStorage.setItem(this.getLocalStorageTokenKey(), token);
 		} else {
@@ -88,7 +126,7 @@ export default class Trello extends Tracker  {
 	 * @return {Promise}
 	 */
 	isAuthorized() {
-		return Promise.resolve(!!this.getToken());
+		return Promise.resolve(this.getToken()).then(token => !!token);
 	}
 
 	/**
@@ -128,26 +166,29 @@ export default class Trello extends Tracker  {
 	 * @return {Promise}
 	 */
 	authorize() {
-		const token = this.getToken();
-
-		if (token) {
-			return Promise.resolve(token);
-		}
-
-		const popup = this.authorizePopup();
-
 		return new Promise((resolve, reject) => {
-			const receiveMessage = (event) => {
-				window.removeEventListener('message', receiveMessage);
+			const token = this.getToken().then(token => {
+				if (token) {
+					resolve(token);
+				}
 
-				const token = event.data;
+				this.popup = this.authorizePopup();
 
-				this.setToken(token);
-				resolve(token);
-				popup.close();
-			};
+				const receiveMessage = (event) => {
+					if (event && event.origin === 'https://trello.com') {
+						window.removeEventListener('message', receiveMessage);
 
-			window.addEventListener('message', receiveMessage);
+						const token = event.data;
+
+						this.setToken(token);
+						this.popup.close();
+
+						resolve(token);
+					}
+				};
+
+				window.addEventListener('message', receiveMessage);
+			})
 		});
 	}
 
@@ -263,7 +304,7 @@ export default class Trello extends Tracker  {
 
 		try {
 			const metaData = metaAttachment.url.match(/\#issue\-(.+)$/)[1];
-			meta = JSON.parse(atob(metaData));
+			meta = JSON.parse(decodeURIComponent(atob(metaData)));
 		} catch (error) {
 			meta = {};
 		}
@@ -379,7 +420,8 @@ export default class Trello extends Tracker  {
 	 * @return {Promise}
 	 */
 	addIssueMeta(card, meta) {
-		const url = `${meta.address}#issue-${btoa(JSON.stringify(meta))}`;
+		const encodedMeta = btoa(encodeURIComponent(JSON.stringify(meta)));
+		const url = `${meta.address}#issue-${encodedMeta}`;
 		const data = {
 			name: 'Issue URL',
 			url

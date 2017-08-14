@@ -4,11 +4,7 @@
  */
 const mutations = {
 	TOGGLE_PANEL_COLLAPSED(state, payload) {
-		if (typeof payload === 'boolean') {
-			state.panelCollapsed = payload;
-		} else {
-			state.panelCollapsed = !state.panelCollapsed;
-		}
+		state.panelCollapsed = payload;
 	},
 
 	SET_STATUS(state, payload) {

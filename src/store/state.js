@@ -1,5 +1,5 @@
 const state = {
-	panelCollapsed : false,
+	panelCollapsed : window.localStorage && JSON.parse(window.localStorage.getItem('BugboxCollapsed')),
 	status         : 'initilized',
 	user           : null,
 	project        : null,

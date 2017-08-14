@@ -102,7 +102,7 @@ a:hover { text-decoration: underline; }
 
 .form .form__label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 13px; }
 
-.form .form__preview { position: relative; display: inline-block; vertical-align: top; max-width: 200px; max-height: 200px; border: 2px solid #ddd; }
+.form .form__preview { position: relative; display: inline-block; vertical-align: top; max-width: 200px; max-height: 200px; min-width: 20px; min-height: 20px; border: 2px solid #ddd; }
 .form .form__preview img { max-width: 100%; max-height: 100%; height: auto; width: auto; }
 
 .form .form__preview-remove { position: absolute; right: 2px; top: 2px; width: 12px; height: 12px; background: rgba(0,0,0,.1); line-height: 12px; text-align: center; text-decoration: none; color: #f44336; transition: all .2s; }

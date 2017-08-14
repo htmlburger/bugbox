@@ -1,6 +1,4 @@
 import {
-	onEvent,
-	emitEvent,
 	getElementSelector,
 	getElementOffset,
 	getElementOuterHtml,
@@ -54,6 +52,8 @@ export default class TagManager {
 		document.addEventListener('resize', this.updateScreenshotArea);
 		document.addEventListener('scroll', this.updateScreenshotArea);
 		document.addEventListener('keydown', this.cancel);
+
+		window.focus();
 	}
 
 	/**
@@ -74,7 +74,11 @@ export default class TagManager {
 	 * @return {Void}
 	 */
 	cancel(event) {
-		console.log(event.keyCode);
+		if (event.keyCode === 27) {
+			this.unbind();
+			this.onTagged(null);
+			this.currentElement = null;
+		}
 	}
 
 	/**
@@ -185,9 +189,9 @@ export default class TagManager {
 	requestScreenshot() {
 		const screenshotTimeoutTime = 1000;
 		const dimensions = this.getScreenshotCoords();
-		const payload = {
+		const message = {
 			action: 'screenshot',
-			dimensions
+			payload: dimensions
 		};
 
 		return new Promise((resolve, reject) => {
@@ -196,8 +200,9 @@ export default class TagManager {
 			 */
 			let screenshotTimeout = setTimeout(resolve, screenshotTimeoutTime);
 
-			onEvent('orbit:responseScreenshot', resolve, true);
-			emitEvent('orbit:requestScreenshot', payload);
+			if ('chrome' in window && 'runtime' in window.chrome) {
+				chrome.runtime.sendMessage(message, resolve);
+			}
 		});
 	}
 
@@ -214,7 +219,7 @@ export default class TagManager {
 				const payload = this.getTargetElementData(event);
 
 				if (response.status === 'success') {
-					payload['screenshot'] = response.data;
+					payload['screenshot'] = response.payload;
 				}
 
 				this.onTagged(payload);

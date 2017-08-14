@@ -1,8 +1,10 @@
 <template>
-	<div v-if="!project" class="cta">
+	<div :class="classes">
+		<loader v-if="isLoading" />
+
 		<p>There is no project associated with this URL</p>
 
-		<div class="form">
+		<form @submit.prevent="handleFromSubmit">
 			<div class="form__row">
 				<label class="form__label">Project Name:</label>
 
@@ -16,25 +18,28 @@
 			</div>
 
 			<div class="form__actions">
-				<button class="btn btn--success" @click.prevent="initProject(payload)">Create New Project</button>
+				<button type="submit" class="btn btn--success">Create New Project</button>
 			</div>
-		</div>
+		</form>
 	</div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Loader from './Loader.vue';
 import ListUrls from './ListUrls.vue';
 
 export default {
 	name: 'new-project',
 
 	components: {
+		Loader,
 		ListUrls
 	},
 
 	data() {
 		return {
+			status: '',
 			projectName: document.title,
 			baseUrl: null
 		};
@@ -44,6 +49,17 @@ export default {
 		...mapGetters([
 			'project'
 		]),
+
+		classes() {
+			return [
+				'form',
+				{ 'form--loading': this.isLoading }
+			];
+		},
+
+		isLoading() {
+			return this.status === 'loading';
+		},
 
 		payload() {
 			return {
@@ -57,6 +73,14 @@ export default {
 		...mapActions([
 			'initProject'
 		]),
+
+		handleFromSubmit() {
+			this.status = 'loading';
+			this.initProject(this.payload)
+				.then((response) => {
+					this.status = '';
+				});
+		}
 	}
 }
 </script>

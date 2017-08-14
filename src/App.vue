@@ -1,5 +1,5 @@
 <template>
-	<div id="app" :class="classes">
+	<div id="bugbox-app" :class="classes">
 		<div ref="cover" class="bugbox__cover">
 			<div ref="screenshotArea" class="bugbox__screenshot-area">
 				<span>Hold Ctrl and use MouseWheel to resize screenshot area</span>
@@ -33,6 +33,7 @@ export default {
 	data () {
 		return {
 			panelFrame: null,
+			autoResizeInterval: null
 		};
 	},
 
@@ -96,7 +97,7 @@ export default {
 		},
 
 		autoResizeCover() {
-			setInterval(() => {
+			this.autoResizeInterval = setInterval(() => {
 				this.$refs.cover.style.height = '';
 				this.$refs.cover.style.height = getDocumentHeight() + 'px';
 			}, 100)
@@ -114,6 +115,10 @@ export default {
 		this.setupTagManager();
 		this.autoResizeCover();
 	},
+
+	beforeDestroy() {
+		clearInterval(this.autoResizeInterval);
+	}
 }
 </script>
 

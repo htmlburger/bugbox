@@ -32,6 +32,7 @@ export default {
 	computed: {
 		...mapGetters([
 			'status',
+			'user',
 			'project',
 			'tagged'
 		]),
@@ -41,7 +42,7 @@ export default {
 		},
 
 		newProjectVisible() {
-			return !this.project;
+			return !this.project && this.user;
 		},
 
 		selectProjectVisible() {

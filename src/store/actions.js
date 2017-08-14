@@ -13,7 +13,13 @@ const actions = {
 	 * @param  {Function} options.commit
 	 * @return {Promise}
 	 */
-	togglePanel({ commit }, payload) {
+	togglePanel({ commit, state }, payload) {
+		if (typeof payload !== 'boolean') {
+			payload = !state.panelCollapsed;
+		}
+
+		window.localStorage && window.localStorage.setItem('BugboxCollapsed', payload);
+
 		return commit('TOGGLE_PANEL_COLLAPSED', payload);
 	},
 
@@ -77,6 +83,8 @@ const actions = {
 					return commit('SET_PROJECTS_LIST', projects);
 				} else if (projects.length) {
 					return dispatch('getProject', projects[0].id);
+				} else {
+					commit('SET_STATUS', '');
 				}
 			});
 	},
