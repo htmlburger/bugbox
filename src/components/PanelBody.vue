@@ -1,9 +1,7 @@
 <template>
 	<div class="panel__body">
 		<transition name="fade-left" mode="out-in">
-			<issue-form v-if="issueFormVisible" />
-
-			<issues v-else-if="issuesVisible" />
+			<issues v-if="issuesVisible" />
 
 			<select-project v-else-if="selectProjectVisible" />
 
@@ -15,7 +13,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import Issues from './Issues.vue';
-import IssueForm from './IssueForm.vue';
 import NewProject from './NewProject.vue';
 import SelectProject from './SelectProject.vue';
 
@@ -24,7 +21,6 @@ export default {
 
 	components: {
 		Issues,
-		IssueForm,
 		NewProject,
 		SelectProject
 	},
@@ -33,8 +29,7 @@ export default {
 		...mapGetters([
 			'status',
 			'user',
-			'project',
-			'tagged'
+			'project'
 		]),
 
 		issuesVisible() {
@@ -47,10 +42,6 @@ export default {
 
 		selectProjectVisible() {
 			return this.status === 'await_project_selection';
-		},
-
-		issueFormVisible() {
-			return this.tagged;
 		}
 	}
 }

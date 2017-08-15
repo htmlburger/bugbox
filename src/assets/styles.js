@@ -1,4 +1,4 @@
-export const panelStyles = `
+export const styles = `
 *,
 *:before,
 *:after { margin: 0; padding: 0; outline: 0; box-sizing: border-box; }
@@ -12,6 +12,20 @@ p:last-child { margin-bottom: 0; }
 
 a { color: #03a9f4; text-decoration: none; }
 a:hover { text-decoration: underline; }
+
+h1 { font-size: 24px; }
+h2 { font-size: 20px; }
+h3 { font-size: 18px; }
+h4 { font-size: 16px; }
+h5 { font-size: 14px; }
+h6 { font-size: 12px; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-weight: normal; }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #fff; }
@@ -61,6 +75,21 @@ a:hover { text-decoration: underline; }
 .btn--danger:hover { background: #f12112; }
 
 /* ------------------------------------------------------------ *\
+	Cols
+\* ------------------------------------------------------------ */
+
+.cols { margin: 0 -6px; }
+.cols:after { content: ''; display: table; clear: both; line-height: 0; }
+
+.col { float: left; width: 100%; padding: 0 6px; }
+.col--1of2 { width: 50%; }
+
+@media (max-width: 499px) {
+	.col { width: 100%; }
+	.col + .col { margin-top: 8px; }
+}
+
+/* ------------------------------------------------------------ *\
 	Loader
 \* ------------------------------------------------------------ */
 
@@ -71,6 +100,7 @@ a:hover { text-decoration: underline; }
 
 .loader .loader__dot:nth-child(2) { animation-delay: .15s; }
 .loader .loader__dot:nth-child(3) { animation-delay: .3s; }
+
 
 /* ------------------------------------------------------------ *\
 	Form Elements
@@ -85,6 +115,10 @@ a:hover { text-decoration: underline; }
 
 .select select { width: 100%; height: 30px; padding: 0 4px; border: 1px solid #ddd; border-radius: 2px; font-family: inherit; }
 
+.file { position: relative; }
+.file input { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; }
+.file input:hover + .btn { background: #0391cd; }
+
 .radio { position: relative; display: block; padding-left: 20px; }
 
 .radio .radio__input { position: absolute; left: 0; top: 6px; }
@@ -97,21 +131,44 @@ a:hover { text-decoration: underline; }
 .form { padding: 8px; }
 .form form { transition: all .2s; }
 
+.form .form__head { position: relative; padding: 4px 0; height: 30px; margin-bottom: 4px; cursor: move; }
+
+.form .form__close { position: absolute; right: 0; top: 0; width: 20px; height: 20px; background: rgba(0,0,0,.05); border-radius: 2px; text-align: center; line-height: 20px; text-decoration: none; transition: all .2s; }
+.form .form__close:hover { text-decoration: none; background: rgba(0,0,0,.1); }
+
 .form .form__row { margin-bottom: 10px; }
 .form .form__row:last-child { margin-bottom: 0; }
 
 .form .form__label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 13px; }
 
-.form .form__preview { position: relative; display: inline-block; vertical-align: top; max-width: 200px; max-height: 200px; min-width: 20px; min-height: 20px; border: 2px solid #ddd; }
-.form .form__preview img { max-width: 100%; max-height: 100%; height: auto; width: auto; }
+.form .form__preview { position: relative; width: 94px; height: 94px; border: 2px solid #ddd; }
+.form .form__preview img { display: inline-block; vertical-align: middle; max-width: 100%; max-height: 100%; height: auto; width: auto; }
+
+.form .form__preview-image { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; }
 
 .form .form__preview-remove { position: absolute; right: 2px; top: 2px; width: 12px; height: 12px; background: rgba(0,0,0,.1); line-height: 12px; text-align: center; text-decoration: none; color: #f44336; transition: all .2s; }
 .form .form__preview-remove:hover { background: none; }
+
+.form .form__screenshot { display: flex; align-items: center; }
+
+.form .form__screenshot .form__file { margin-left: 10px; }
+.form .form__screenshot .form__preview { margin-right: 10px; }
 
 /*  Form Loading  */
 
 .form--loading { position: relative; }
 .form--loading form { opacity: .5; pointer-events: none; }
+
+
+/*  Form Issue  */
+
+.form-issue { height: 100%; width: 100%; padding: 10px; }
+
+.form-issue .form__inner { width: 100%; height: 100%; padding: 8px; background: #fff; border-radius: 2px; box-shadow: 0 2px 8px 0 rgba(0,0,0,.2); }
+
+.form-issue .form__actions { height: 40px; padding-top: 8px; margin-top: 10px; border-top: 1px solid #eee; }
+
+.form-issue .form__body { height: calc(100% - 90px); overflow: hidden; overflow-y: auto; }
 
 
 /* ------------------------------------------------------------ *\

@@ -9,6 +9,13 @@ let app;
  * @return {Void}
  */
 const init = () => {
+	if ('chrome' in window && 'extension' in window.chrome) {
+		chrome.extension.sendMessage({
+			action: 'setBadgeStatus',
+			payload: isEnabled()
+		});
+	}
+
 	mount();
 	bind();
 };
@@ -27,7 +34,7 @@ const isEnabled = () => {
  * Toggle enabled
  * @return {Void}
  */
-const toggleEnabled = () => {
+const toggleEnabled = ({ action }, sender, sendResponse) => {
 	const enabled = isEnabled();
 	window.localStorage.setItem('BugboxEnabled', !enabled);
 
@@ -36,6 +43,12 @@ const toggleEnabled = () => {
 	} else {
 		unmount();
 	}
+
+	sendResponse({
+		action,
+		status: 'success',
+		payload: !enabled
+	});
 }
 
 /**
@@ -81,13 +94,13 @@ const unmount = () => {
  */
 const bind = () => {
 	if ('chrome' in window && 'extension' in window.chrome) {
-		chrome.extension.onMessage.addListener((request) => {
+		chrome.extension.onMessage.addListener((request, sender, sendResponse) => {
 			const action = request.action;
 			const payload = request.payload;
 
 			switch (action) {
 				case 'toggleEnabled':
-					toggleEnabled();
+					toggleEnabled(request, sender, sendResponse);
 					break;
 				default:
 					break;

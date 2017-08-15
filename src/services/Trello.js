@@ -172,7 +172,7 @@ export default class Trello extends Tracker  {
 					resolve(token);
 				}
 
-				this.popup = this.authorizePopup();
+				let popup = this.authorizePopup();
 
 				const receiveMessage = (event) => {
 					if (event && event.origin === 'https://trello.com') {
@@ -181,7 +181,12 @@ export default class Trello extends Tracker  {
 						const token = event.data;
 
 						this.setToken(token);
-						this.popup.close();
+
+						/**
+						 * Create new dummy window that can be closed
+						 */
+						popup = popupWindow('about:blank', 'Bugbox');
+						popup.close();
 
 						resolve(token);
 					}

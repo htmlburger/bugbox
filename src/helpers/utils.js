@@ -5,7 +5,7 @@
  * @param  {Object} options
  * @return {Window}
  */
-export const popupWindow = (url, name, opts) => {
+export const popupWindow = (url, name, opts = {}) => {
 	const options = Object.keys(opts)
 		.map(key => `${key}=${opts[key]}`)
 		.join(',');
@@ -484,3 +484,42 @@ export const dataURItoFile = (dataURI, filename = 'filename') => {
 	return new File([blob], filename);
 }
 
+/**
+ * Get base64 string from file object
+ * @param  {Event} file
+ * @return {Promise}      [description]
+ */
+export const getBase64FromFile = file => {
+	return new Promise((resolve, reject) => {
+		const reader = new window.FileReader();
+
+		reader.onload = () => {
+			resolve(reader.result);
+		};
+
+		reader.onerror = () => reject;
+
+		reader.readAsDataURL(file);
+	});
+}
+
+
+/**
+ * Get image base64 string from input event
+ * @param  {Event} event
+ * @return {Promise}
+ */
+export const getImageFromInputEvent = (event) => {
+	return new Promise((resolve, reject) => {
+		if (event.target.files && event.target.files[0]) {
+			getBase64FromFile(event.target.files[0]).then((result) => {
+				resolve({
+					base64string: result,
+					type: event.target.files[0].type
+				});
+			});
+		} else {
+			reject();
+		}
+	});
+}

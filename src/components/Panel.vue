@@ -16,7 +16,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { panelStyles } from '../assets/styles';
+import { appendInIframe } from '../helpers/mixins';
 import Loader from './Loader.vue';
 import PanelHead from './PanelHead.vue';
 import PanelBody from './PanelBody.vue';
@@ -30,7 +30,7 @@ export default {
 		PanelBody
 	},
 
-	props: ['frame'],
+	mixins: [appendInIframe],
 
 	computed: {
 		...mapGetters([
@@ -63,20 +63,6 @@ export default {
 		...mapActions([
 			'togglePanel'
 		])
-	},
-
-	watch: {
-		frame() {
-			const frameDocument = this.frame && this.frame.contentDocument;
-
-			if (frameDocument && frameDocument.body) {
-				const panelStylesheet = document.createElement('style');
-				panelStylesheet.innerHTML = panelStyles;
-
-				frameDocument.body.appendChild(this.$el);
-				frameDocument.head.appendChild(panelStylesheet);
-			}
-		}
 	}
 }
 </script>

@@ -144,6 +144,26 @@ const handleGetTrelloTokenRequest = ({ action, payload }, sender, sendResponse) 
 }
 
 /**
+ * Handle get token request
+ * @param  {String} options.action
+ * @param  {Any} options.payload
+ * @param  {Object} sender
+ * @param  {Object} sendResponse
+ * @return {Void}
+ */
+const handleBadgeStatusRequest = ({ payload }, sender, sendResponse) => {
+	const tabId = sender.tab.id;
+
+	console.log(tabId, payload);
+
+	chrome.browserAction.setBadgeText({
+		tabId,
+		text: payload ? 'on' : ''
+	});
+}
+
+
+/**
  * Message handler
  * @param  {Object} request
  * @param  {Object} sender
@@ -167,6 +187,9 @@ const handleMessage = (request, sender, sendResponse) => {
 		case 'getTrelloToken':
 			handleGetTrelloTokenRequest(request, sender, sendResponse);
 			break;
+		case 'setBadgeStatus':
+			handleBadgeStatusRequest(request, sender, sendResponse);
+			break;
 		default:
 			break;
 	}
@@ -185,12 +208,19 @@ chrome.extension.onMessage.addListener(handleMessage);
  * @return {Void}
  */
 chrome.browserAction.onClicked.addListener((tab) => {
-	chrome.tabs.sendMessage(tab.id, {
+	const message = {
 		action: 'toggleEnabled'
+	};
+
+	chrome.tabs.sendMessage(tab.id, message, ({ payload }) => {
+		chrome.browserAction.setBadgeText({
+			tabId: tab.id,
+			text: payload ? 'on' : ''
+		});
 	});
+
 });
 
-chrome.manifest = chrome.app.getDetails();
 
 let port;
 
@@ -211,7 +241,7 @@ const reconnectToExtension = () => {
  */
 const connectToExtension = () => {
 	// Make the connection
-	port = chrome.extension.connect({name: "my-port"});
+	port = chrome.extension.connect({ name: 'bugbox-port' });
 
 	/**
 	 * When extension is upgraded or disabled and renabled, the content scripts
