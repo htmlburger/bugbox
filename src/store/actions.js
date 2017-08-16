@@ -77,14 +77,15 @@ const actions = {
 		commit('SET_STATUS', 'fetching_project');
 
 		return tracker.findProject(payload)
-			.then((projects) => {
-				if (projects.length && projects.length > 1) {
-					commit('SET_STATUS', 'await_project_selection');
-					return commit('SET_PROJECTS_LIST', projects);
-				} else if (projects.length) {
-					return dispatch('getProject', projects[0].id);
+			.then(({ matches, selected }) => {
+				commit('SET_PROJECTS_LIST', matches);
+
+				if (selected) {
+					return dispatch('getProject', selected.id);
+				} else if (matches && matches.length > 1) {
+					return commit('SET_STATUS', 'await_project_selection');
 				} else {
-					commit('SET_STATUS', '');
+					return commit('SET_STATUS', '');
 				}
 			});
 	},
@@ -100,7 +101,22 @@ const actions = {
 			.then((project) => {
 				commit('SET_STATUS', 'fetched_project');
 				commit('SET_PROJECT', project);
+
+				return project;
 			});
+	},
+
+	/**
+	 * Allow user to select different project
+	 * @param  {Function} options.commit
+	 * @param  {Any} payload
+	 * @return {Promise}
+	 */
+	changeProject({ commit }, payload) {
+		commit('SET_STATUS', 'await_project_selection');
+		commit('SET_PROJECT', null);
+
+		return tracker.setSelectedProject(null);
 	},
 
 	/**
@@ -173,6 +189,16 @@ const actions = {
 	},
 
 	/**
+	 * Set Temp Pin
+	 * @param {Function} options.commit
+	 * @param {Object} payload
+	 * @return {Promise}
+	 */
+	setTempPin({ commit }, payload) {
+		return commit('SET_TEMP_PIN', payload);
+	},
+
+	/**
 	 * Set tagged element meta data
 	 * @param {Function} options.commit
 	 * @param {Object} payload
@@ -189,6 +215,7 @@ const actions = {
 	 * @return {Promise}
 	 */
 	resetTagged({ commit }) {
+		commit('SET_TEMP_PIN', null);
 		commit('SET_STATUS', '');
 		return commit('SET_TAGGED', null);
 	},

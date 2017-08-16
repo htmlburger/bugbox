@@ -1,10 +1,10 @@
 <template>
-	<div v-if="!!tagged && !!project" :class="classes">
+	<div v-if="!!tagged && !!project" :class="classes" @keydown.stop="handleIssueFormKeydown">
 		<loader v-if="isLoading" />
 
 		<div class="form__inner">
 			<form @submit.prevent="handleSubmit">
-				<div class="form__head">
+				<div class="form__head" @mousedown.prevent.stop="handleDragStart">
 					<h3 class="form__title">Submit issue</h3>
 
 					<a @click.prevent="reset" href="#" class="form__close">&times;</a>
@@ -106,7 +106,11 @@ export default {
 			title: null,
 			description: null,
 			group: null,
-			screenshot: null
+			screenshot: null,
+			lastPos: {
+				x: 0,
+				y: 0
+			}
 		};
 	},
 
@@ -166,6 +170,8 @@ export default {
 			this.title = null;
 			this.description = null;
 			this.group = null;
+
+			window.focus();
 		},
 
 		updateTagged() {
@@ -180,6 +186,76 @@ export default {
 			}, 100);
 
 		},
+
+		handleIssueFormKeydown(event) {
+			/**
+			 * Cancel issue adding with Escape key
+			 */
+			if (event.keyCode === 27) {
+				event.preventDefault();
+				this.reset();
+			}
+		},
+
+		handleDragStart(event) {
+			// this.isDragging = true;
+			this.lastPos.x = event.screenX;
+			this.lastPos.Y = event.screenY;
+
+			window.addEventListener('mousemove', this.handleDragMove);
+			window.addEventListener('mouseup', this.handleDragEnd);
+
+			const frameWindow = this.frame.contentWindow;
+
+			if (frameWindow) {
+				frameWindow.addEventListener('mousemove', this.handleDragMove);
+				frameWindow.addEventListener('mouseup', this.handleDragEnd);
+			}
+
+			const el = this.frame.parentNode;
+
+			if (el) {
+				el.style.opacity = '.8';
+			}
+		},
+
+
+		handleDragMove(event) {
+			const deltaX = event.screenX - this.lastPos.x;
+			const deltaY = event.screenY - this.lastPos.Y;
+
+			this.lastPos.x = event.screenX;
+			this.lastPos.Y = event.screenY;
+
+			const el = this.frame.parentNode;
+
+			if (el) {
+				const currentMarginLeft = parseInt(el.style.marginLeft) || 0;
+				const currentMarginTop = parseInt(el.style.marginTop) || 0;
+
+				el.style.marginLeft = (currentMarginLeft + deltaX) + 'px';
+				el.style.marginTop = (currentMarginTop + deltaY) + 'px';
+			}
+		},
+
+		handleDragEnd(event) {
+			window.removeEventListener('mousemove', this.handleDragMove);
+			window.removeEventListener('mouseup', this.handleDragEnd);
+
+			const frameWindow = this.frame.contentWindow;
+
+			if (frameWindow) {
+				frameWindow.removeEventListener('mousemove', this.handleDragMove);
+				frameWindow.removeEventListener('mouseup', this.handleDragEnd);
+			}
+
+			const el = this.frame.parentNode;
+
+			if (el) {
+				el.style.opacity = '';
+			}
+		},
+
 
 		handleScreenshotInputChange(event) {
 			getImageFromInputEvent(event).then((result) => {

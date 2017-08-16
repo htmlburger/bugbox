@@ -42,7 +42,7 @@ export default {
 		classes() {
 			return [
 				'bugbox__pin',
-				{ 'bugbox__pin--selected': this.selected }
+				{ 'bugbox__pin--active': this.selected }
 			];
 		},
 
@@ -94,7 +94,9 @@ export default {
 		 * @return {Void}
 		 */
 		updateMatchedElement() {
-			this.element = getMatchedElement(this.issue.meta);
+			if (this.issue.meta) {
+				this.element = getMatchedElement(this.issue.meta);
+			}
 		},
 
 		/**
@@ -120,6 +122,10 @@ export default {
 		}
 	},
 
+	created() {
+		this.updateMatchedElement();
+	},
+
 	mounted() {
 		this.setUpdateInterval();
 	},
@@ -135,10 +141,3 @@ export default {
 	}
 }
 </script>
-
-<style scoped>
-	.bugbox .bugbox__pin { position: absolute; left: -10000px; top: -10000px; width: 32px; height: 32px; margin: -32px 0 0 -16px; background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUyIDUyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MiA1MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiPgo8cGF0aCBzdHlsZT0iZmlsbDojMTA4MUUwOyIgZD0iTTM4Ljg1Myw1LjMyNEwzOC44NTMsNS4zMjRjLTcuMDk4LTcuMDk4LTE4LjYwNy03LjA5OC0yNS43MDYsMGgwICBDNi43NTEsMTEuNzIsNi4wMzEsMjMuNzYzLDExLjQ1OSwzMUwyNiw1MmwxNC41NDEtMjFDNDUuOTY5LDIzLjc2Myw0NS4yNDksMTEuNzIsMzguODUzLDUuMzI0eiBNMjYuMTc3LDI0Yy0zLjMxNCwwLTYtMi42ODYtNi02ICBzMi42ODYtNiw2LTZzNiwyLjY4Niw2LDZTMjkuNDkxLDI0LDI2LjE3NywyNHoiLz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==); background-size: 100% 100%; cursor: pointer; transition: transform .2s; }
-	.bugbox .bugbox__pin:hover { transform: translateY(-5px); }
-
-	.bugbox .bugbox__pin--selected { filter: hue-rotate(135deg); }
-</style>

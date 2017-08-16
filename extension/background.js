@@ -154,8 +154,6 @@ const handleGetTrelloTokenRequest = ({ action, payload }, sender, sendResponse) 
 const handleBadgeStatusRequest = ({ payload }, sender, sendResponse) => {
 	const tabId = sender.tab.id;
 
-	console.log(tabId, payload);
-
 	chrome.browserAction.setBadgeText({
 		tabId,
 		text: payload ? 'on' : ''

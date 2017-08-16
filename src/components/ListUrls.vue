@@ -37,7 +37,7 @@ export default {
 	computed: {
 		urls() {
 			const origin = window.location.origin;
-			const paths = window.location.pathname.split('/');
+			const paths = window.location.pathname.replace(/\/$/, '').split('/');
 			const urls = [];
 
 			paths.forEach((path, index, arr) => {

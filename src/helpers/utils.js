@@ -73,7 +73,7 @@ export const getElementIndex = (element) => {
  */
 export const getElementSelector = (element, selector) => {
 	const id = element.id;
-	const classes = element.className
+	const classes = element.className.trim && element.className
 		.trim()
 		.replace(/\s\s+/g, ' ')
 		.split(' ')
@@ -522,4 +522,26 @@ export const getImageFromInputEvent = (event) => {
 			reject();
 		}
 	});
+}
+
+/**
+ * Get a hex color code from string
+ * @param  {String} str
+ * @return {String}
+ */
+export const stringToColour = (str) => {
+	let hash = 0;
+
+	for (var i = 0; i < str.length; i++) {
+		hash = str.charCodeAt(i) + ((hash << 5) - hash);
+	}
+
+	let colour = '#';
+
+	for (var i = 0; i < 3; i++) {
+		const value = (hash >> (i * 8)) & 0xFF;
+		colour += ('00' + value.toString(16)).substr(-2);
+	}
+
+	return colour;
 }

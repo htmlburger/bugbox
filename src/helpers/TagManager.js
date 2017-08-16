@@ -12,14 +12,16 @@ export default class TagManager {
 		const opts = Object.assign({
 			cover            : document,
 			screenshotArea   : null,
-			onTaggingInit    : void 0,
+			taggingInit      : void 0,
+			onBeforeTagged   : void 0,
 			onTagged         : void 0,
 		}, options);
 
 		this.cover             = opts.cover;
 		this.screenshotArea    = opts.screenshotArea;
 		this.screenshotPadding = 100;
-		this.onTaggingInit     = opts.onTaggingInit;
+		this.taggingInit       = opts.taggingInit;
+		this.onBeforeTagged    = opts.onBeforeTagged;
 		this.onTagged          = opts.onTagged;
 		this.currentElement    = null;
 
@@ -129,10 +131,10 @@ export default class TagManager {
 			const rightPaddingCorrection = Math.min(0, boundingRect.left - screenshotPadding);
 			const bottomPaddingCorrection = Math.min(0, boundingRect.top - screenshotPadding);
 
-			left   = Math.max(0, boundingRect.left - screenshotPadding);
-			top    = Math.max(0, boundingRect.top - screenshotPadding);
-			width  = Math.min(window.innerWidth - left, boundingRect.width + screenshotPadding * 2 + rightPaddingCorrection);
-			height = Math.min(window.innerHeight - top, boundingRect.height + screenshotPadding * 2 + bottomPaddingCorrection);
+			left   = Math.max(0, Math.round(boundingRect.left - screenshotPadding));
+			top    = Math.max(0, Math.round(boundingRect.top - screenshotPadding));
+			width  = Math.min(window.innerWidth - left, Math.round(boundingRect.width + screenshotPadding * 2 + rightPaddingCorrection));
+			height = Math.min(window.innerHeight - top, Math.round(boundingRect.height + screenshotPadding * 2 + bottomPaddingCorrection));
 		}
 
 		return {
@@ -195,14 +197,16 @@ export default class TagManager {
 		};
 
 		return new Promise((resolve, reject) => {
-			/**
-			 * Set screenshot taking timeout
-			 */
-			let screenshotTimeout = setTimeout(resolve, screenshotTimeoutTime);
+			setTimeout(() => {
+				/**
+				 * Set screenshot taking timeout
+				 */
+				let screenshotTimeout = setTimeout(resolve, screenshotTimeoutTime);
 
-			if ('chrome' in window && 'runtime' in window.chrome) {
-				chrome.runtime.sendMessage(message, resolve);
-			}
+				if ('chrome' in window && 'runtime' in window.chrome) {
+					chrome.runtime.sendMessage(message, resolve);
+				}
+			}, 25);
 		});
 	}
 
@@ -212,12 +216,22 @@ export default class TagManager {
 	 * @return {Void}
 	 */
 	tagTargetElement(event) {
+		if (!this.currentElement) {
+			return;
+		}
+
 		this.unbind();
+
+		const payload = this.getTargetElementData(event);
+		const tempPin = {
+			x: event.pageX,
+			y: event.pageY
+		};
+
+		this.onBeforeTagged(tempPin);
 
 		return this.requestScreenshot()
 			.then((response) => {
-				const payload = this.getTargetElementData(event);
-
 				if (response.status === 'success') {
 					payload['screenshot'] = response.payload;
 				}

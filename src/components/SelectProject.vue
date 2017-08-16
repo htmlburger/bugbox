@@ -1,5 +1,7 @@
 <template>
-	<div class="form">
+	<div :class="classes">
+		<loader v-if="isLoading" />
+
 		<form @submit.prevent="handleSubmit">
 			<div class="form__row">
 				<label class="form__label">Select a project:</label>
@@ -20,20 +22,37 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import Loader from './Loader.vue';
 
 export default {
 	name: 'select-project',
 
+	components: {
+		Loader
+	},
+
 	data() {
 		return {
-			selected: null,
+			status: '',
+			selected: null
 		};
 	},
 
 	computed: {
 		...mapGetters([
 			'projectsList'
-		])
+		]),
+
+		classes() {
+			return [
+				'form',
+				{ 'form--loading': this.isLoading }
+			];
+		},
+
+		isLoading() {
+			return this.status === 'loading';
+		}
 	},
 
 	methods: {
@@ -42,7 +61,12 @@ export default {
 		]),
 
 		handleSubmit(event) {
-			this.getProject(this.selected);
+			this.status = 'loading';
+
+			this.getProject(this.selected)
+				.then((response) => {
+					this.status = '';
+				});
 		}
 	}
 }

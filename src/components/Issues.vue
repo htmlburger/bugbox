@@ -1,10 +1,10 @@
 <template>
 	<div v-if="issues" class="issues">
 		<transition name="fade-left" mode="out-in">
-			<issue-details v-if="selectedIssue" :issue="selectedIssue" :key="selectedIssue.id" />
+			<issue-details v-if="selectedIssue" :issue="selectedIssue" :groups="groups" :key="selectedIssue.id" />
 
 			<div v-else class="issues__list">
-				<issue v-for="issue in issues" :issue="issue" :is-selected="issue.id === selectedIssueId" />
+				<issue v-for="issue in issues" :issue="issue" :groups="groups" :is-selected="issue.id === selectedIssueId" />
 			</div>
 		</transition>
 
@@ -29,6 +29,7 @@ export default {
 	computed: {
 		...mapGetters([
 			'issues',
+			'groups',
 			'selectedIssueId'
 		]),
 

@@ -31,6 +31,10 @@ const mutations = {
 		state.tagged = payload;
 	},
 
+	SET_TEMP_PIN(state, payload) {
+		state.tempPin = payload;
+	},
+
 	SET_SELECTED_ISSUE(state, payload) {
 		state.selectedIssueId = payload;
 	},

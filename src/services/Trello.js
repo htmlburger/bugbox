@@ -231,7 +231,7 @@ export default class Trello extends Tracker  {
 		const request = this.client.get('/search', {
 			params: {
 				query,
-				card_fields: 'name,desc',
+				card_fields: 'name,desc,actions',
 				card_board: true,
 				card_list: true,
 				partial: false,
@@ -248,15 +248,24 @@ export default class Trello extends Tracker  {
 				const selectedProjectIndex = data.cards.findIndex(card => card.board.id === this.getSelectedProject());
 				const hasSelectedProject = selectedProjectIndex >= 0;
 
+				const result = {
+					matches: [],
+					selected: null
+				};
+
+				result['matches'] = data.cards
+					.filter(card => location.indexOf(card.desc) >= 0)
+					.map(card => card.board);
+
 				if (hasSelectedProject) {
-					data.cards = data.cards.filter(card => card.board.id === this.getSelectedProject());
+					result['selected'] = data.cards
+						.filter(card => card.board.id === this.getSelectedProject())
+						.map(card => card.board)[0];
+				} else if (result['matches'].length === 1) {
+					result['selected'] = result['matches'][0];
 				}
 
-				return data.cards
-					.filter((card) => {
-						return location.indexOf(card.desc) >= 0;
-					})
-					.map(card => card.board);
+				return result;
 			});
 	}
 

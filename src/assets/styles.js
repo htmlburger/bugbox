@@ -191,9 +191,13 @@ h6 { font-weight: normal; }
 
 .panel { position: relative; height: 100%; min-width: 300px; padding: 50px 0 0; margin-left: 35px; background: #fff; box-shadow: 0 10px 30px 0 rgba(0,0,0,.1); transition: all .2s; }
 
-.panel .panel__toggle { position: absolute; right: 100%; bottom: 10px; width: 30px; height: 30px; line-height: 30px; background: #fff; border: 0; border-radius: 2px 0 0 2px; text-align: center; box-shadow: -2px 2px 3px 0 rgba(0,0,0,.1); cursor: pointer; }
-.panel .panel__toggle:hover { background: #eee; text-decoration: none; transition: all .2s; }
+.panel .panel__toggle { position: absolute; right: 100%; bottom: 10px; width: 30px; height: 30px; line-height: 30px; background: #fff; border: 0; border-radius: 2px 0 0 2px; text-align: center; box-shadow: -2px 2px 3px 0 rgba(0,0,0,.1); cursor: pointer; transition: all .2s; }
+.panel .panel__toggle:hover { background: #eee; text-decoration: none; }
 .panel .panel__toggle img { transform: rotate(180deg); transition: all .2s; }
+
+.panel .panel__quick-add { position: absolute; right: 100%; bottom: 50px; width: 30px; height: 30px; line-height: 30px; background: #fff; border: 0; border-radius: 2px 0 0 2px; text-align: center; box-shadow: -2px 2px 3px 0 rgba(0,0,0,.1); cursor: pointer; transform: translateX(100%); visibility: hidden; opacity: 0; transition: all .2s; }
+.panel .panel__quick-add:hover { background: #eee; text-decoration: none; }
+.panel .panel__quick-add img { width: 20px; transition: all .2s; }
 
 .panel .panel__head { position: absolute; z-index: 10; left: 0; top: 0; display: flex; align-items: center; width: 100%; height: 50px; padding: 8px; border-bottom: 1px solid #ddd; box-shadow: 0 2px 3px 0 rgba(0,0,0,.1); }
 .panel .panel__body { max-height: 100%; overflow: hidden; overflow-y: auto; }
@@ -224,7 +228,7 @@ h6 { font-weight: normal; }
 /*  Panel Collapsed  */
 .panel--collapsed { box-shadow: none; }
 .panel--collapsed .panel__toggle img { transform: none; }
-
+.panel--collapsed .panel__quick-add { visibility: visible; opacity: 1; transform: translateX(0); }
 
 /* ------------------------------------------------------------ *\
 	User
@@ -254,7 +258,14 @@ h6 { font-weight: normal; }
 
 .issue .issue__title { font-size: 1em; font-weight: normal; }
 
-.issue .issue__meta { margin-top: 4px; font-size: .9em; opacity: .5; }
+.issue .issue__meta { margin-top: 4px; font-size: .9em; opacity: .5; list-style: none outside none; font-size: 0; }
+.issue .issue__meta li { display: inline-block; vertical-align: middle; font-size: 12px; line-height: 1; }
+.issue .issue__meta li + li { border-left: 1px solid #ddd; padding-left: 6px; margin-left: 6px; }
+
+.issue .issue__meta span { display: inline-block; vertical-align: top; }
+.issue .issue__meta img { display: inline-block; vertical-align: top; width: 12px; height: auto; }
+
+.issue .issue__badge { margin: -2px 2px 0 0; line-height: 1; font-size: 10px; }
 
 
 /* ------------------------------------------------------------ *\
@@ -266,13 +277,18 @@ h6 { font-weight: normal; }
 
 .issue-details .issue__inner { padding: 12px 8px; }
 
-.issue-details .issue__title { margin-bottom: 8px; font-size: 16px; }
+.issue-details .issue__badge { margin-bottom: 4px; }
+
+.issue-details .issue__title { margin-bottom: 4px; font-size: 16px; }
 
 .issue-details .issue__description { margin-bottom: 12px; }
 
+.issue-details .issue__comments { padding: 4px 0; margin-bottom: 8px; border-bottom: 1px solid #eee; font-size: 12px; color: #888; }
+.issue-details .issue__comments img { display: inline-block; vertical-align: middle; width: 12px; margin-right: 2px; }
+
 .issue-details .issue__meta { margin-bottom: 10px; }
 
-.issue-details .issue__link img { display: inline-block; vertical-align: middle; margin-right: 5px; }
+.issue-details .issue__link img { display: inline-block; vertical-align: middle; width: 14px; margin-right: 5px; }
 
 .issue-details .issue__screenshots { margin-bottom: 12px; }
 
@@ -282,6 +298,13 @@ h6 { font-weight: normal; }
 .issue-details .issue__screenshots li:hover { border-color: #ccc; }
 .issue-details .issue__screenshots a { display: block; }
 .issue-details .issue__screenshots img { width: 100%; height: auto; }
+
+
+/* ------------------------------------------------------------ *\
+	Badge
+\* ------------------------------------------------------------ */
+
+.badge { display: inline-block; vertical-align: middle; padding: 2px 4px; background: #ccc; border-radius: 2px; font-size: 12px; color: #fff; font-weight: bold; }
 
 
 /* ------------------------------------------------------------ *\

@@ -1,9 +1,9 @@
 <template>
 	<div class="panel__body">
 		<transition name="fade-left" mode="out-in">
-			<issues v-if="issuesVisible" />
+			<select-project v-if="selectProjectVisible" />
 
-			<select-project v-else-if="selectProjectVisible" />
+			<issues v-else-if="issuesVisible" />
 
 			<new-project v-else-if="newProjectVisible" />
 		</transition>

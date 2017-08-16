@@ -13,6 +13,10 @@
 						<user :user="user" />
 					</li>
 
+					<li v-if="project && projectsList && projectsList.length > 1">
+						<a @click.prevent="changeProject" href="#">Change project ({{projectsList.length}} matches)</a>
+					</li>
+
 					<li>
 						<a @click.prevent="unauthorize" href="#">Logout</a>
 					</li>
@@ -41,6 +45,7 @@ export default {
 	computed: {
 		...mapGetters([
 			'user',
+			'projectsList',
 			'project'
 		]),
 	},
@@ -49,7 +54,8 @@ export default {
 		...mapActions([
 			'initTagging',
 			'authorize',
-			'unauthorize'
+			'unauthorize',
+			'changeProject'
 		])
 	},
 

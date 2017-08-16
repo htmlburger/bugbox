@@ -6,7 +6,8 @@ const state = {
 	projectsList   : null,
 	tagManager     : null,
 	tagged         : null,
-	selectedIssueId: null,
+	tempPin        : null,
+	selectedIssueId: null
 };
 
 export default state;

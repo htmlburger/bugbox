@@ -30,6 +30,12 @@ const getters = {
 		return project ? project.issues : null;
 	},
 
+	groups(state, getters) {
+		const project = getters.project;
+
+		return project ? project.groups : null;
+	},
+
 	selectedIssueId(state, getters) {
 		return state.selectedIssueId;
 	},
@@ -40,6 +46,10 @@ const getters = {
 
 	tagged(state, getters) {
 		return state.tagged;
+	},
+
+	tempPin(state, getters) {
+		return state.tempPin;
 	},
 };
 

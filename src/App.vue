@@ -78,9 +78,29 @@ export default {
 			'init',
 			'initTagManager',
 			'initTagging',
+			'setTempPin',
 			'setTagged',
 			'selectIssue'
 		]),
+
+		bindHotkeys() {
+			window.addEventListener('keydown', this.handleKeydown);
+		},
+
+		unbindHotkeys() {
+			window.removeEventListener('keydown', this.handleKeydown);
+		},
+
+		handleKeydown(event) {
+			/**
+			 * Init tagging with Ctrl+Shif+A
+			 */
+			if (event.ctrlKey && event.shiftKey && event.keyCode === 65) {
+				event.preventDefault();
+				event.stopPropagation();
+				this.initTagging();
+			}
+		},
 
 		highlightIssueFromUrl(project) {
 			if (this.issueFromUrl && project && project.issues) {
@@ -102,7 +122,8 @@ export default {
 			this.initTagManager({
 				cover         : this.$refs.cover,
 				screenshotArea: this.$refs.screenshotArea,
-				onInitTagging : this.initTagging,
+				initTagging   : this.initTagging,
+				onBeforeTagged: this.setTempPin,
 				onTagged      : this.setTagged
 			});
 		},
@@ -116,6 +137,7 @@ export default {
 	},
 
 	created() {
+		this.bindHotkeys();
 		this.init()
 			.then(this.highlightIssueFromUrl);
 	},
@@ -129,6 +151,7 @@ export default {
 	},
 
 	beforeDestroy() {
+		this.unbindHotkeys();
 		clearInterval(this.autoResizeInterval);
 	}
 }
@@ -151,23 +174,22 @@ export default {
 
 	/*  Panel  */
 	.bugbox .bugbox__panel { position: fixed; z-index: 2147483647; right: 0; bottom: 0; width: 335px; height: 100%; transition: transform .2s, width .2s ; }
-	.bugbox .bugbox__panel--collapsed { width: 35px; height: 55px; transition: transform .2s, width .2s, height .2s .2s; }
+	.bugbox .bugbox__panel--collapsed { width: 35px; height: 100px; transition: transform .2s, width .2s, height .2s .2s; }
 
 	/*  Pins  */
 	.bugbox .bugbox__pins { transition: all .2s; }
 
 	/*  Issue Form  */
-	.bugbox .bugbox__issue-form { position: fixed; z-index: 2147483647; left: 50%; top: 50%; width: 500px; height: 500px; max-width: 100vw; max-height: 100vh; display: none; transform: translate(-50%, -50%); transition: all .2s; }
+	.bugbox .bugbox__issue-form { position: fixed; z-index: 2147483647; left: 50%; top: 50%; width: 500px; height: 380px; max-width: 100vw; max-height: 100vh; display: none; transform: translate(-50%, -50%); }
+
+	/*  Tagged State  */
+	.bugbox--tagged .bugbox__panel { box-shadow: none; transform: translateX(100%); }
+	.bugbox--tagged .bugbox__issue-form { display: block; }
 
 	/*  Tagging State  */
 	.bugbox--tagging .bugbox__cover { visibility: visible; pointer-events: all; }
 	.bugbox--tagging .bugbox__screenshot-area,
 	.bugbox--tagging .bugbox__screenshot-area span { visibility: visible; }
 	.bugbox--tagging .bugbox__panel { box-shadow: none; transform: translateX(100%); }
-	.bugbox--tagging .bugbox__pins { visibility: hidden; opacity: 0; }
-	.bugbox--tagging .bugbox__issue-form { visibility: hidden; opacity: 0; }
-
-	/*  Tagged State  */
-	.bugbox--tagged .bugbox__panel { box-shadow: none; transform: translateX(100%); }
-	.bugbox--tagged .bugbox__issue-form { display: block; }
+	.bugbox--tagging .bugbox__issue-form { display: none; }
 </style>
