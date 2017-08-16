@@ -1,6 +1,5 @@
 <template>
 	<div class="issue" @click.prevent="selectIssue(issue.id)">
-		{{issue.comments}}
 		<div class="issue__inner">
 			<a :href="issue.url" @click.stop class="issue__link" target="_blank" title="Open in Trello">
 				<img src="../assets/images/external.svg" />

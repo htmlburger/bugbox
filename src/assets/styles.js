@@ -317,6 +317,10 @@ h6 { font-weight: normal; }
 .issue-details .issue__screenshots a { display: block; }
 .issue-details .issue__screenshots img { width: 100%; height: auto; }
 
+.issue-details .issue__log { position: relative; background: #eee; padding: 8px; margin-bottom: 4px; border-radius: 2px; font-size: 12px; line-height: 1; }
+.issue-details .issue__log ul { height: 150px; overflow-y: auto; }
+.issue-details .issue__log li { margin-bottom: 4px; }
+.issue-details .issue__log li:last-child { margin-bottom: 0; }
 
 /* ------------------------------------------------------------ *\
 	Badge

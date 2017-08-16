@@ -490,4 +490,16 @@ export default class Trello extends Tracker  {
 		return request.then(({ data }) => data);
 	}
 
+	/**
+	 * Get card actions
+	 * @param  {String} options.cardId
+	 * @param  {String} options.listId
+	 * @return {Promise}
+	 */
+	getCardActions(cardId) {
+		const request = this.client.get(`cards/${cardId}/actions`);
+
+		return request.then(({ data }) => data);
+	}
+
 }

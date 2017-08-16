@@ -503,7 +503,6 @@ export const getBase64FromFile = file => {
 	});
 }
 
-
 /**
  * Get image base64 string from input event
  * @param  {Event} event
@@ -523,6 +522,49 @@ export const getImageFromInputEvent = (event) => {
 		}
 	});
 }
+
+/**
+ * Get image base64 string from paste event
+ * @param  {Event} event
+ * @return {Promise}
+ */
+export const getImageFromPasteEvent = (event) => {
+	return new Promise((resolve, reject) => {
+		if (!event.clipboardData.items) {
+			const waitInterval = setInterval(() => {
+				if (this.event.target.children.length > 0) {
+					clearInterval(waitInterval);
+
+					resolve({
+						base64string: event.target.children[0].src,
+						type: getFileTypeFromBase64string(event.target.children[0].src)
+					});
+
+					event.target.innerHTML = '';
+				}
+			}, 1);
+
+		} else {
+			Array.from(event.clipboardData.items).some((item) => {
+				if (item.kind === 'file' && (item.type === 'image/png' || item.type === 'image/jpeg')) {
+					const file = item.getAsFile();
+
+					const imageType = item.type;
+
+					getBase64FromFile(file).then((result) => {
+						resolve({
+							base64string: result,
+							type: imageType
+						});
+					});
+
+					return true;
+				}
+			});
+		}
+	});
+}
+
 
 /**
  * Get a hex color code from string

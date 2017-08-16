@@ -73,17 +73,33 @@
 				</div>
 			</div>
 
+			<div v-if="screenshots.length" class="issue__section">
+				<h5 class="issue__section-title">Log:</h5>
 
+				<div class="issue__log">
+					<loader v-if="!this.actions" />
 
-			<a :href="issue.url" @click.stop class="issue__link" target="_blank">
-				<img src="../assets/images/external.svg" />Open in Trello
-			</a>
+					<ul>
+						<li v-for="action in actions">
+							<strong>{{action.memberCreator.fullName}}</strong>
+							<em>{{action.type}}</em>
+							<span :title="action.date">{{action.date | fromNow}}</span>
+						</li>
+					</ul>
+				</div>
+
+				<a :href="issue.url" @click.stop class="issue__link" target="_blank">
+					<img src="../assets/images/external.svg" />Open in Trello
+				</a>
+			</div>
+
 		</div>
 	</div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import { fromNow } from '../helpers/filters';
 import Loader from './Loader.vue';
 import Badge from './Badge.vue';
 
@@ -108,7 +124,8 @@ export default {
 	data() {
 		return {
 			status: '',
-			groupId: this.issue && this.issue.idList
+			groupId: this.issue && this.issue.idList,
+			actions: null,
 		};
 	},
 
@@ -137,7 +154,8 @@ export default {
 	methods: {
 		...mapActions([
 			'resetSelectedIssue',
-			'changeIssueGroup'
+			'changeIssueGroup',
+			'getCardActions'
 		]),
 
 		handleChangeGroup(event) {
@@ -155,10 +173,21 @@ export default {
 		}
 	},
 
+	created() {
+		this.getCardActions(this.issue.id)
+			.then((actions) => {
+				this.actions = actions
+			});
+	},
+
+	filters: {
+		fromNow
+	},
+
 	watch: {
 		issue: {
 			handler() {
-				this.group = this.issue.idList;
+				this.groupId = this.issue.idList;
 			},
 			deep: true
 		}

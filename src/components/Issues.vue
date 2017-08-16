@@ -78,7 +78,7 @@ export default {
 		return {
 			filters: {
 				currentPageOnly: true,
-				group: null,
+				group: null
 			}
 		};
 	},

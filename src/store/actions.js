@@ -272,6 +272,16 @@ const actions = {
 			.then(issue => {
 				return commit('UPDATE_ISSUE', issue);
 			});
+	},
+
+	/**
+	 * Change issue group
+	 * @param {Function} options.commit
+	 * @param {Object} payload
+	 * @return {Promise}
+	 */
+	getCardActions({ commit }, payload) {
+		return tracker.getCardActions(payload);
 	}
 };
 

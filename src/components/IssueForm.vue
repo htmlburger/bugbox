@@ -16,16 +16,8 @@
 					</div>
 
 					<div class="form__row">
-						<textarea v-model="description" rows="5" class="textarea" placeholder="Description"></textarea>
+						<textarea v-model="description" @paste="handleDescriptionPaste" rows="5" class="textarea" placeholder="Description"></textarea>
 					</div>
-
-					<!-- <div class="form__row">
-						<div class="select">
-							<select v-model="group" required>
-								<option v-for="group in project.groups" :value="group.id">{{group.name}}</option>
-							</select>
-						</div>
-					</div> -->
 
 					<div class="form__row">
 						<div class="cols">
@@ -88,7 +80,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { appendInIframe } from '../helpers/mixins';
-import { getImageFromInputEvent } from '../helpers/utils';
+import { getImageFromInputEvent, getImageFromPasteEvent } from '../helpers/utils';
 import Loader from './Loader.vue';
 
 export default {
@@ -256,6 +248,13 @@ export default {
 			}
 		},
 
+		handleDescriptionPaste(event) {
+			getImageFromPasteEvent(event).then((result) => {
+				if (result.base64string) {
+					this.screenshot = result.base64string;
+				}
+			});
+		},
 
 		handleScreenshotInputChange(event) {
 			getImageFromInputEvent(event).then((result) => {

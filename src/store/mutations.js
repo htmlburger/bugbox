@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 /**
  * Store mutations
  * @type {Object}
@@ -54,7 +56,7 @@ const mutations = {
 			if (issueIndex >= 0) {
 				const updatedIssue = Object.assign({}, state.project.issues[issueIndex], issueUpdate);
 
-				state.project.issues[issueIndex] = updatedIssue;
+				Vue.set(state.project.issues, issueIndex, updatedIssue);
 			}
 		}
 	},
