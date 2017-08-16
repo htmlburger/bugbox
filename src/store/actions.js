@@ -260,6 +260,19 @@ const actions = {
 		return commit('SET_SELECTED_ISSUE', null);;
 	},
 
+	/**
+	 * Change issue group
+	 * @param {Function} options.commit
+	 * @param {Object} payload
+	 * @return {Promise}
+	 */
+	changeIssueGroup({ commit }, payload) {
+		return tracker
+			.changeIssueGroup(payload)
+			.then(issue => {
+				return commit('UPDATE_ISSUE', issue);
+			});
+	}
 };
 
 export default actions;

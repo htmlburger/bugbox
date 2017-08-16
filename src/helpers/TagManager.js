@@ -250,12 +250,12 @@ export default class TagManager {
 		const offset = getElementOffset(element);
 		const pinOffsetX = event.pageX - offset.left;
 		const pinOffsetY = event.pageY - offset.top;
-		const address = window.location.href.replace(/\#issue\-(.+)$/, '');
+		const url = window.location.href.replace(/\#issue\-(.+)$/, '');
 
 		return {
 			selector: getElementSelector( element ),
 			outerHtml: getElementOuterHtml( element ).substring(0, 500),
-			address: address,
+			url: url,
 			browser: {
 				width: window.innerWidth,
 				height: window.innerHeight,

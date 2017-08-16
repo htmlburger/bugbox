@@ -113,6 +113,7 @@ h6 { font-weight: normal; }
 .field:focus,
 .textarea:focus { border-color: #03a9f4; }
 
+.select { position: relative; }
 .select select { width: 100%; height: 30px; padding: 0 4px; border: 1px solid #ddd; border-radius: 2px; font-family: inherit; }
 
 .file { position: relative; }
@@ -121,7 +122,7 @@ h6 { font-weight: normal; }
 
 .radio { position: relative; display: block; padding-left: 20px; }
 
-.radio .radio__input { position: absolute; left: 0; top: 6px; }
+.radio .radio__input { position: absolute; left: 0; top: .4em; }
 .radio .radio__label { display: block; padding: 4px 0; word-break: break-all; }
 
 /* ------------------------------------------------------------ *\
@@ -225,6 +226,9 @@ h6 { font-weight: normal; }
 
 .panel .panel__dropdown:hover .panel__dropdown-menu { visibility: visible; opacity: 1; }
 
+.panel .panel__project-link { margin: 0 8px; }
+.panel .panel__project-link img { width: 14px; margin-right: 4px; }
+
 /*  Panel Collapsed  */
 .panel--collapsed { box-shadow: none; }
 .panel--collapsed .panel__toggle img { transform: none; }
@@ -243,6 +247,19 @@ h6 { font-weight: normal; }
 \* ------------------------------------------------------------ */
 
 .issues .issues__message { padding: 12px 8px; text-align: center; font-style: italic; opacity: .5; }
+
+
+/* ------------------------------------------------------------ *\
+	Filters
+\* ------------------------------------------------------------ */
+
+.filters { background: #f5f5f5; border-bottom: 1px solid #ddd; box-shadow: 0 2px 3px 0 rgba(0,0,0,.1); }
+
+.filters .filters__section { padding: 4px 8px; }
+.filters .filters__section + .filters__section { border-top: 1px solid #ddd; }
+
+.filters .filters__section-title { margin-bottom: 2px; font-weight: bold; font-size: 12px; }
+.filters .filters__count { text-align: center; font-size: 11px; }
 
 
 /* ------------------------------------------------------------ *\
@@ -277,14 +294,15 @@ h6 { font-weight: normal; }
 
 .issue-details .issue__inner { padding: 12px 8px; }
 
-.issue-details .issue__badge { margin-bottom: 4px; }
+.issue-details .issue__section { margin: 0 -8px; padding: 12px 8px; border-top: 1px solid #e5e5e5; box-shadow: inset 0 1px 2px rgba(0,0,0,.05); }
+.issue-details .issue__section-title { margin-bottom: 4px; font-size: 13px; font-weight: bold; }
 
-.issue-details .issue__title { margin-bottom: 4px; font-size: 16px; }
+.issue-details .issue__badge { margin-top: -4px; }
 
-.issue-details .issue__description { margin-bottom: 12px; }
+.issue-details .issue__title { padding: 4px 0; margin-bottom: 8px; font-size: 16px; }
 
-.issue-details .issue__comments { padding: 4px 0; margin-bottom: 8px; border-bottom: 1px solid #eee; font-size: 12px; color: #888; }
-.issue-details .issue__comments img { display: inline-block; vertical-align: middle; width: 12px; margin-right: 2px; }
+.issue-details .issue__comments { display: inline-block; vertical-align: middle; padding: 2px 4px; margin-top: -4px; background: #eee; border-radius: 2px; font-size: 12px; color: #888; }
+.issue-details .issue__comments img { display: inline-block; vertical-align: middle; width: 12px; margin: -2px 2px 0 0; }
 
 .issue-details .issue__meta { margin-bottom: 10px; }
 
@@ -323,5 +341,16 @@ h6 { font-weight: normal; }
 
 .list-urls .list-urls__custom .field { visibility: hidden; opacity: 0; }
 .list-urls .list-urls__custom .radio__input:checked ~ .field { visibility: visible; opacity: 1; }
+
+
+/* ------------------------------------------------------------ *\
+	List Options
+\* ------------------------------------------------------------ */
+
+.list-options { list-style: none outside none; }
+.list-options li { display: inline-block; vertical-align: top; margin-right: 10px; }
+
+.list-options .radio { padding-left: 16px; }
+.list-options .radio .radio__label { font-size: 12px; }
 
 `;

@@ -44,6 +44,20 @@ const mutations = {
 			state.project.issues = state.project.issues.concat(payload);
 		}
 	},
+
+	UPDATE_ISSUE(state, payload) {
+		const issueUpdate = payload;
+
+		if (state.project && Array.isArray(state.project.issues)) {
+			const issueIndex = state.project.issues.findIndex(issue => issue.id === issueUpdate.id);
+
+			if (issueIndex >= 0) {
+				const updatedIssue = Object.assign({}, state.project.issues[issueIndex], issueUpdate);
+
+				state.project.issues[issueIndex] = updatedIssue;
+			}
+		}
+	},
 };
 
 export default mutations;

@@ -8,9 +8,11 @@
 			<panel-body v-if="isAuthorized" />
 		</template>
 
-		<button @click.prevent="initTagging" class="panel__quick-add" title="Add Issue (Ctrl + Shift + A)">
-			<img src="../assets/images/bug.svg" />
-		</button>
+		<template v-if="project">
+			<button @click.prevent="initTagging" class="panel__quick-add" title="Add Issue (Ctrl + Shift + A)">
+				<img src="../assets/images/bug.svg" />
+			</button>
+		</template>
 
 		<button @click.prevent="togglePanel" class="panel__toggle" title="Toggle Panel">
 			<img src="../assets/images/arrow-right.svg" />
@@ -39,6 +41,7 @@ export default {
 	computed: {
 		...mapGetters([
 			'panelCollapsed',
+			'project',
 			'status'
 		]),
 

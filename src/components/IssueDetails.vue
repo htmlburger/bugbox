@@ -4,49 +4,76 @@
 
 		<div class="issue__inner">
 			<h4 class="issue__title">
-				<badge :value="group.name" class="issue__badge" /> {{issue.name}}
+				<badge :value="group.name" class="issue__badge" />
+
+				<span v-if="issue.badges" class="issue__comments">
+					<img src="../assets/images/comment.svg" />
+
+					<span>{{issue.badges.comments || 0}}</span>
+				</span>
+
+				{{issue.name}}
 			</h4>
 
-			<div v-if="issue.badges" class="issue__comments">
-				<img src="../assets/images/comment.svg" />
-				<span>{{issue.badges.comments || 0}}</span>
+			<div v-if="issue.desc" class="issue__section">
+				<h5 class="issue__section-title">Description:</h5>
+
+				<div class="issue__description">
+					{{issue.desc}}
+				</div>
 			</div>
 
-			<div class="issue__description">
-				<p>{{issue.desc}}</p>
+			<div class="issue__section">
+				<h5 class="issue__section-title">Change group:</h5>
+
+				<div class="select">
+					<loader v-if="isChangingGroup" />
+
+					<select v-model="groupId" :disabled="isChangingGroup" @change="handleChangeGroup">
+						<option v-for="group in groups" :value="group.id">{{group.name}}</option>
+					</select>
+				</div>
 			</div>
 
-			<div v-if="issue.meta && issue.meta.browser" class="table issue__meta">
-				<table>
-					<tr>
-						<th>Resolution</th>
-						<td>{{issue.meta.browser.width}} x {{issue.meta.browser.height}}</td>
-					</tr>
+			<div v-if="issue.meta && issue.meta.browser" class="issue__section">
+				<h5 class="issue__section-title">Meta:</h5>
 
-					<tr>
-						<th>Browser</th>
-						<td>{{issue.meta.browser.vendor}} {{issue.meta.browser.version}}</td>
-					</tr>
+				<div class="table issue__meta">
+					<table>
+						<tr>
+							<th>Resolution</th>
+							<td>{{issue.meta.browser.width}} x {{issue.meta.browser.height}}</td>
+						</tr>
 
-					<tr>
-						<th>OS</th>
-						<td>{{issue.meta.browser.os}}</td>
-					</tr>
-				</table>
+						<tr>
+							<th>Browser</th>
+							<td>{{issue.meta.browser.vendor}} {{issue.meta.browser.version}}</td>
+						</tr>
+
+						<tr>
+							<th>OS</th>
+							<td>{{issue.meta.browser.os}}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 
-			<div v-if="screenshots.length" class="issue__screenshots">
-				<strong>Screenshot:</strong>
+			<div v-if="screenshots.length" class="issue__section">
+				<h5 class="issue__section-title">Screenshot:</h5>
 
-				<ul>
-					<li v-for="screenshot in screenshots">
-						<a :href="screenshot.url" target="_blank">
-							<img v-if="screenshot.previews.length" :src="screenshot.previews[0].url">
-							<img v-else :src="screenshot.url">
-						</a>
-					</li>
-				</ul>
+				<div class="issue__screenshots">
+					<ul>
+						<li v-for="screenshot in screenshots">
+							<a :href="screenshot.url" target="_blank">
+								<img v-if="screenshot.previews.length" :src="screenshot.previews[0].url">
+								<img v-else :src="screenshot.url">
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
+
+
 
 			<a :href="issue.url" @click.stop class="issue__link" target="_blank">
 				<img src="../assets/images/external.svg" />Open in Trello
@@ -57,12 +84,14 @@
 
 <script>
 import { mapActions } from 'vuex';
+import Loader from './Loader.vue';
 import Badge from './Badge.vue';
 
 export default {
 	name: 'issue-details',
 
 	components: {
+		Loader,
 		Badge
 	},
 
@@ -76,10 +105,17 @@ export default {
 		}
 	},
 
+	data() {
+		return {
+			status: '',
+			groupId: this.issue && this.issue.idList
+		};
+	},
+
 	computed: {
 		group() {
 			if (this.groups) {
-				return this.groups.find(group => group.id === this.issue.idList);
+				return this.groups.find(group => group.id === this.groupId);
 			}
 		},
 
@@ -91,13 +127,41 @@ export default {
 			return this.issue.attachments.filter(attachment => {
 				return attachment.name === 'Screenshot';
 			});
+		},
+
+		isChangingGroup() {
+			return this.status === 'changing_group';
 		}
 	},
 
 	methods: {
 		...mapActions([
-			'resetSelectedIssue'
+			'resetSelectedIssue',
+			'changeIssueGroup'
 		]),
+
+		handleChangeGroup(event) {
+			this.status = 'changing_group';
+
+			const payload = {
+				cardId: this.issue.id,
+				groupId: this.groupId
+			};
+
+			return this.changeIssueGroup(payload)
+				.then((response) => {
+					this.status = '';
+				});
+		}
+	},
+
+	watch: {
+		issue: {
+			handler() {
+				this.group = this.issue.idList;
+			},
+			deep: true
+		}
 	}
 }
 </script>

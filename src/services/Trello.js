@@ -398,7 +398,7 @@ export default class Trello extends Tracker  {
 
 	/**
 	 * Add issue as card in trello
-	 * @param {Object} issue
+	 * @param  {Object} issue
 	 * @return {Promise}
 	 */
 	addIssue(issue) {
@@ -429,13 +429,13 @@ export default class Trello extends Tracker  {
 
 	/**
 	 * Add issue card meta data as attachment
-	 * @param {Object} card
-	 * @param {Object} meta
+	 * @param  {Object} card
+	 * @param  {Object} meta
 	 * @return {Promise}
 	 */
 	addIssueMeta(card, meta) {
 		const encodedMeta = btoa(encodeURIComponent(JSON.stringify(meta)));
-		const url = `${meta.address}#issue-${encodedMeta}`;
+		const url = `${meta.url}#issue-${encodedMeta}`;
 		const data = {
 			name: 'Issue URL',
 			url
@@ -453,8 +453,8 @@ export default class Trello extends Tracker  {
 
 	/**
 	 * Add issue screenshot as attachment
-	 * @param {Object} card
-	 * @param {String} screenshot
+	 * @param  {Object} card
+	 * @param  {String} screenshot
 	 * @return {Promise}
 	 */
 	addIssueScreenshot(card, screenshot) {
@@ -474,4 +474,20 @@ export default class Trello extends Tracker  {
 			return card;
 		});
 	}
+
+	/**
+	 * Change issue group
+	 * @param  {String} options.cardId
+	 * @param  {String} options.listId
+	 * @return {Promise}
+	 */
+	changeIssueGroup({ cardId, groupId }) {
+		const data = {
+			idList: groupId
+		};
+		const request = this.client.put(`cards/${cardId}`, data);
+
+		return request.then(({ data }) => data);
+	}
+
 }

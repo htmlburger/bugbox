@@ -50,6 +50,7 @@ export default {
 		...mapGetters([
 			'panelCollapsed',
 			'tagged',
+			'project',
 			'status'
 		]),
 
@@ -95,7 +96,12 @@ export default {
 			/**
 			 * Init tagging with Ctrl+Shif+A
 			 */
-			if (event.ctrlKey && event.shiftKey && event.keyCode === 65) {
+			if (
+				this.project &&
+				event.ctrlKey &&
+				event.shiftKey &&
+				event.keyCode === 65
+			) {
 				event.preventDefault();
 				event.stopPropagation();
 				this.initTagging();

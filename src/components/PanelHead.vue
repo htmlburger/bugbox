@@ -1,7 +1,13 @@
 <template>
 	<div class="panel__head">
 		<template v-if="user">
-			<button v-if="project" @click.prevent="initTagging" class="btn">Add Issue</button>
+			<template v-if="project">
+				<button @click.prevent="initTagging" class="btn">Add Issue</button>
+
+				<a href="http://abv.bg" target="_blank" class="panel__project-link">
+					<img src="../assets/images/external.svg" />Open Project
+				</a>
+			</template>
 
 			<div class="panel__dropdown">
 				<a @click.prevent href="#" class="panel__dropdown-trigger">

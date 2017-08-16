@@ -75,6 +75,10 @@ export default {
 		]),
 
 		handleFromSubmit() {
+			if (this.isLoading) {
+				return;
+			}
+
 			this.status = 'loading';
 			this.initProject(this.payload)
 				.then((response) => {
