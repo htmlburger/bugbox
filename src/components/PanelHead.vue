@@ -4,7 +4,7 @@
 			<template v-if="project">
 				<button @click.prevent="initTagging" class="btn">Add Issue</button>
 
-				<a href="http://abv.bg" target="_blank" class="panel__project-link">
+				<a :href="project.meta.shortUrl || project.meta.url" target="_blank" class="panel__project-link">
 					<img src="../assets/images/external.svg" />Open Project
 				</a>
 			</template>

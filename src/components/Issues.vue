@@ -52,7 +52,11 @@
 					</div>
 				</div>
 
-				<issue v-for="issue in visibleIssues" :issue="issue" :groups="groups" :is-selected="issue.id === selectedIssueId" />
+				<transition name="fade-left" mode="out-in">
+					<div :key="filters.currentPageOnly + filters.group" class="issues__holder">
+						<issue v-for="issue in visibleIssues" :key="issue.id" :issue="issue" :groups="groups" :is-selected="issue.id === selectedIssueId" />
+					</div>
+				</transition>
 			</div>
 		</transition>
 

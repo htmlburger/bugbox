@@ -247,13 +247,14 @@ h6 { font-weight: normal; }
 \* ------------------------------------------------------------ */
 
 .issues .issues__message { padding: 12px 8px; text-align: center; font-style: italic; opacity: .5; }
+.issues .issues__holder { transition: all .2s; }
 
 
 /* ------------------------------------------------------------ *\
 	Filters
 \* ------------------------------------------------------------ */
 
-.filters { background: #f5f5f5; border-bottom: 1px solid #ddd; box-shadow: 0 2px 3px 0 rgba(0,0,0,.1); }
+.filters { position: relative; z-index: 5; background: #f5f5f5; border-bottom: 1px solid #ddd; box-shadow: 0 2px 3px 0 rgba(0,0,0,.1); }
 
 .filters .filters__section { padding: 4px 8px; }
 .filters .filters__section + .filters__section { border-top: 1px solid #ddd; }
@@ -319,7 +320,7 @@ h6 { font-weight: normal; }
 
 .issue-details .issue__log { position: relative; background: #eee; padding: 8px; margin-bottom: 4px; border-radius: 2px; font-size: 12px; line-height: 1; }
 .issue-details .issue__log ul { height: 150px; overflow-y: auto; }
-.issue-details .issue__log li { margin-bottom: 4px; }
+.issue-details .issue__log li { padding-bottom: 4px; border-bottom: 1px dotted #ccc; margin-bottom: 4px; }
 .issue-details .issue__log li:last-child { margin-bottom: 0; }
 
 /* ------------------------------------------------------------ *\

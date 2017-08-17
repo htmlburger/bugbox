@@ -176,7 +176,7 @@ export default {
 
 	/*  Screenshot Area  */
 	.bugbox .bugbox__screenshot-area { position: fixed; z-index: 2147483647; left: 0; top: 0; width: 100%; height: 100%; background-clip: content-box; border-style: solid; border-color: rgba(0,0,0,.5); border-width: 0; visibility: hidden; pointer-events: none; transition: border-width .2s; }
-	.bugbox .bugbox__screenshot-area span { position: absolute; left: 0; top: 100%; max-width: 100%; padding: 2px 0; color: #fff; font-family: sans-serif; font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; visibility: hidden; }
+	.bugbox .bugbox__screenshot-area span { position: absolute; left: 0; top: 100%; max-width: 100%; padding: 2px 0; color: #fff; font-family: sans-serif; font-size: 10px; white-space: nowrap; visibility: hidden; pointer-events: none; }
 
 	/*  Panel  */
 	.bugbox .bugbox__panel { position: fixed; z-index: 2147483647; right: 0; bottom: 0; width: 335px; height: 100%; transition: transform .2s, width .2s ; }

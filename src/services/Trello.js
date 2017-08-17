@@ -110,14 +110,42 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Set trello token in local storage
-	 * @param {String} token
+	 * Set trello project id in session storage
+	 * @param {String} id
 	 */
 	setSelectedProject(id) {
 		if (id) {
 			return window.sessionStorage.setItem(this.getSessionStorageProjectKey(), id);
 		} else {
 			return window.sessionStorage.removeItem(this.getSessionStorageProjectKey());
+		}
+	}
+
+	/**
+	 * Get local storage key for meta card cache id
+	 * @return {String}
+	 */
+	getLocalStorageMetaIdCache() {
+		return 'BugboxTrelloMetaIdCache';
+	}
+
+	/**
+	 * Get meta card cache id from local storage
+	 * @return {String}
+	 */
+	getMetaIdCache() {
+		return window.localStorage.getItem(this.getLocalStorageMetaIdCache());
+	}
+
+	/**
+	 * Set meta card cache id in local storage
+	 * @param {String} id
+	 */
+	setMetaIdCache(id) {
+		if (id) {
+			return window.localStorage.setItem(this.getLocalStorageMetaIdCache(), id);
+		} else {
+			return window.localStorage.removeItem(this.getLocalStorageMetaIdCache());
 		}
 	}
 
@@ -231,7 +259,7 @@ export default class Trello extends Tracker  {
 		const request = this.client.get('/search', {
 			params: {
 				query,
-				card_fields: 'name,desc,actions',
+				card_fields: 'name,desc',
 				card_board: true,
 				card_list: true,
 				partial: false,
@@ -239,13 +267,35 @@ export default class Trello extends Tracker  {
 		});
 
 		return request
-			.then(({data}) => {
-				if (!data.cards || !data.cards.length) {
+			.then(({ data }) => {
+				if (data.cards && data.cards.length) {
+					this.setMetaIdCache(null);
+					return data.cards;
+				}
+
+				const metaIdCache = this.getMetaIdCache();
+
+				if (metaIdCache) {
+					const request = this.client.get(`/cards/${metaIdCache}`, {
+						params: {
+							fields: 'name,desc',
+							board: true,
+							list: true
+						}
+					});
+
+					return request
+						.then(({ data }) => [data])
+						.catch((err) => null);
+				}
+			})
+			.then((cards) => {
+				if (!cards || !cards.length) {
 					return [];
 				}
 
 				const location = window.location.href;
-				const selectedProjectIndex = data.cards.findIndex(card => card.board.id === this.getSelectedProject());
+				const selectedProjectIndex = cards.findIndex(card => card.board.id === this.getSelectedProject());
 				const hasSelectedProject = selectedProjectIndex >= 0;
 
 				const result = {
@@ -253,12 +303,12 @@ export default class Trello extends Tracker  {
 					selected: null
 				};
 
-				result['matches'] = data.cards
+				result['matches'] = cards
 					.filter(card => location.indexOf(card.desc) >= 0)
 					.map(card => card.board);
 
 				if (hasSelectedProject) {
-					result['selected'] = data.cards
+					result['selected'] = cards
 						.filter(card => card.board.id === this.getSelectedProject())
 						.map(card => card.board)[0];
 				} else if (result['matches'].length === 1) {
@@ -393,7 +443,13 @@ export default class Trello extends Tracker  {
 			desc: payload.baseUrl,
 		});
 
-		return request;
+		return request.then((response) => {
+			if (response && response.data && response.data.id) {
+				this.setMetaIdCache(response.data.id);
+			}
+
+			return response;
+		});
 	}
 
 	/**
@@ -491,12 +547,12 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get card actions
+	 * Get issue actions
 	 * @param  {String} options.cardId
 	 * @param  {String} options.listId
 	 * @return {Promise}
 	 */
-	getCardActions(cardId) {
+	getIssueActions(cardId) {
 		const request = this.client.get(`cards/${cardId}/actions`);
 
 		return request.then(({ data }) => data);

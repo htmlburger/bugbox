@@ -155,8 +155,15 @@ export default {
 		...mapActions([
 			'resetSelectedIssue',
 			'changeIssueGroup',
-			'getCardActions'
+			'getIssueActions'
 		]),
+
+		updateIssueActions() {
+			return this.getIssueActions(this.issue.id)
+				.then((actions) => {
+					this.actions = actions
+				});
+		},
 
 		handleChangeGroup(event) {
 			this.status = 'changing_group';
@@ -169,15 +176,13 @@ export default {
 			return this.changeIssueGroup(payload)
 				.then((response) => {
 					this.status = '';
+					this.updateIssueActions();
 				});
 		}
 	},
 
 	created() {
-		this.getCardActions(this.issue.id)
-			.then((actions) => {
-				this.actions = actions
-			});
+		this.updateIssueActions();
 	},
 
 	filters: {

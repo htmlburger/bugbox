@@ -275,13 +275,13 @@ const actions = {
 	},
 
 	/**
-	 * Change issue group
+	 * Get issue actions log
 	 * @param {Function} options.commit
 	 * @param {Object} payload
 	 * @return {Promise}
 	 */
-	getCardActions({ commit }, payload) {
-		return tracker.getCardActions(payload);
+	getIssueActions({ commit }, payload) {
+		return tracker.getIssueActions(payload);
 	}
 };
 
