@@ -38,7 +38,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { panelStyles } from '../assets/styles';
 import User from './User.vue';
 
 export default {
@@ -63,20 +62,6 @@ export default {
 			'unauthorize',
 			'changeProject'
 		])
-	},
-
-	watch: {
-		frame() {
-			const frameDocument = this.frame && this.frame.contentDocument;
-
-			if (frameDocument && frameDocument.body) {
-				const panelStylesheet = document.createElement('style');
-				panelStylesheet.innerHTML = panelStyles;
-
-				frameDocument.body.appendChild(this.$el);
-				frameDocument.head.appendChild(panelStylesheet);
-			}
-		}
 	}
 }
 </script>

@@ -142,7 +142,7 @@ export default class TagManager {
 			top,
 			width,
 			height,
-			devicePixelRatio: 1
+			devicePixelRatio: window.devicePixelRatio || 1
 		};
 	}
 

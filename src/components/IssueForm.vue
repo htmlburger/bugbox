@@ -7,7 +7,7 @@
 				<div class="form__head" @mousedown.prevent.stop="handleDragStart">
 					<h3 class="form__title">Submit issue</h3>
 
-					<a @click.prevent="reset" href="#" class="form__close">&times;</a>
+					<a @click.prevent.stop="reset" href="#" class="form__close">&times;</a>
 				</div>
 
 				<div class="form__body">

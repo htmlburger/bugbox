@@ -2,8 +2,6 @@
 	<div :class="classes">
 		<loader v-if="isLoading" />
 
-		<p>There is no project associated with this URL</p>
-
 		<form @submit.prevent="handleFromSubmit">
 			<div class="form__row">
 				<label class="form__label">Project Name:</label>
