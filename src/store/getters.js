@@ -36,6 +36,12 @@ const getters = {
 		return project ? project.groups : null;
 	},
 
+	members(state, getters) {
+		const project = getters.project;
+
+		return project ? project.members : null;
+	},
+
 	selectedIssueId(state, getters) {
 		return state.selectedIssueId;
 	},

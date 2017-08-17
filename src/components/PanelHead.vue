@@ -7,12 +7,30 @@
 				<a :href="project.meta.shortUrl || project.meta.url" target="_blank" class="panel__project-link">
 					<img src="../assets/images/external.svg" />Open Project
 				</a>
+
+				<div class="panel__dropdown">
+					<a @click.prevent href="#" class="panel__dropdown-icon" title="Project Members">
+						<img src="../assets/images/users.svg">
+					</a>
+
+					<div class="panel__dropdown-menu panel__dropdown-menu--small">
+						<ul>
+							<li v-for="member in members">{{member.fullName}}</li>
+
+							<li>
+								<a :href="project.meta.shortUrl || project.meta.url" target="_blank">+ Add more from Trello</a>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</template>
 
 			<div class="panel__dropdown">
-				<a @click.prevent href="#" class="panel__dropdown-trigger">
-					<i>Show menu</i>
-				</a>
+				<div class="panel__dropdown-trigger">
+					<a @click.prevent href="#" class="panel__dropdown-dots">
+						<i>Show menu</i>
+					</a>
+				</div>
 
 				<ul class="panel__dropdown-menu">
 					<li>
@@ -51,7 +69,8 @@ export default {
 		...mapGetters([
 			'user',
 			'projectsList',
-			'project'
+			'project',
+			'members'
 		]),
 	},
 

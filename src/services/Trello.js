@@ -10,7 +10,7 @@ export default class Trello extends Tracker  {
 		const { baseURL, key } = config.trackers.trello;
 
 		/**
-		 * Initialize requests client
+		 * Initialize XHR client
 		 * @type {Object}
 		 */
 		this.getToken().then((token) => {
@@ -22,7 +22,6 @@ export default class Trello extends Tracker  {
 				}
 			});
 		});
-
 	}
 
 	/**
@@ -328,7 +327,8 @@ export default class Trello extends Tracker  {
 		const urls = [
 			`/boards/${id}`,
 			`/boards/${id}/lists`,
-			`/boards/${id}/cards?attachments=true`
+			`/boards/${id}/cards?attachments=true`,
+			`/boards/${id}/members`
 		];
 
 		return new Promise((resolve, reject) => {
@@ -343,11 +343,13 @@ export default class Trello extends Tracker  {
 					const meta = data[0] && data[0]['200'];
 					const groups = data[1] && data[1]['200'];
 					const issues = ((data[2] && data[2]['200']) || []).map(this.mapCardsMeta);
+					const members = data[3] && data[3]['200'];
 
 					const project = {
 						meta,
 						groups,
-						issues
+						issues,
+						members
 					};
 
 					this.setSelectedProject(id);

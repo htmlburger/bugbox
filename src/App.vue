@@ -163,7 +163,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 	/*  Body  */
 	.bugbox,
 	.bugbox * { all: initial; padding: 0; margin: 0; outline: 0; box-sizing: border-box; }
