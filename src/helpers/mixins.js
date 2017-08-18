@@ -1,4 +1,4 @@
-import { styles } from '../assets/styles';
+import style from '../assets/style';
 
 /**
  * Append in iframe mixin
@@ -12,7 +12,7 @@ export const appendInIframe = {
 
 			if (frameDocument && frameDocument.body) {
 				const stylesheet = document.createElement('style');
-				stylesheet.innerHTML = styles;
+				stylesheet.innerHTML = style;
 
 				frameDocument.body.appendChild(this.$el);
 				frameDocument.head.appendChild(stylesheet);

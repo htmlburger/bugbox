@@ -24,11 +24,11 @@ export default {
 		backgroundColor() {
 			switch (this.value) {
 				case 'To Do':
-					return '#88a8bb';
+					return '#f05d5d';
 				case 'Doing':
-					return '#72aa67';
+					return '#0079bf';
 				case 'Done':
-					return '#b1b1b1';
+					return '#72aa67';
 				default:
 					return stringToColour(this.value);
 			}

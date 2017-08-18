@@ -47,10 +47,6 @@
 				</ul>
 			</div>
 		</template>
-
-		<template v-else>
-			<a @click.prevent="authorize" href="#" class="btn">Authorize</a> &nbsp; <span>You are not authorized</span>
-		</template>
 	</div>
 </template>
 
@@ -77,7 +73,6 @@ export default {
 	methods: {
 		...mapActions([
 			'initTagging',
-			'authorize',
 			'unauthorize',
 			'changeProject'
 		])

@@ -14,7 +14,9 @@
 
 				<span class="radio__label">Custom</span>
 
-				<input v-model="innerValue" class="field" type="text" name="url">
+				<span class="list-urls__custom-hidden">
+					<input v-model="innerValue" class="field" type="text" name="url">
+				</span>
 			</label>
 		</li>
 	</ul>

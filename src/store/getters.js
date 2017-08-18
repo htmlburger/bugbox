@@ -27,7 +27,33 @@ const getters = {
 	issues(state, getters) {
 		const project = getters.project;
 
-		return project ? project.issues : null;
+		return project ? project.issues : [];
+	},
+
+	filters(state, getters) {
+		return state.filters;
+	},
+
+	visibleIssues(state, getters) {
+		let issues = getters.issues;
+
+		if (state.filters.currentPageOnly) {
+			issues = issues.filter(issue => {
+				if (!issue.meta) {
+					return false;
+				}
+
+				const currentPageUrl = window.location.href.replace(/\#issue\-(.+)$/, '');
+
+				return currentPageUrl === issue.meta.url;
+			});
+		}
+
+		if (state.filters.group) {
+			issues = issues.filter(issue => issue.idList === state.filters.group);
+		}
+
+		return issues;
 	},
 
 	groups(state, getters) {

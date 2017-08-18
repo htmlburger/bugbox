@@ -68,9 +68,9 @@
 				</div>
 
 				<div class="form__actions">
-					<button type="submit" class="btn btn--sucecss">Submit Issue</button>
+					<button type="submit" class="btn">Submit Issue</button>
 
-					<button type="reset" class="btn btn--danger" @click.prevent="reset">Cancel</button>
+					<button type="reset" class="btn btn--cancel" @click.prevent="reset">Cancel</button>
 				</div>
 			</form>
 		</div>

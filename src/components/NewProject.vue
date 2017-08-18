@@ -16,7 +16,7 @@
 			</div>
 
 			<div class="form__actions">
-				<button type="submit" class="btn btn--success">Create New Project</button>
+				<button type="submit" class="btn">Create New Project</button>
 			</div>
 		</form>
 	</div>

@@ -7,7 +7,11 @@ const state = {
 	tagManager     : null,
 	tagged         : null,
 	tempPin        : null,
-	selectedIssueId: null
+	selectedIssueId: null,
+	filters        : {
+		currentPageOnly: true,
+		group: null
+	}
 };
 
 export default state;

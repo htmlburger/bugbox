@@ -1,18 +1,22 @@
 <template>
 	<div :class="classes">
-		<loader v-if="isLoading" />
+		<div class="panel__inner">
+			<loader v-if="isLoading" />
 
-		<template v-else>
-			<panel-head />
+			<template v-else>
+				<template v-if="isAuthorized">
+					<panel-head />
 
-			<panel-body v-if="isAuthorized" />
-		</template>
+					<panel-body />
+				</template>
 
-		<template v-if="project">
-			<button @click.prevent="initTagging" class="panel__quick-add" title="Add Issue (Ctrl + Shift + A)">
-				<img src="../assets/images/bug.svg" />
-			</button>
-		</template>
+				<authorize v-else />
+			</template>
+		</div>
+
+		<button v-if="project" @click.prevent="initTagging" class="panel__quick-add" title="Add Issue (Ctrl + Shift + A)">
+			<img src="../assets/images/bug.svg" />
+		</button>
 
 		<button @click.prevent="togglePanel" class="panel__toggle" title="Toggle Panel">
 			<img src="../assets/images/arrow-right.svg" />
@@ -24,6 +28,8 @@
 import { mapGetters, mapActions } from 'vuex';
 import { appendInIframe } from '../helpers/mixins';
 import Loader from './Loader.vue';
+
+import Authorize from './Authorize.vue';
 import PanelHead from './PanelHead.vue';
 import PanelBody from './PanelBody.vue';
 
@@ -32,6 +38,7 @@ export default {
 
 	components: {
 		Loader,
+		Authorize,
 		PanelHead,
 		PanelBody
 	},
@@ -58,8 +65,9 @@ export default {
 
 		isLoading() {
 			const loadingStatuses = [
+				'initilized',
 				'fetching_user',
-				'fetching_project',
+				'fetching_project'
 			];
 
 			return loadingStatuses.indexOf(this.status) >= 0;

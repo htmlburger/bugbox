@@ -30,20 +30,26 @@ export default class Tracker {
 	}
 
 	/**
-	 * Find a project matching query criteria
-	 * @param  {Any} query
+	 * Get user object
 	 * @return {Promise}
 	 */
-	findProject(query) {
+	getUser() {
+		return Promise.resolve({});
+	}
+
+	/**
+	 * Find a project matching query criteria
+	 * @return {Promise}
+	 */
+	findProject() {
 		return Promise.resolve({});
 	}
 
 	/**
 	 * Get a project
-	 * @param  {Any} query
 	 * @return {Promise}
 	 */
-	getProject(id) {
+	getProject() {
 		return Promise.resolve({});
 	}
 
@@ -61,5 +67,21 @@ export default class Tracker {
 	 */
 	addIssue() {
 		return Promise.resolve({});
+	}
+
+	/**
+	 * Change issue group
+	 * @return {Promise}
+	 */
+	changeIssueGroup() {
+		return Promise.resolve({});
+	}
+
+	/**
+	 * Get issue actions
+	 * @return {Promise}
+	 */
+	getIssueActions() {
+		return Promise.resolve([]);
 	}
 }

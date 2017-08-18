@@ -4,7 +4,7 @@
 
 		<form @submit.prevent="handleSubmit">
 			<div class="form__row">
-				<label class="form__label">Select a project:</label>
+				<label class="form__label">Select a project</label>
 
 				<div class="select">
 					<select v-model="selected" required>
@@ -53,6 +53,13 @@ export default {
 		isLoading() {
 			return this.status === 'loading';
 		}
+	},
+
+	mounted() {
+		/**
+		 * Set initial value
+		 */
+		this.selected = this.projectsList && this.projectsList[0].id;
 	},
 
 	methods: {

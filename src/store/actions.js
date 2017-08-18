@@ -282,6 +282,15 @@ const actions = {
 	 */
 	getIssueActions({ commit }, payload) {
 		return tracker.getIssueActions(payload);
+	},
+
+	/**
+	 * Set filters
+	 * @param {Function} options.commit
+	 * @return {Promise}
+	 */
+	setFilters({ commit }, payload) {
+		return commit('SET_FILTERS', payload);;
 	}
 };
 

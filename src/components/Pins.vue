@@ -1,6 +1,6 @@
 <template>
 	<div class="bugbox__pins">
-		<pin v-for="issue in issues" :key="issue.id" :issue="issue" :selected="issue.id === selectedIssueId" />
+		<pin v-for="issue in visibleIssues" :key="issue.id" :issue="issue" :selected="issue.id === selectedIssueId" />
 
 		<temp-pin v-if="tempPin" :left="tempPin.x" :top="tempPin.y" />
 	</div>
@@ -21,7 +21,7 @@ export default {
 
 	computed: {
 		...mapGetters([
-			'issues',
+			'visibleIssues',
 			'tempPin',
 			'selectedIssueId'
 		]),
