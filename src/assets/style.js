@@ -536,7 +536,7 @@ h6 { font-weight: normal; }
 .filters { position: relative; z-index: 5; margin: 0 0 1px; background: #f5f5f5; }
 
 .filters .filters__toggle { position: relative; width: 100%; padding: 10px 15px; background: #f2f3f5; border: 0; border-radius: 0; font-family: 'Archivo Narrow', 'Archivo', Arial, sans-serif; font-size: 12px; font-weight: bold; color: #888; text-transform: uppercase; cursor: pointer; text-align: left; transition: all .2s; }
-.filters .filters__toggle:hover { background: #e3e4e4; }
+.filters .filters__toggle:hover { background: #ededed; }
 .filters .filters__toggle i { margin: -4px 6px 0 0; }
 .filters .filters__toggle i + i { position: absolute; right: 15px; top: 50%; margin-top: -4px; opacity: .5; transition: all .2s; }
 
@@ -588,7 +588,7 @@ h6 { font-weight: normal; }
 .issue-details .issue__actions { display: flex; margin-bottom: 2px; }
 
 .issue-details .issue__actions a { flex: 1 1 auto; padding: 10px 14px; background: #f2f3f5; text-align: left; color: #888888; font-size: 12px; font-weight: bold; font-family: 'Archivo Narrow', 'Archivo', Arial, sans-serif; text-transform: uppercase; transition: background .2s; }
-.issue-details .issue__actions a:hover { background: #e3e4e4; text-decoration: none; }
+.issue-details .issue__actions a:hover { background: #ededed; text-decoration: none; }
 
 .issue-details .issue__actions a i { margin: -2px 8px 0 0; }
 .issue-details .issue__actions .ico-chevron-left { opacity: .5; }

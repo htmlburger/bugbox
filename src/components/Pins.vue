@@ -1,6 +1,6 @@
 <template>
 	<div class="bugbox__pins">
-		<pin v-for="issue in visibleIssues" :key="issue.id" :issue="issue" :selected="issue.id === selectedIssueId" />
+		<pin v-for="issue in visibleIssues" :key="issue.id" :issue="issue" :selected="issue.id === selectedIssueId" :groups="groups" />
 
 		<temp-pin v-if="tempPin" :left="tempPin.x" :top="tempPin.y" />
 	</div>
@@ -21,6 +21,7 @@ export default {
 
 	computed: {
 		...mapGetters([
+			'groups',
 			'visibleIssues',
 			'tempPin',
 			'selectedIssueId'
@@ -50,7 +51,9 @@ export default {
 	.bugbox .bugbox__pin:hover:after { transform: translateY(-5px); }
 	.bugbox .bugbox__pin:active:after { transform: translateY(0); }
 
-	.bugbox .bugbox__pin--active { z-index: 2; pointer-events: none; }
+	.bugbox .bugbox__pin--done { visibility: hidden; opacity: 0; }
+
+	.bugbox .bugbox__pin--active { z-index: 2; visibility: visible; opacity: 1; pointer-events: none; }
 	.bugbox .bugbox__pin--active:before { visibility: visible; animation: bugboxScale 1s infinite linear; }
 
 	.bugbox .bugbox__pin--active:hover:after,

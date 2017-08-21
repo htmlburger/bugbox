@@ -17,6 +17,10 @@ export default {
 
 		selected: {
 			default: false
+		},
+
+		groups: {
+			default: []
 		}
 	},
 
@@ -42,7 +46,8 @@ export default {
 		classes() {
 			return [
 				'bugbox__pin',
-				{ 'bugbox__pin--active': this.selected }
+				{ 'bugbox__pin--active': this.selected },
+				{ 'bugbox__pin--done': this.group && this.group.name === 'Done' },
 			];
 		},
 
@@ -52,6 +57,10 @@ export default {
 				top: `${this.position.top}px`
 			};
 		},
+
+		group() {
+			return this.groups.find(group => group.id === this.issue.idList);
+		}
 	},
 
 	methods: {
