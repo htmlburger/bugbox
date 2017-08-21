@@ -1,6 +1,6 @@
 {
   "name": "bugbox",
-  "description": "Bug Tracker",
+  "description": "On-site Issue Reporting",
   "version": "1.0.0",
   "author": "htmlBurger <info@htmlburger.com>",
   "private": true,
