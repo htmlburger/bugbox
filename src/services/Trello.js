@@ -204,10 +204,7 @@ export default class Trello extends Tracker  {
 				const receiveMessage = (event) => {
 					if (event && event.origin === 'https://trello.com') {
 						window.removeEventListener('message', receiveMessage);
-
 						const token = event.data;
-
-						this.setToken(token);
 
 						/**
 						 * Create new dummy window that can be closed
@@ -215,7 +212,11 @@ export default class Trello extends Tracker  {
 						popup = popupWindow('about:blank', 'Bugbox');
 						popup.close();
 
-						resolve(token);
+						if (token) {
+							this.setToken(token);
+							resolve(token);
+						}
+
 					}
 				};
 

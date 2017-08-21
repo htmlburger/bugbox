@@ -1,35 +1,43 @@
-import archivoNarrowBoldEot from './fonts/archivonarrow-bold-webfont.eot'
-import archivoNarrowBoldWoff from './fonts/archivonarrow-bold-webfont.woff'
-import archivoNarrowBoldTtf from './fonts/archivonarrow-bold-webfont.ttf'
-import archivoNarrowBoldSvg from './fonts/archivonarrow-bold-webfont.svg'
-import archivoNarrowBolditalicEot from './fonts/archivonarrow-bolditalic-webfont.eot'
-import archivoNarrowBolditalicWoff from './fonts/archivonarrow-bolditalic-webfont.woff'
-import archivoNarrowBolditalicTtf from './fonts/archivonarrow-bolditalic-webfont.ttf'
-import archivoNarrowBolditalicSvg from './fonts/archivonarrow-bolditalic-webfont.svg'
-import archivoNarrowItalicEot from './fonts/archivonarrow-italic-webfont.eot'
-import archivoNarrowItalicWoff from './fonts/archivonarrow-italic-webfont.woff'
-import archivoNarrowItalicTtf from './fonts/archivonarrow-italic-webfont.ttf'
-import archivoNarrowItalicSvg from './fonts/archivonarrow-italic-webfont.svg'
-import archivoNarrowRegularEot from './fonts/archivonarrow-regular-webfont.eot'
-import archivoNarrowRegularWoff from './fonts/archivonarrow-regular-webfont.woff'
-import archivoNarrowRegularTtf from './fonts/archivonarrow-regular-webfont.ttf'
-import archivoNarrowRegularSvg from './fonts/archivonarrow-regular-webfont.svg'
-import archivoBoldEot from './fonts/archivo-bold-webfont.eot'
-import archivoBoldWoff from './fonts/archivo-bold-webfont.woff'
-import archivoBoldTtf from './fonts/archivo-bold-webfont.ttf'
-import archivoBoldSvg from './fonts/archivo-bold-webfont.svg'
-import archivoBolditalicEot from './fonts/archivo-bolditalic-webfont.eot'
-import archivoBolditalicWoff from './fonts/archivo-bolditalic-webfont.woff'
-import archivoBolditalicTtf from './fonts/archivo-bolditalic-webfont.ttf'
-import archivoBolditalicSvg from './fonts/archivo-bolditalic-webfont.svg'
-import archivoItalicEot from './fonts/archivo-italic-webfont.eot'
-import archivoItalicWoff from './fonts/archivo-italic-webfont.woff'
-import archivoItalicTtf from './fonts/archivo-italic-webfont.ttf'
-import archivoItalicSvg from './fonts/archivo-italic-webfont.svg'
-import archivoRegularEot from './fonts/archivo-regular-webfont.eot'
-import archivoRegularWoff from './fonts/archivo-regular-webfont.woff'
-import archivoRegularTtf from './fonts/archivo-regular-webfont.ttf'
-import archivoRegularSvg from './fonts/archivo-regular-webfont.svg'
+import archivoRegularEot from './fonts/archivo-v2-latin-regular.eot';
+import archivoRegularWoff2 from './fonts/archivo-v2-latin-regular.woff2';
+import archivoRegularWoff from './fonts/archivo-v2-latin-regular.woff';
+import archivoRegularTtf from './fonts/archivo-v2-latin-regular.ttf';
+import archivoRegularSvg from './fonts/archivo-v2-latin-regular.svg';
+import archivoItalicEot from './fonts/archivo-v2-latin-italic.eot';
+import archivoItalicWoff2 from './fonts/archivo-v2-latin-italic.woff2';
+import archivoItalicWoff from './fonts/archivo-v2-latin-italic.woff';
+import archivoItalicTtf from './fonts/archivo-v2-latin-italic.ttf';
+import archivoItalicSvg from './fonts/archivo-v2-latin-italic.svg';
+import archivoBoldEot from './fonts/archivo-v2-latin-700.eot';
+import archivoBoldWoff2 from './fonts/archivo-v2-latin-700.woff2';
+import archivoBoldWoff from './fonts/archivo-v2-latin-700.woff';
+import archivoBoldTtf from './fonts/archivo-v2-latin-700.ttf';
+import archivoBoldSvg from './fonts/archivo-v2-latin-700.svg';
+import archivoBolditalicEot from './fonts/archivo-v2-latin-700italic.eot';
+import archivoBolditalicWoff2 from './fonts/archivo-v2-latin-700italic.woff2';
+import archivoBolditalicWoff from './fonts/archivo-v2-latin-700italic.woff';
+import archivoBolditalicTtf from './fonts/archivo-v2-latin-700italic.ttf';
+import archivoBolditalicSvg from './fonts/archivo-v2-latin-700italic.svg';
+import archivoNarrowRegularEot from './fonts/archivo-narrow-v7-latin-regular.eot';
+import archivoNarrowRegularWoff2 from './fonts/archivo-narrow-v7-latin-regular.woff2';
+import archivoNarrowRegularWoff from './fonts/archivo-narrow-v7-latin-regular.woff';
+import archivoNarrowRegularTtf from './fonts/archivo-narrow-v7-latin-regular.ttf';
+import archivoNarrowRegularSvg from './fonts/archivo-narrow-v7-latin-regular.svg';
+import archivoNarrowItalicEot from './fonts/archivo-narrow-v7-latin-italic.eot';
+import archivoNarrowItalicWoff2 from './fonts/archivo-narrow-v7-latin-italic.woff2';
+import archivoNarrowItalicWoff from './fonts/archivo-narrow-v7-latin-italic.woff';
+import archivoNarrowItalicTtf from './fonts/archivo-narrow-v7-latin-italic.ttf';
+import archivoNarrowItalicSvg from './fonts/archivo-narrow-v7-latin-italic.svg';
+import archivoNarrowBolditalicEot from './fonts/archivo-narrow-v7-latin-700italic.eot';
+import archivoNarrowBolditalicWoff2 from './fonts/archivo-narrow-v7-latin-700italic.woff2';
+import archivoNarrowBolditalicWoff from './fonts/archivo-narrow-v7-latin-700italic.woff';
+import archivoNarrowBolditalicTtf from './fonts/archivo-narrow-v7-latin-700italic.ttf';
+import archivoNarrowBolditalicSvg from './fonts/archivo-narrow-v7-latin-700italic.svg';
+import archivoNarrowBoldEot from './fonts/archivo-narrow-v7-latin-700.eot';
+import archivoNarrowBoldWoff2 from './fonts/archivo-narrow-v7-latin-700.woff2';
+import archivoNarrowBoldWoff from './fonts/archivo-narrow-v7-latin-700.woff';
+import archivoNarrowBoldTtf from './fonts/archivo-narrow-v7-latin-700.ttf';
+import archivoNarrowBoldSvg from './fonts/archivo-narrow-v7-latin-700.svg';
 
 export default `
 /* ------------------------------------------------------------ *\
@@ -37,91 +45,107 @@ export default `
 \* ------------------------------------------------------------ */
 
 @font-face {
-	font-family: 'Archivo Narrow';
-	src: url(${archivoNarrowBoldEot});
-	src: url(${archivoNarrowBoldEot}?#iefix) format('embedded-opentype'),
-		 url(${archivoNarrowBoldWoff}) format('woff'),
-		 url(${archivoNarrowBoldTtf}) format('truetype'),
-		 url(${archivoNarrowBoldSvg}#archivo_narrowbold) format('svg');
-	font-weight: bold;
+	font-family: 'Archivo';
 	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Archivo Narrow';
-	src: url(${archivoNarrowBolditalicEot});
-	src: url(${archivoNarrowBolditalicEot}?#iefix) format('embedded-opentype'),
-		 url(${archivoNarrowBolditalicWoff}) format('woff'),
-		 url(${archivoNarrowBolditalicTtf}) format('truetype'),
-		 url(${archivoNarrowBolditalicSvg}#archivo_narrowbold_italic) format('svg');
-	font-weight: bold;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Archivo Narrow';
-	src: url(${archivoNarrowItalicEot});
-	src: url(${archivoNarrowItalicEot}?#iefix) format('embedded-opentype'),
-		 url(${archivoNarrowItalicWoff}) format('woff'),
-		 url(${archivoNarrowItalicTtf}) format('truetype'),
-		 url(${archivoNarrowItalicSvg}#archivo_narrowitalic) format('svg');
-	font-weight: normal;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Archivo Narrow';
-	src: url(${archivoNarrowRegularEot});
-	src: url(${archivoNarrowRegularEot}?#iefix) format('embedded-opentype'),
-		 url(${archivoNarrowRegularWoff}) format('woff'),
-		 url(${archivoNarrowRegularTtf}) format('truetype'),
-		 url(${archivoNarrowRegularSvg}#archivo_narrowregular) format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Archivo';
-	src: url(${archivoBoldEot});
-	src: url(${archivoBoldEot}?#iefix) format('embedded-opentype'),
-		 url(${archivoBoldWoff}) format('woff'),
-		 url(${archivoBoldTtf}) format('truetype'),
-		 url(${archivoBoldSvg}#archivobold) format('svg');
-	font-weight: bold;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'Archivo';
-	src: url(${archivoBolditalicEot});
-	src: url(${archivoBolditalicEot}?#iefix) format('embedded-opentype'),
-		 url(${archivoBolditalicWoff}) format('woff'),
-		 url(${archivoBolditalicTtf}) format('truetype'),
-		 url(${archivoBolditalicSvg}#archivobold_italic) format('svg');
-	font-weight: bold;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Archivo';
-	src: url(${archivoItalicEot});
-	src: url(${archivoItalicEot}?#iefix) format('embedded-opentype'),
-		 url(${archivoItalicWoff}) format('woff'),
-		 url(${archivoItalicTtf}) format('truetype'),
-		 url(${archivoItalicSvg}#archivoitalic) format('svg');
-	font-weight: normal;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'Archivo';
+	font-weight: 400;
 	src: url(${archivoRegularEot});
-	src: url(${archivoRegularEot}?#iefix) format('embedded-opentype'),
+	src: local('Archivo Regular'), local('Archivo-Regular'),
+		 url(${archivoRegularEot}#iefix) format('embedded-opentype'),
+		 url(${archivoRegularWoff2}) format('woff2'),
 		 url(${archivoRegularWoff}) format('woff'),
 		 url(${archivoRegularTtf}) format('truetype'),
-		 url(${archivoRegularSvg}#archivoregular) format('svg');
-	font-weight: normal;
+		 url(${archivoRegularSvg}#Archivo) format('svg');
+}
+
+@font-face {
+	font-family: 'Archivo';
+	font-style: italic;
+	font-weight: 400;
+	src: url(${archivoItalicEot});
+	src: local('Archivo Italic'), local('Archivo-Italic'),
+		 url(${archivoItalicEot}#iefix) format('embedded-opentype'),
+		 url(${archivoItalicWoff2}) format('woff2'),
+		 url(${archivoItalicWoff}) format('woff'),
+		 url(${archivoItalicTtf}) format('truetype'),
+		 url(${archivoItalicSvg}#Archivo) format('svg');
+}
+
+@font-face {
+	font-family: 'Archivo';
 	font-style: normal;
+	font-weight: 700;
+	src: url(${archivoBoldEot});
+	src: local('Archivo Bold'), local('Archivo-Bold'),
+		 url(${archivoBoldEot}#iefix) format('embedded-opentype'),
+		 url(${archivoBoldWoff2}) format('woff2'),
+		 url(${archivoBoldWoff}) format('woff'),
+		 url(${archivoBoldTtf}) format('truetype'),
+		 url(${archivoBoldSvg}#Archivo) format('svg');
+}
+
+@font-face {
+	font-family: 'Archivo';
+	font-style: italic;
+	font-weight: 700;
+	src: url(${archivoBolditalicEot});
+	src: local('Archivo Bold Italic'), local('Archivo-BoldItalic'),
+		 url(${archivoBolditalicEot}#iefix) format('embedded-opentype'),
+		 url(${archivoBolditalicWoff2}) format('woff2'),
+		 url(${archivoBolditalicWoff}) format('woff'),
+		 url(${archivoBolditalicTtf}) format('truetype'),
+		 url(${archivoBolditalicSvg}#Archivo) format('svg');
+}
+
+@font-face {
+	font-family: 'Archivo Narrow';
+	font-style: normal;
+	font-weight: 400;
+	src: url(${archivoNarrowRegularEot});
+	src: local('Archivo Narrow Regular'), local('ArchivoNarrow-Regular'),
+		 url(${archivoNarrowRegularEot}#iefix) format('embedded-opentype'),
+		 url(${archivoNarrowRegularWoff2}) format('woff2'),
+		 url(${archivoNarrowRegularWoff}) format('woff'),
+		 url(${archivoNarrowRegularTtf}) format('truetype'),
+		 url(${archivoNarrowRegularSvg}#ArchivoNarrow) format('svg');
+}
+
+@font-face {
+	font-family: 'Archivo Narrow';
+	font-style: italic;
+	font-weight: 400;
+	src: url(${archivoNarrowItalicEot});
+	src: local('Archivo Narrow Italic'), local('ArchivoNarrow-Italic'),
+		 url(${archivoNarrowItalicEot}#iefix) format('embedded-opentype'),
+		 url(${archivoNarrowItalicWoff2}) format('woff2'),
+		 url(${archivoNarrowItalicWoff}) format('woff'),
+		 url(${archivoNarrowItalicTtf}) format('truetype'),
+		 url(${archivoNarrowItalicSvg}#ArchivoNarrow) format('svg');
+}
+
+@font-face {
+	font-family: 'Archivo Narrow';
+	font-style: italic;
+	font-weight: 700;
+	src: url(${archivoNarrowBolditalicEot});
+	src: local('Archivo Narrow Bold Italic'), local('ArchivoNarrow-BoldItalic'),
+		 url(${archivoNarrowBolditalicEot}#iefix) format('embedded-opentype'),
+		 url(${archivoNarrowBolditalicWoff2}) format('woff2'),
+		 url(${archivoNarrowBolditalicWoff}) format('woff'),
+		 url(${archivoNarrowBolditalicTtf}) format('truetype'),
+		 url(${archivoNarrowBolditalicSvg}#ArchivoNarrow) format('svg');
+}
+
+@font-face {
+	font-family: 'Archivo Narrow';
+	font-style: normal;
+	font-weight: 700;
+	src: url(${archivoNarrowBoldEot});
+	src: local('Archivo Narrow Bold'), local('ArchivoNarrow-Bold'),
+		 url(${archivoNarrowBoldEot}#iefix) format('embedded-opentype'),
+		 url(${archivoNarrowBoldWoff2}) format('woff2'),
+		 url(${archivoNarrowBoldWoff}) format('woff'),
+		 url(${archivoNarrowBoldTtf}) format('truetype'),
+		 url(${archivoNarrowBoldSvg}#ArchivoNarrow) format('svg');
 }
 
 
