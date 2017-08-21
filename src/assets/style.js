@@ -259,6 +259,12 @@ h6 { font-weight: normal; }
 .fade-left-enter { transform: translateX(10%); opacity: 0; }
 .fade-left-leave-to { transform: translateX(-10%); opacity: 0; }
 
+.slide-down-enter-active,
+.slide-down-leave-active { overflow: hidden; max-height: 100px; transition: max-height .2s; }
+
+.slide-down-enter,
+.slide-down-leave-to { max-height: 0; }
+
 /* ------------------------------------------------------------ *\
 	Buttons
 \* ------------------------------------------------------------ */

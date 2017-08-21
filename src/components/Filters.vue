@@ -4,18 +4,20 @@
 			<i class="ico-filter"></i> Filter Issues <i class="ico-chevron-down"></i>
 		</button>
 
-		<transition name="fade">
-			<div v-if="expanded" class="filters__body">
-				<div class="filters__section filters__section--large">
-					<h5 class="filters__section-title">Filter Issues</h5>
+		<transition name="slide-down">
+			<div v-if="expanded" class="filters__inner">
+				<div class="filters__body">
+					<div class="filters__section filters__section--large">
+						<h5 class="filters__section-title">Filter Issues</h5>
 
-					<custom-select v-model="innerValue.currentPageOnly" :options="visibilityOptions" name="currentPageOnly" />
-				</div>
+						<custom-select v-model="innerValue.currentPageOnly" :options="visibilityOptions" name="currentPageOnly" />
+					</div>
 
-				<div class="filters__section filters__section--small">
-					<h5 class="filters__section-title">Issues Group</h5>
+					<div class="filters__section filters__section--small">
+						<h5 class="filters__section-title">Issues Group</h5>
 
-					<custom-select v-model="innerValue.group" :options="groupsOptions" name="group" />
+						<custom-select v-model="innerValue.group" :options="groupsOptions" name="group" />
+					</div>
 				</div>
 			</div>
 		</transition>

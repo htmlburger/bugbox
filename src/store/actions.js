@@ -45,11 +45,15 @@ const actions = {
 	 * @param  {Function} options.dispatch
 	 * @return {Promise}
 	 */
-	getInitialData({ dispatch }) {
+	getInitialData({ commit, dispatch }) {
 		const location = window.location.origin;
 
 		return dispatch('getUser')
-			.then(() => dispatch('findProject', location));
+			.then(() => dispatch('findProject', location))
+			.catch((err) => {
+				tracker.setToken(null);
+				commit('SET_STATUS', 'unauthorized');
+			});
 	},
 
 	/**
