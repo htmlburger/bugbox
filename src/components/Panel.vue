@@ -8,19 +8,26 @@
 					<panel-head />
 
 					<panel-body />
+
+					<panel-foot />
 				</template>
 
 				<authorize v-else />
 			</template>
 		</div>
 
-		<button v-if="project" @click.prevent="initTagging" class="panel__quick-add" title="Add Issue (Ctrl + Shift + A)">
-			<img src="../assets/images/bug.svg" />
-		</button>
+		<div class="panel__actions">
+			<button v-if="project" @click.prevent="initTagging" class="panel__quick-add" title="Add Issue (Ctrl + Shift + A)">
+				<span>
+					<i class="ico-pin"></i>
+					<i class="ico-pin-highlighted"></i>
+				</span>
+			</button>
 
-		<button @click.prevent="togglePanel" class="panel__toggle" title="Toggle Panel">
-			<img src="../assets/images/arrow-right.svg" />
-		</button>
+			<button @click.prevent="togglePanel" class="panel__toggle" title="Toggle Panel">
+				<i class="ico-chevron-right"></i>
+			</button>
+		</div>
 	</div>
 </template>
 
@@ -32,6 +39,7 @@ import Loader from './Loader.vue';
 import Authorize from './Authorize.vue';
 import PanelHead from './PanelHead.vue';
 import PanelBody from './PanelBody.vue';
+import PanelFoot from './PanelFoot.vue';
 
 export default {
 	name: 'panel',
@@ -40,7 +48,8 @@ export default {
 		Loader,
 		Authorize,
 		PanelHead,
-		PanelBody
+		PanelBody,
+		PanelFoot
 	},
 
 	mixins: [appendInIframe],

@@ -12,7 +12,15 @@
 			<div class="form__row">
 				<label class="form__label">Site Base URL:</label>
 
-				<list-urls v-model="baseUrl" />
+				<template v-if="!canChange" >
+					<input :value="baseUrl" class="field" type="text" readonly>
+
+					<small>
+						<a @click.prevent="canChange = true" href="#">Change</a>
+					</small>
+				</template>
+
+				<list-urls v-else v-model="baseUrl" />
 			</div>
 
 			<div class="form__actions">
@@ -38,8 +46,9 @@ export default {
 	data() {
 		return {
 			status: '',
+			canChange: false,
 			projectName: document.title,
-			baseUrl: null
+			baseUrl: window.location.origin
 		};
 	},
 

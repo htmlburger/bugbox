@@ -1,10 +1,12 @@
 <template>
 	<div class="user">
 		<div class="user__name">
-			<img :src="`https://www.gravatar.com/avatar/${user.gravatarHash}`" :alt="user.fullName">
+			<img v-if="avatar" :src="avatar" :alt="user.fullName" class="user__avatar">
 
-			<span>{{user.fullName}}</span>
-		</div><!-- /.user__name -->
+			<span v-else class="user__initials">{{user.initials}}</span>
+
+			<span class="user__fullname">{{user.fullName}}</span>
+		</div>
 	</div>
 </template>
 
@@ -15,6 +17,14 @@ export default {
 	props: {
 		user: {
 			required: true
+		}
+	},
+
+	computed: {
+		avatar() {
+			if (this.user && this.user.avatarHash) {
+				return `http://trello-avatars.s3.amazonaws.com/${this.user.avatarHash}/50.png`;
+			}
 		}
 	}
 }

@@ -1,13 +1,21 @@
 <template>
 	<div v-if="issue" class="issue-details">
-		<a @click.prevent="resetSelectedIssue" href="#" class="issue__back">&laquo; Back</a>
+		<div class="issue__actions">
+			<a @click.prevent="resetSelectedIssue" href="#" class="issue__back">
+				<i class="ico-chevron-left"></i> Back
+			</a>
+
+			<a :href="issue.url" @click.stop class="issue__link" target="_blank">
+				<i class="ico-link-white"></i> Open Issue In Trello
+			</a>
+		</div>
 
 		<div class="issue__inner">
 			<h4 class="issue__title">
 				<badge :value="group.name" class="issue__badge" />
 
 				<span v-if="issue.badges" class="issue__comments">
-					<img src="../assets/images/comment.svg" />
+					<i class="ico-comment"></i>
 
 					<span>{{issue.badges.comments || 0}}</span>
 				</span>
@@ -65,34 +73,13 @@
 					<ul>
 						<li v-for="screenshot in screenshots">
 							<a :href="screenshot.url" target="_blank">
-								<img v-if="screenshot.previews.length" :src="screenshot.previews[0].url">
+								<img v-if="screenshot.previews.length > 1" :src="screenshot.previews[1].url">
 								<img v-else :src="screenshot.url">
 							</a>
 						</li>
 					</ul>
 				</div>
 			</div>
-
-			<div v-if="screenshots.length" class="issue__section">
-				<h5 class="issue__section-title">Log:</h5>
-
-				<div class="issue__log">
-					<loader v-if="!this.actions" />
-
-					<ul>
-						<li v-for="action in actions">
-							<strong>{{action.memberCreator.fullName}}</strong>
-							<em>{{action.type}}</em>
-							<span :title="action.date">{{action.date | fromNow}}</span>
-						</li>
-					</ul>
-				</div>
-
-				<a :href="issue.url" @click.stop class="issue__link" target="_blank">
-					<img src="../assets/images/external.svg" />Open in Trello
-				</a>
-			</div>
-
 		</div>
 	</div>
 </template>
@@ -154,16 +141,8 @@ export default {
 	methods: {
 		...mapActions([
 			'resetSelectedIssue',
-			'changeIssueGroup',
-			'getIssueActions'
+			'changeIssueGroup'
 		]),
-
-		updateIssueActions() {
-			return this.getIssueActions(this.issue.id)
-				.then((actions) => {
-					this.actions = actions
-				});
-		},
 
 		handleChangeGroup(event) {
 			this.status = 'changing_group';
@@ -176,13 +155,8 @@ export default {
 			return this.changeIssueGroup(payload)
 				.then((response) => {
 					this.status = '';
-					this.updateIssueActions();
 				});
 		}
-	},
-
-	created() {
-		this.updateIssueActions();
 	},
 
 	filters: {

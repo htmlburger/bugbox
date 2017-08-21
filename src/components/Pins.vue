@@ -37,25 +37,26 @@ export default {
 	}
 
 	@keyframes bugboxScale {
-		0% { transform: scale(.6); opacity: .5; }
-		50% { transform: scale(1); opacity: .2; }
-		100% { transform: scale(.6); opacity: .5; }
+		0% { transform: scale(1); opacity: 1; }
+		50% { transform: scale(1.25); opacity: .8; }
+		100% { transform: scale(1); opacity: 1; }
 	}
 
-	.bugbox .bugbox__pin { position: absolute; left: -10000px; top: -10000px; margin: -32px 0 0 -16px; cursor: pointer; transition: opacity .2s; }
-	.bugbox .bugbox__pin:before { content: ''; position: absolute; left: 10%; bottom: 0; width: 80%; height: 3px; background: #000; border-radius: 50%; box-shadow: 0 0 5px 1px #000; opacity: .5; transform: scale(.6); transition: opacity .2s, transform .2s; }
-	.bugbox .bugbox__pin:after { content: ''; display: block; position: relative; width: 32px; height: 32px; background-image: url(../assets/images/pin.svg); background-size: 100% 100%; transition: transform .2s; }
+	.bugbox .bugbox__pin { position: absolute; left: -10000px; top: -10000px; margin: -41px 0 0 -15px; cursor: pointer; transition: opacity .2s; }
 
-	.bugbox .bugbox__pin:hover:before { opacity: .2; transform: scale(1); }
+	.bugbox .bugbox__pin:after { content: ''; position: relative; display: block; width: 30px; height: 44px; background: url(../assets/images/pin-default.svg) no-repeat center center; background-size: 100% 100%; transition: all .2s; }
+	.bugbox .bugbox__pin:before { content: ''; position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; background: #f05d5d; border-radius: 50%; visibility: hidden; opacity: 0; transform: scale(.5); transition: all .2s; }
+
 	.bugbox .bugbox__pin:hover:after { transform: translateY(-5px); }
 	.bugbox .bugbox__pin:active:after { transform: translateY(0); }
 
 	.bugbox .bugbox__pin--active { z-index: 2; pointer-events: none; }
-	.bugbox .bugbox__pin--active:before { animation: bugboxScale 1s infinite linear; }
-	.bugbox .bugbox__pin--active:after {  background-image: url(../assets/images/pin-active.svg); animation: bugboxBounce 1s infinite linear; }
+	.bugbox .bugbox__pin--active:before { visibility: visible; animation: bugboxScale 1s infinite linear; }
+
+	.bugbox .bugbox__pin--active:hover:after,
+	.bugbox .bugbox__pin--active:after { background-image: url(../assets/images/pin-highlighted.svg); transform: translateY(0px); }
 
 	.bugbox .bugbox__pin--temp { pointer-events: none; }
-	.bugbox .bugbox__pin--temp:after {  background-image: url(../assets/images/pin-active.svg); }
 
 	/*  Tagging State  */
 	.bugbox--tagging .bugbox__pin:not(.bugbox__pin--temp) { visibility: hidden; opacity: 0; }

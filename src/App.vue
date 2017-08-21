@@ -172,21 +172,21 @@ export default {
 
 	/*  Cover  */
 	.bugbox .bugbox__cover { position: absolute; z-index: 2147483647; left: 0; top: 0; width: 100%; min-height: 100%; background: rgba(255,255,255,0); pointer-events: none; visibility: hidden; overflow: hidden; }
-	.bugbox .bugbox__cover { cursor: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUyIDUyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MiA1MjsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiPgo8cGF0aCBzdHlsZT0iZmlsbDojMTA4MUUwOyIgZD0iTTM4Ljg1Myw1LjMyNEwzOC44NTMsNS4zMjRjLTcuMDk4LTcuMDk4LTE4LjYwNy03LjA5OC0yNS43MDYsMGgwICBDNi43NTEsMTEuNzIsNi4wMzEsMjMuNzYzLDExLjQ1OSwzMUwyNiw1MmwxNC41NDEtMjFDNDUuOTY5LDIzLjc2Myw0NS4yNDksMTEuNzIsMzguODUzLDUuMzI0eiBNMjYuMTc3LDI0Yy0zLjMxNCwwLTYtMi42ODYtNi02ICBzMi42ODYtNiw2LTZzNiwyLjY4Niw2LDZTMjkuNDkxLDI0LDI2LjE3NywyNHoiLz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==) 16 32, pointer; }
+	.bugbox .bugbox__cover { cursor: url(./assets/images/cursor.png) 15 40, pointer; }
 
 	/*  Screenshot Area  */
 	.bugbox .bugbox__screenshot-area { position: fixed; z-index: 2147483647; left: 0; top: 0; width: 100%; height: 100%; background-clip: content-box; border-style: solid; border-color: rgba(0,0,0,.5); border-width: 0; visibility: hidden; pointer-events: none; transition: border-width .2s; }
 	.bugbox .bugbox__screenshot-area span { position: absolute; left: 0; top: 100%; max-width: 100%; padding: 2px 0; color: #fff; font-family: sans-serif; font-size: 10px; white-space: nowrap; visibility: hidden; pointer-events: none; }
 
 	/*  Panel  */
-	.bugbox .bugbox__panel { position: fixed; z-index: 2147483647; right: 0; bottom: 0; width: 335px; height: 100%; transition: transform .2s, width .2s ; }
-	.bugbox .bugbox__panel--collapsed { width: 35px; height: 100px; transition: transform .2s, width .2s, height .2s .2s; }
+	.bugbox .bugbox__panel { position: fixed; z-index: 2147483647; right: 0; bottom: 0; width: 340px; height: 100%; transition: transform .2s, width .2s ; }
+	.bugbox .bugbox__panel--collapsed { width: 40px; height: 120px; transition: transform .2s, width .2s, height .2s .2s; }
 
 	/*  Pins  */
 	.bugbox .bugbox__pins { transition: all .2s; }
 
 	/*  Issue Form  */
-	.bugbox .bugbox__issue-form { position: fixed; z-index: 2147483647; left: 50%; top: 50%; width: 500px; height: 380px; max-width: 100vw; max-height: 100vh; display: none; transform: translate(-50%, -50%); }
+	.bugbox .bugbox__issue-form { position: fixed; z-index: 2147483647; left: 50%; top: 50%; width: 660px; height: 550px; max-width: 100vw; max-height: 100vh; display: none; transform: translate(-50%, -50%); }
 
 	/*  Tagged State  */
 	.bugbox--tagged .bugbox__panel { box-shadow: none; transform: translateX(100%); }

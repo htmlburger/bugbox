@@ -1,0 +1,17 @@
+<svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+ <metadata>
+ </metadata>
+ <defs>
+  <style>.cls-1 {
+        fill-rule: evenodd;
+      }</style>
+ </defs>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path transform="rotate(180 5.500008583068848,3.498500108718872) " d="m10.991,1.553a0.419,0.419 0 0 0 -0.13,-0.307l-1.131,-1.115a0.43,0.43 0 0 0 -0.613,0l-3.617,3.587l-3.618,-3.588a0.43,0.43 0 0 0 -0.613,0l-1.131,1.115a0.431,0.431 0 0 0 0,0.615l5.055,5.007a0.43,0.43 0 0 0 0.613,0l5.055,-5.007a0.42,0.42 0 0 0 0.13,-0.307z" class="cls-1" id="chevron"/>
+ </g>
+</svg>

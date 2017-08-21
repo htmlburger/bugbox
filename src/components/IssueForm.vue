@@ -54,12 +54,14 @@
 										</template>
 									</div>
 
-									<span>Or</span>
-
 									<div class="file form__file">
 										<input type="file" @change="handleScreenshotInputChange">
 
-										<button class="btn">Select file</button>
+										<span class="file__btn">
+											<i class="ico-image"></i>
+
+											<span>Or Select file</span>
+										</span>
 									</div>
 								</div>
 							</div>
@@ -68,9 +70,9 @@
 				</div>
 
 				<div class="form__actions">
-					<button type="submit" class="btn">Submit Issue</button>
+					<button type="submit" class="btn form__btn">Submit Issue</button>
 
-					<button type="reset" class="btn btn--cancel" @click.prevent="reset">Cancel</button>
+					<button type="reset" class="btn btn--cancel form__btn" @click.prevent="reset">Cancel</button>
 				</div>
 			</form>
 		</div>

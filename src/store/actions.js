@@ -275,16 +275,6 @@ const actions = {
 	},
 
 	/**
-	 * Get issue actions log
-	 * @param {Function} options.commit
-	 * @param {Object} payload
-	 * @return {Promise}
-	 */
-	getIssueActions({ commit }, payload) {
-		return tracker.getIssueActions(payload);
-	},
-
-	/**
 	 * Set filters
 	 * @param {Function} options.commit
 	 * @return {Promise}

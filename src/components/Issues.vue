@@ -7,7 +7,7 @@
 				<filters :filters="filters" :groups="groups" />
 
 				<div class="issues__count">
-					<em>Showing {{visibleIssues.length}} of  {{issues.length}} {{issues.length !== 1 ? 'issues' : 'issue' }}</em>
+					Showing {{visibleIssues.length}} of  {{issues.length}} {{issues.length !== 1 ? 'issues' : 'issue' }}
 				</div>
 
 				<transition name="fade-left" mode="out-in">

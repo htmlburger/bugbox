@@ -28,7 +28,7 @@ import ListUrls from './ListUrls.vue';
 export default {
 	name: 'list-urls',
 
-	prop: ['value'],
+	props: ['value'],
 
 	data() {
 		return {

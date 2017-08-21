@@ -2,7 +2,7 @@
 	<div class="issue" @click.prevent="selectIssue(issue.id)">
 		<div class="issue__inner">
 			<a :href="issue.url" @click.stop class="issue__link" target="_blank" title="Open in Trello">
-				<img src="../assets/images/external.svg" />
+				<i class="ico-link"></i>
 			</a>
 
 			<h5 class="issue__title">

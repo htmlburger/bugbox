@@ -1,52 +1,37 @@
 <template>
-	<div class="filters">
-		<div class="filters__section">
-			<h5 class="filters__section-title">Visible Issues:</h5>
+	<div :class="classes">
+		<button class="filters__toggle" @click.prevent="expanded = !expanded">
+			<i class="ico-filter"></i> Filter Issues <i class="ico-chevron-down"></i>
+		</button>
 
-			<ul class="list-options">
-				<li>
-					<label class="radio">
-						<input :value="true" v-model="innerValue.currentPageOnly" type="radio" class="radio__input" name="currentPageOnly">
-						<span class="radio__label">Current Page Issues</span>
-					</label>
-				</li>
+		<transition name="fade">
+			<div v-if="expanded" class="filters__body">
+				<div class="filters__section filters__section--large">
+					<h5 class="filters__section-title">Filter Issues</h5>
 
-				<li>
-					<label class="radio">
-						<input :value="false" v-model="innerValue.currentPageOnly" type="radio" class="radio__input" name="currentPageOnly">
-						<span class="radio__label">All Issues</span>
-					</label>
-				</li>
-			</ul>
-		</div>
+					<custom-select v-model="innerValue.currentPageOnly" :options="visibilityOptions" name="currentPageOnly" />
+				</div>
 
-		<div class="filters__section">
-			<h5 class="filters__section-title">Issues Group:</h5>
+				<div class="filters__section filters__section--small">
+					<h5 class="filters__section-title">Issues Group</h5>
 
-			<ul class="list-options">
-				<li>
-					<label class="radio">
-						<input :value="null" v-model="innerValue.group" type="radio" class="radio__input" name="group">
-						<span class="radio__label">All</span>
-					</label>
-				</li>
-
-				<li v-for="group in groups">
-					<label class="radio">
-						<input :value="group.id" v-model="innerValue.group" type="radio" class="radio__input" name="group">
-						<span class="radio__label">{{group.name}}</span>
-					</label>
-				</li>
-			</ul>
-		</div>
+					<custom-select v-model="innerValue.group" :options="groupsOptions" name="group" />
+				</div>
+			</div>
+		</transition>
 	</div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import CustomSelect from './CustomSelect.vue';
 
 export default {
 	name: 'filters',
+
+	components: {
+		CustomSelect
+	},
 
 	props: {
 		filters: {
@@ -60,8 +45,37 @@ export default {
 
 	data() {
 		return {
+			expanded: false,
 			innerValue: { ...this.filters }
 		};
+	},
+
+	computed: {
+		classes() {
+			return [
+				'filters',
+				{ 'filters--expanded': this.expanded }
+			];
+		},
+
+		visibilityOptions() {
+			return [
+				{ value: true, label: 'Current Page Issues' },
+				{ value: false, label: 'All Issues' }
+			];
+		},
+
+		groupsOptions() {
+			const groups = this.groups.map(group => ({
+				value: group.id,
+				label: group.name
+			}));
+
+			return [
+				{ value: null, label: 'All' },
+				...groups
+			];
+		}
 	},
 
 	methods: {

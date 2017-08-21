@@ -104,7 +104,7 @@ export default {
 		 * @return {Void}
 		 */
 		scrollInView() {
-			const scrollOffset = 40;
+			const scrollOffset = 50;
 
 			scroll.top(document.body, this.position.top - scrollOffset);
 		},

@@ -329,7 +329,7 @@ export default class Trello extends Tracker  {
 			`/boards/${id}`,
 			`/boards/${id}/lists`,
 			`/boards/${id}/cards?attachments=true`,
-			`/boards/${id}/members`
+			`/boards/${id}/members?fields=${encodeURIComponent('username,fullName,initials,avatarHash')}`
 		];
 
 		return new Promise((resolve, reject) => {
