@@ -604,7 +604,7 @@ h6 { font-weight: normal; }
 .issue-details .issue__title { padding: 20px; background: #f4f4f4; color: #666666; font-size: 14px; word-break: break-all; }
 
 .issue-details .issue__comments { display: inline-block; vertical-align: middle; padding: 2px 4px; background: #e3e4e4; border-radius: 5px; font-size: 10px; color: #666666; }
-.issue-details .issue__comments img { display: inline-block; vertical-align: middle; width: 12px; margin: -2px 2px 0 0; }
+.issue-details .issue__comments i { opacity: .5; }
 
 .issue-details .issue__meta { margin-bottom: 10px; }
 
