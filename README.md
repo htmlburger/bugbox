@@ -1,12 +1,13 @@
 # BugBox
 
-Official Page: https://bugbox.qa/
-
-Install it here: https://chrome.google.com/webstore/detail/bugbox/oiabmdbocknpmfmemdicadkaojmhdfef
-
 > On-site Issue Reporting
 
-BugBox allows you to annotate issues directly on your site and to track them on a Trello board.
+[BugBox](https://bugbox.qa/) allows you to track issues directly on your site and to track them on a Trello board.
+
+Links:
+
+ * Chrome Extension: https://chrome.google.com/webstore/detail/bugbox/oiabmdbocknpmfmemdicadkaojmhdfef
+ * Website: https://bugbox.qa/
 
 ## Build Setup
 
