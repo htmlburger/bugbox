@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { popupWindow, dataURItoFile } from '../helpers/utils';
 import Tracker from '../services/Tracker';
-import config from '../config/config';
 
 export default class Trello extends Tracker  {
 	constructor() {
 		super();
 
-		const { baseURL, key } = config.trackers.trello;
+		const key = process.env.TRELLO_API_KEY;
+		const baseURL = process.env.TRELLO_API_URL;
 
 		/**
 		 * Initialize XHR client
@@ -161,7 +161,8 @@ export default class Trello extends Tracker  {
 	 * @return {Void}
 	 */
 	authorizePopup() {
-		const { key, authorizeURL } = config.trackers.trello;
+		const key = process.env.TRELLO_API_KEY;
+		const authorizeURL = process.env.TRELLO_API_URL + 'authorize';
 
 		const origin = window.location.origin;
 		const name = 'Bugbox';

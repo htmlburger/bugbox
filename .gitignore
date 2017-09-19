@@ -1,7 +1,7 @@
 .DS_Store
+.env
 node_modules/
 dist/
-src/config/config.js
 extension/bugbox.js
 npm-debug.log
 yarn-error.log

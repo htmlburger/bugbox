@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/main.js',
@@ -12,12 +13,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-          }
-          // other vue-loader options go here
-        }
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
@@ -38,6 +34,11 @@ module.exports = {
   performance: {
     hints: false
   },
+  plugins: [
+    new Dotenv({
+      safe: true
+    })
+  ],
   devtool: '#eval-source-map'
 }
 

@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-preset-stage-2": "^6.24.1",
+    "dotenv-webpack": "^1.5.4",
     "moment": "^2.18.1",
     "scroll": "^2.0.0",
     "url-loader": "^0.5.9",
