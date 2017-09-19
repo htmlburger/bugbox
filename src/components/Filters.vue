@@ -26,7 +26,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import CustomSelect from './CustomSelect.vue';
+import CustomSelect from 'components/CustomSelect.vue';
 
 export default {
 	name: 'filters',

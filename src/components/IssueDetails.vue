@@ -86,9 +86,9 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { fromNow } from '../helpers/filters';
-import Loader from './Loader.vue';
-import Badge from './Badge.vue';
+import { fromNow } from 'helpers/filters';
+import Loader from 'components/Loader.vue';
+import Badge from 'components/Badge.vue';
 
 export default {
 	name: 'issue-details',

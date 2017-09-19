@@ -12,9 +12,9 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Issues from './Issues.vue';
-import NewProject from './NewProject.vue';
-import SelectProject from './SelectProject.vue';
+import Issues from 'components/Issues.vue';
+import NewProject from 'components/NewProject.vue';
+import SelectProject from 'components/SelectProject.vue';
 
 export default {
 	name: 'panel-body',

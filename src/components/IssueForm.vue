@@ -81,9 +81,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { appendInIframe } from '../helpers/mixins';
-import { getImageFromInputEvent, getImageFromPasteEvent } from '../helpers/utils';
-import Loader from './Loader.vue';
+import { appendInIframe } from 'helpers/mixins';
+import { getImageFromInputEvent, getImageFromPasteEvent } from 'helpers/utils';
+import Loader from 'components/Loader.vue';
 
 export default {
 	name: 'issue-form',

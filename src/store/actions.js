@@ -1,5 +1,5 @@
-import Trello from '../services/Trello';
-import TagManager from '../helpers/TagManager';
+import Trello from 'services/Trello';
+import TagManager from 'lib/TagManager';
 
 const tracker = new Trello();
 

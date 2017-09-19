@@ -1,4 +1,4 @@
-import style from '../assets/style';
+import style from 'assets/style';
 
 /**
  * Append in iframe mixin

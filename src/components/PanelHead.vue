@@ -68,7 +68,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import User from './User.vue';
+import User from 'components/User.vue';
 
 export default {
 	name: 'panel-head',

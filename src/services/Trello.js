@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { popupWindow, dataURItoFile } from '../helpers/utils';
-import Tracker from '../services/Tracker';
+import { popupWindow, dataURItoFile } from 'helpers/utils';
+import Tracker from 'services/Tracker';
 
 export default class Trello extends Tracker  {
 	constructor() {

@@ -1,6 +1,8 @@
-var path = require('path')
-var webpack = require('webpack')
-var Dotenv = require('dotenv-webpack')
+const path = require('path');
+const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
+
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: './src/main.js',
@@ -28,7 +30,14 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      'app$': path.resolve(__dirname, 'src/App.vue'),
+      'assets': path.resolve(__dirname, 'assets'),
+      'components': path.resolve(__dirname, 'src/components'),
+      'helpers': path.resolve(__dirname, 'src/helpers'),
+      'lib': path.resolve(__dirname, 'src/lib'),
+      'services': path.resolve(__dirname, 'src/services'),
+      'store': path.resolve(__dirname, 'src/store')
     }
   },
   performance: {
@@ -42,9 +51,9 @@ module.exports = {
   devtool: '#eval-source-map'
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (isProd) {
   module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
+
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {

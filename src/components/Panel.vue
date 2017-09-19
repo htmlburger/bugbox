@@ -33,13 +33,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { appendInIframe } from '../helpers/mixins';
-import Loader from './Loader.vue';
+import { appendInIframe } from 'helpers/mixins';
+import Loader from 'components/Loader.vue';
 
-import Authorize from './Authorize.vue';
-import PanelHead from './PanelHead.vue';
-import PanelBody from './PanelBody.vue';
-import PanelFoot from './PanelFoot.vue';
+import Authorize from 'components/Authorize.vue';
+import PanelHead from 'components/PanelHead.vue';
+import PanelBody from 'components/PanelBody.vue';
+import PanelFoot from 'components/PanelFoot.vue';
 
 export default {
 	name: 'panel',

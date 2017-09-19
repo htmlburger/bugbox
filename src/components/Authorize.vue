@@ -1,7 +1,7 @@
 <template>
 	<div class="authorize">
 		<div class="authorize__inner">
-			<img src="../assets/images/bb-logo-vertical.svg" width="64" alt="BugBox">
+			<img src="~assets/images/bb-logo-vertical.svg" width="64" alt="BugBox">
 
 			<p>You are not authorized.</p>
 

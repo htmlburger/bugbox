@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { stringToColour } from '../helpers/utils';
+import { stringToColour } from 'helpers/utils';
 
 export default {
 	name: 'badge',

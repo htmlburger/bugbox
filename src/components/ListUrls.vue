@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import ListUrls from './ListUrls.vue';
+import ListUrls from 'components/ListUrls.vue';
 
 export default {
 	name: 'list-urls',

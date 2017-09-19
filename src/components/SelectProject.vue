@@ -22,7 +22,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Loader from './Loader.vue';
+import Loader from 'components/Loader.vue';
 
 export default {
 	name: 'select-project',

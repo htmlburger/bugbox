@@ -24,10 +24,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { getDocumentHeight } from './helpers/utils';
-import Pins from './components/Pins.vue';
-import Panel from './components/Panel.vue';
-import IssueForm from './components/IssueForm.vue';
+import { getDocumentHeight } from 'helpers/utils';
+import Pins from 'components/Pins.vue';
+import Panel from 'components/Panel.vue';
+import IssueForm from 'components/IssueForm.vue';
 
 export default {
 	name: 'bugbox',
@@ -172,7 +172,7 @@ export default {
 
 	/*  Cover  */
 	.bugbox .bugbox__cover { position: absolute; z-index: 2147483647; left: 0; top: 0; width: 100%; min-height: 100%; background: rgba(255,255,255,0); pointer-events: none; visibility: hidden; overflow: hidden; }
-	.bugbox .bugbox__cover { cursor: url(./assets/images/cursor.png) 15 40, pointer; }
+	.bugbox .bugbox__cover { cursor: url(~assets/images/cursor.png) 15 40, pointer; }
 
 	/*  Screenshot Area  */
 	.bugbox .bugbox__screenshot-area { position: fixed; z-index: 2147483647; left: 0; top: 0; width: 100%; height: 100%; background-clip: content-box; border-style: solid; border-color: rgba(0,0,0,.5); border-width: 0; visibility: hidden; pointer-events: none; transition: border-width .2s; }

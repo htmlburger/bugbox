@@ -25,9 +25,9 @@
 <script>
 
 import { mapGetters, mapActions } from 'vuex';
-import Filters from './Filters.vue';
-import Issue from './Issue.vue';
-import IssueDetails from './IssueDetails.vue';
+import Filters from 'components/Filters.vue';
+import Issue from 'components/Issue.vue';
+import IssueDetails from 'components/IssueDetails.vue';
 
 export default {
 	name: 'issues',

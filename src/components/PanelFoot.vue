@@ -1,7 +1,7 @@
 <template>
 	<div class="panel__foot">
 		<div class="panel__logo">
-			<img src="../assets/images/bb-logo-horizontal.svg" alt="BugBox">
+			<img src="~assets/images/bb-logo-horizontal.svg" alt="BugBox">
 		</div>
 
 		<div class="panel__credits">

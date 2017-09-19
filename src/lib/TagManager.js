@@ -5,7 +5,7 @@ import {
 	getBrowserInfo,
 	getOSName,
 	getDocumentScrollbar
-} from './utils';
+} from 'helpers/utils';
 
 export default class TagManager {
 	constructor(options) {

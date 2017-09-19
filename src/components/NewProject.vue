@@ -32,8 +32,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Loader from './Loader.vue';
-import ListUrls from './ListUrls.vue';
+import Loader from 'components/Loader.vue';
+import ListUrls from 'components/ListUrls.vue';
 
 export default {
 	name: 'new-project',

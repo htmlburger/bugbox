@@ -4,7 +4,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { getMatchedElement, getElementOffset } from '../helpers/utils';
+import { getMatchedElement, getElementOffset } from 'helpers/utils';
 import scroll from 'scroll';
 
 export default {

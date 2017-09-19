@@ -24,8 +24,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { fromNow } from '../helpers/filters';
-import Badge from './Badge.vue';
+import { fromNow } from 'helpers/filters';
+import Badge from 'components/Badge.vue';
 
 export default {
 	name: 'issue',
