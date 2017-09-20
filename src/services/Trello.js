@@ -1,15 +1,16 @@
+import Tracker from 'services/Tracker';
+import LocalStorage from 'services/LocalStorage';
+import ExtensionStorage from 'services/ExtensionStorage';
 import axios from 'axios';
 import { popupWindow, dataURItoFile } from 'helpers/utils';
-import Tracker from 'services/Tracker';
 
 /**
  * Constants.
- * @type {String}
  */
 const META_LIST_TITLE = 'Project Meta';
 const META_URL_TITLE = 'Project Meta: URL';
 
-export default class Trello extends Tracker  {
+export default class Trello extends Tracker {
 	/**
 	 * Create a Trello Tracker.
 	 */
@@ -18,6 +19,9 @@ export default class Trello extends Tracker  {
 
 		const key = process.env.TRELLO_API_KEY;
 		const baseURL = process.env.TRELLO_API_URL;
+
+		this.localAuthToken = new LocalStorage('TrelloToken');
+		this.extensionAuthToken = new ExtensionStorage('TrelloToken');
 
 		/**
 		 * Initialize XHR client.
@@ -35,38 +39,22 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get local storage key for token item.
-	 * @return {String}
-	 */
-	getLocalStorageTokenKey() {
-		return 'BugboxTrelloToken';
-	}
-
-	/**
 	 * Get trello token from local storage.
 	 * @return {Promise}
 	 */
 	getToken() {
-		const localToken = window.localStorage.getItem(this.getLocalStorageTokenKey());
-
-		if (localToken) {
-			return Promise.resolve(localToken);
-		}
-
-		if ('chrome' in window && 'runtime' in window.chrome) {
-			return new Promise((resolve, reject) => {
-				const message = {
-					action: 'getTrelloToken'
-				};
-
-				chrome.runtime.sendMessage(message, (response) => {
-					this.setLocalToken(response.payload);
-					resolve(response.payload);
-				});
+		this.extensionAuthToken.get().then(val => console.log(val))
+		return this.localAuthToken.has()
+			.then((hasLocalAuthToken) => {
+				if (hasLocalAuthToken) {
+					return this.localAuthToken.get();
+				} else {
+					return this.extensionAuthToken
+						.get()
+						.then(value => this.localAuthToken.set(value));
+				}
 			});
-		}
 
-		return Promise.resolve(null);
 	}
 
 	/**
@@ -78,28 +66,8 @@ export default class Trello extends Tracker  {
 			this.client.defaults.params['token'] = token;
 		}
 
-		if ('chrome' in window && 'runtime' in window.chrome) {
-			const message = {
-				action: 'setTrelloToken',
-				payload: token
-			};
-
-			chrome.runtime.sendMessage(message);
-		}
-
-		this.setLocalToken(token);
-	}
-
-	/**
-	 * Set trello token in local storage.
-	 * @param {String} token
-	 */
-	setLocalToken(token) {
-		if (token) {
-			return window.localStorage.setItem(this.getLocalStorageTokenKey(), token);
-		} else {
-			return window.localStorage.removeItem(this.getLocalStorageTokenKey());
-		}
+		this.localAuthToken.set(token);
+		this.extensionAuthToken.set(token)
 	}
 
 	/**

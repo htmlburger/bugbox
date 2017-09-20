@@ -1,5 +1,5 @@
 /**
- * Normalize screenshot dimension
+ * Normalize screenshot dimension.
  * @param  {Object} dimensions
  * @return {Object}
  */
@@ -17,11 +17,11 @@ const normalizeDimensions = (dimensions) => {
 };
 
 /**
- * Capture Tab
+ * Capture Tab.
  * @param  {String}   tabId
  * @param  {Object}   dimensions
  * @param  {Function} callback   [description]
- * @return {Void}
+ * @return {void}
  */
 const capture = (tabId, dimensions, callback) => {
 	chrome.tabs.captureVisibleTab({ format: 'png' }, function(dataUrl) {
@@ -30,11 +30,11 @@ const capture = (tabId, dimensions, callback) => {
 };
 
 /**
- * Process screenshot area
+ * Process screenshot area.
  * @param  {String}   dataUrl
  * @param  {Object}   dimensions
  * @param  {Function} callback
- * @return {Void}
+ * @return {void}
  */
 const proccessScreenshot = (dataUrl, dimensions, callback) => {
 	var image = new Image();
@@ -66,12 +66,12 @@ const proccessScreenshot = (dataUrl, dimensions, callback) => {
 };
 
 /**
- * Handle screenshot request
+ * Handle screenshot request.
  * @param  {String} options.action
  * @param  {Object} options.payload
  * @param  {Object} sender
  * @param  {Object} sendResponse
- * @return {Void}
+ * @return {void}
  */
 const handleScreenshotRequest = ({ action, payload }, sender, sendResponse) => {
 	if (!payload) {
@@ -92,12 +92,12 @@ const handleScreenshotRequest = ({ action, payload }, sender, sendResponse) => {
 };
 
 /**
- * Handle version request
+ * Handle version request.
  * @param  {String} options.action
  * @param  {Object} options.payload
  * @param  {Object} sender
  * @param  {Object} sendResponse
- * @return {Void}
+ * @return {void}
  */
 const handleVersionRequest = ({ action, payload }, sender, sendResponse) => {
 	sendResponse({
@@ -108,15 +108,40 @@ const handleVersionRequest = ({ action, payload }, sender, sendResponse) => {
 }
 
 /**
- * Handle set token request
+ * Handle get item request.
  * @param  {String} options.action
  * @param  {Any} options.payload
  * @param  {Object} sender
  * @param  {Object} sendResponse
- * @return {Void}
+ * @return {void}
  */
-const handleSetTrelloTokenRequest = ({ action, payload }, sender, sendResponse) => {
-	chrome.storage.sync.set({ 'BugboxTrelloToken': payload }, () => {
+const handleGetItemRequest = ({ action, payload }, sender, sendResponse) => {
+	const { key } = payload;
+
+	chrome.storage.sync.get(key, (items) => {
+		sendResponse({
+			action,
+			status: 'success',
+			payload: items[key]
+		});
+	});
+}
+
+/**
+ * Handle set item request.
+ * @param  {String} options.action
+ * @param  {Any} options.payload
+ * @param  {Object} sender
+ * @param  {Object} sendResponse
+ * @return {void}
+ */
+const handleSetItemRequest = ({ action, payload }, sender, sendResponse) => {
+	const setPayload = {};
+	const { key, value } = payload;
+
+	setPayload[key] = value;
+
+	chrome.storage.sync.set(setPayload, () => {
 		sendResponse({
 			action,
 			payload,
@@ -126,30 +151,12 @@ const handleSetTrelloTokenRequest = ({ action, payload }, sender, sendResponse) 
 }
 
 /**
- * Handle get token request
+ * Handle get token request.
  * @param  {String} options.action
  * @param  {Any} options.payload
  * @param  {Object} sender
  * @param  {Object} sendResponse
- * @return {Void}
- */
-const handleGetTrelloTokenRequest = ({ action, payload }, sender, sendResponse) => {
-	chrome.storage.sync.get('BugboxTrelloToken', (items) => {
-		sendResponse({
-			action,
-			status: 'success',
-			payload: items['BugboxTrelloToken']
-		});
-	});
-}
-
-/**
- * Handle get token request
- * @param  {String} options.action
- * @param  {Any} options.payload
- * @param  {Object} sender
- * @param  {Object} sendResponse
- * @return {Void}
+ * @return {void}
  */
 const handleBadgeStatusRequest = ({ payload }, sender, sendResponse) => {
 	const tabId = sender.tab.id;
@@ -162,15 +169,14 @@ const handleBadgeStatusRequest = ({ payload }, sender, sendResponse) => {
 
 
 /**
- * Message handler
+ * Message handler.
  * @param  {Object} request
  * @param  {Object} sender
  * @param  {Object} sendResponse
- * @return {Void}
+ * @return {void}
  */
 const handleMessage = (request, sender, sendResponse) => {
-	const action = request.action;
-	const payload = request.payload;
+	const { action , payload } = request;
 
 	switch (action) {
 		case 'version':
@@ -179,11 +185,11 @@ const handleMessage = (request, sender, sendResponse) => {
 		case 'screenshot':
 			handleScreenshotRequest(request, sender, sendResponse);
 			break;
-		case 'setTrelloToken':
-			handleSetTrelloTokenRequest(request, sender, sendResponse);
+		case 'getItem':
+			handleGetItemRequest(request, sender, sendResponse);
 			break;
-		case 'getTrelloToken':
-			handleGetTrelloTokenRequest(request, sender, sendResponse);
+		case 'setItem':
+			handleSetItemRequest(request, sender, sendResponse);
 			break;
 		case 'setBadgeStatus':
 			handleBadgeStatusRequest(request, sender, sendResponse);
@@ -196,14 +202,14 @@ const handleMessage = (request, sender, sendResponse) => {
 };
 
 /**
- * Bind message listeners
+ * Bind message listeners.
  */
 chrome.extension.onMessage.addListener(handleMessage);
 
 /**
- * Toggle extension for current tab
+ * Toggle extension for current tab.
  * @param  {Object}
- * @return {Void}
+ * @return {void}
  */
 chrome.browserAction.onClicked.addListener((tab) => {
 	const message = {
@@ -223,8 +229,8 @@ chrome.browserAction.onClicked.addListener((tab) => {
 let port;
 
 /**
- * Attempt to reconnect
- * @return {Void}
+ * Attempt to reconnect.
+ * @return {void}
  */
 const reconnectToExtension = () => {
 	// Reset port
@@ -234,8 +240,8 @@ const reconnectToExtension = () => {
 };
 
 /**
- * Attempt to connect
- * @return {Void}
+ * Attempt to connect.
+ * @return {void}
  */
 const connectToExtension = () => {
 	// Make the connection
@@ -253,6 +259,6 @@ const connectToExtension = () => {
 };
 
 /**
- * Connect for the first time
+ * Connect for the first time.
  */
 connectToExtension();

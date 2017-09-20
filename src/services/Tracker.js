@@ -1,90 +1,93 @@
-import axios from 'axios';
-
 export default class Tracker {
 	/**
 	 * Create a Tracker.
 	 */
 	constructor() {
-		this.client = axios.create();
+		if (this.constructor === Tracker) {
+			throw new Error(`Can't instantiate abstract class!`);
+		}
 	}
 
 	/**
 	 * Whether client is authorized.
-	 * @return {Promise}
+	 * @return {Promise<Boolean>}
 	 */
 	isAuthorized() {
-		return Promise.resolve(false);
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Authorize in tracker.
-	 * @return {Promise}
+	 * @return {Promise<void>}
 	 */
 	authorize() {
-		return Promise.resolve(null);
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Destroy previous authorization in tracker.
-	 * @return {Promise}
+	 * @return {Promise<void>}
 	 */
 	unauthorize() {
-		return Promise.resolve(null);
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Get user object.
-	 * @return {Promise}
+	 * @return {Promise<Object>}
 	 */
 	getUser() {
-		return Promise.resolve({});
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Find a project matching query criteria.
-	 * @return {Promise}
+	 * @return {Promise<Object>}
 	 */
 	findProject() {
-		return Promise.resolve({});
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Get a project.
-	 * @return {Promise}
+	 * @return {Promise<Object>}
 	 */
 	getProject() {
-		return Promise.resolve({});
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Initialize new project.
-	 * @return {Promise}
+	 * @return {Promise<Object>}
 	 */
 	initProject() {
-		return Promise.resolve({});
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Add issue item.
-	 * @return {Promise}
+	 * @return {Promise<Object>}
 	 */
 	addIssue() {
-		return Promise.resolve({});
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Change issue group.
-	 * @return {Promise}
+	 * @return {Promise<Object>}
 	 */
 	changeIssueGroup() {
-		return Promise.resolve({});
+		throw new Error('Please implement me.');
 	}
 
 	/**
 	 * Get issue actions.
-	 * @return {Promise}
+	 * @return {Promise<Array>}
 	 */
 	getIssueActions() {
-		return Promise.resolve([]);
+		throw new Error('Please implement me.');
 	}
 }
+
+
+
