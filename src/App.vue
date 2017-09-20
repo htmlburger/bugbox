@@ -51,7 +51,8 @@ export default {
 			'panelCollapsed',
 			'tagged',
 			'project',
-			'status'
+			'status',
+			'isSubmittingIssue'
 		]),
 
 		/**
@@ -123,6 +124,7 @@ export default {
 			 */
 			if (
 				this.project &&
+				!this.isSubmittingIssue &&
 				event.ctrlKey &&
 				event.shiftKey &&
 				event.keyCode === 65
@@ -224,7 +226,7 @@ export default {
 	.bugbox .bugbox__pins { transition: all .2s; }
 
 	/*  Issue Form  */
-	.bugbox .bugbox__issue-form { position: fixed; z-index: 2147483647; left: 50%; top: 50%; width: 660px; height: 550px; max-width: 100vw; max-height: 100vh; display: none; transform: translate(-50%, -50%); }
+	.bugbox .bugbox__issue-form { position: fixed; z-index: 2147483647; left: 50%; top: 50%; width: 660px; height: 550px; max-width: 100vw; max-height: 100vh; transform: translate(-50%, -50%); }
 
 	/*  Tagged State  */
 	.bugbox--tagged .bugbox__panel { box-shadow: none; transform: translateX(100%); }

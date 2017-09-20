@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="panel__actions">
-			<button v-if="project" @click.prevent="initTagging" class="panel__quick-add" title="Add Issue (Ctrl + Shift + A)">
+			<button v-if="project" :disabled="isSubmittingIssue" @click.prevent="initTagging" class="panel__quick-add" title="Add Issue (Ctrl + Shift + A)">
 				<span>
 					<i class="ico-pin"></i>
 					<i class="ico-pin-highlighted"></i>
@@ -58,7 +58,8 @@ export default {
 		...mapGetters([
 			'panelCollapsed',
 			'project',
-			'status'
+			'status',
+			'isSubmittingIssue'
 		]),
 
 		/**

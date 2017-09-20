@@ -231,12 +231,13 @@ const actions = {
 	 * @return {Promise}
 	 */
 	addIssue({ commit, dispatch }, payload) {
+		dispatch('resetTagged');
 		commit('SET_STATUS', 'submitting_issue');
 
 		return tracker
 			.addIssue(payload)
 			.then(issue => {
-				dispatch('resetTagged');
+				commit('SET_STATUS', '');
 				return commit('ADD_ISSUE', issue);
 			});
 	},

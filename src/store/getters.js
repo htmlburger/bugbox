@@ -11,6 +11,10 @@ const getters = {
 		return state.status;
 	},
 
+	isSubmittingIssue(state, getters) {
+		return getters.status === 'submitting_issue';
+	},
+
 	user(state, getters) {
 		return state.user;
 	},

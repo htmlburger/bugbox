@@ -1,82 +1,84 @@
 <template>
-	<div v-if="!!tagged && !!project" :class="classes" @keydown.stop="handleIssueFormKeydown">
-		<loader v-if="isLoading" />
+	<transition name="fade-top">
+		<div v-if="!!tagged && !!project && !isLoading" :class="classes" @keydown.stop="handleIssueFormKeydown">
+			<loader v-if="isLoading" />
 
-		<div class="form__inner">
-			<form @submit.prevent="handleSubmit">
-				<div class="form__head" @mousedown.prevent.stop="handleDragStart">
-					<h3 class="form__title">Submit issue</h3>
+			<div class="form__inner">
+				<form @submit.prevent="handleSubmit">
+					<div class="form__head" @mousedown.prevent.stop="handleDragStart">
+						<h3 class="form__title">Submit issue</h3>
 
-					<a @click.prevent.stop="reset" href="#" class="form__close">&times;</a>
-				</div>
-
-				<div class="form__body">
-					<div class="form__row">
-						<input v-model="title" ref="title" type="text" class="field" placeholder="Title" required>
+						<a @click.prevent.stop="reset" href="#" class="form__close">&times;</a>
 					</div>
 
-					<div class="form__row">
-						<textarea v-model="description" @paste="handleDescriptionPaste" rows="5" class="textarea" placeholder="Description"></textarea>
-					</div>
+					<div class="form__body">
+						<div class="form__row">
+							<input v-model="title" ref="title" type="text" class="field" placeholder="Title" required>
+						</div>
 
-					<div class="form__row">
-						<div class="cols">
-							<div class="col col--1of2">
-								<div class="table">
-									<table>
-										<tr>
-											<th>Browser</th>
-											<td>{{tagged.browser.vendor}} {{tagged.browser.version}}</td>
-										</tr>
+						<div class="form__row">
+							<textarea v-model="description" @paste="handleDescriptionPaste" rows="5" class="textarea" placeholder="Description"></textarea>
+						</div>
 
-										<tr>
-											<th>OS</th>
-											<td>{{tagged.browser.os}}</td>
-										</tr>
+						<div class="form__row">
+							<div class="cols">
+								<div class="col col--1of2">
+									<div class="table">
+										<table>
+											<tr>
+												<th>Browser</th>
+												<td>{{tagged.browser.vendor}} {{tagged.browser.version}}</td>
+											</tr>
 
-										<tr>
-											<th>Resolution</th>
-											<td>{{tagged.browser.width}} x {{tagged.browser.height}}</td>
-										</tr>
-									</table>
-								</div><!-- /.table -->
-							</div>
+											<tr>
+												<th>OS</th>
+												<td>{{tagged.browser.os}}</td>
+											</tr>
 
-							<div class="col col--1of2">
-								<div class="form__screenshot">
-									<div class="form__preview">
-										<template v-if="screenshot">
-											<a @click.prevent="removeScreenshot" href="#" class="form__preview-remove">&times;</a>
+											<tr>
+												<th>Resolution</th>
+												<td>{{tagged.browser.width}} x {{tagged.browser.height}}</td>
+											</tr>
+										</table>
+									</div><!-- /.table -->
+								</div>
 
-											<a :href="screenshot" class="form__preview-image" target="_blank">
-												<img :src="screenshot" alt="Screenshot">
-											</a>
-										</template>
-									</div>
+								<div class="col col--1of2">
+									<div class="form__screenshot">
+										<div class="form__preview">
+											<template v-if="screenshot">
+												<a @click.prevent="removeScreenshot" href="#" class="form__preview-remove">&times;</a>
 
-									<div class="file form__file">
-										<input type="file" @change="handleScreenshotInputChange">
+												<a :href="screenshot" class="form__preview-image" target="_blank">
+													<img :src="screenshot" alt="Screenshot">
+												</a>
+											</template>
+										</div>
 
-										<span class="file__btn">
-											<i class="ico-image"></i>
+										<div class="file form__file">
+											<input type="file" @change="handleScreenshotInputChange">
 
-											<span>Or Select file</span>
-										</span>
+											<span class="file__btn">
+												<i class="ico-image"></i>
+
+												<span>Or Select file</span>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="form__actions">
-					<button type="submit" class="btn form__btn">Submit Issue</button>
+					<div class="form__actions">
+						<button type="submit" class="btn form__btn">Submit Issue</button>
 
-					<button type="reset" class="btn btn--cancel form__btn" @click.prevent="reset">Cancel</button>
-				</div>
-			</form>
+						<button type="reset" class="btn btn--cancel form__btn" @click.prevent="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 
 <script>
@@ -313,7 +315,7 @@ export default {
 		/**
 		 * Handle screenshot input change event.
 		 * @param  {Event} event
-		 * @return {vodi}
+		 * @return {void}
 		 */
 		handleScreenshotInputChange(event) {
 			getImageFromInputEvent(event).then((result) => {

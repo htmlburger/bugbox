@@ -2,7 +2,7 @@
 	<div class="panel__head">
 		<template v-if="user">
 			<template v-if="project">
-				<button @click.prevent="initTagging" class="btn">Add Issue</button>
+				<button :disabled="isSubmittingIssue" @click.prevent="initTagging" class="btn">Add Issue</button>
 
 				<a :href="project.meta.shortUrl || project.meta.url" target="_blank" class="panel__project-link">
 					<i class="ico-trello"></i>Open Project
@@ -82,7 +82,8 @@ export default {
 			'user',
 			'projectsList',
 			'project',
-			'members'
+			'members',
+			'isSubmittingIssue'
 		]),
 	},
 
