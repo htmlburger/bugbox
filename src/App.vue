@@ -226,11 +226,13 @@ export default {
 	.bugbox .bugbox__pins { transition: all .2s; }
 
 	/*  Issue Form  */
-	.bugbox .bugbox__issue-form { position: fixed; z-index: 2147483647; left: 50%; top: 50%; width: 660px; height: 550px; max-width: 100vw; max-height: 100vh; transform: translate(-50%, -50%); }
+	.bugbox .bugbox__issue-form { position: fixed; z-index: 2147483647; left: 50%; top: 50%; width: 660px; height: 550px; max-width: 100vw; max-height: 100vh; transform: translate(-50%, -50%); visibility: hidden; }
+	.bugbox .bugbox__issue-form iframe { pointer-events: none; }
 
 	/*  Tagged State  */
 	.bugbox--tagged .bugbox__panel { box-shadow: none; transform: translateX(100%); }
-	.bugbox--tagged .bugbox__issue-form { display: block; }
+	.bugbox--tagged .bugbox__issue-form { visibility: visible; display: block; }
+	.bugbox--tagged .bugbox__issue-form iframe { pointer-events: all; }
 
 	/*  Tagging State  */
 	.bugbox--tagging .bugbox__cover { visibility: visible; pointer-events: all; }
