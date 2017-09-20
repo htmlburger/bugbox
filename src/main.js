@@ -5,8 +5,8 @@ import store from 'store';
 let app;
 
 /**
- * Initialize application
- * @return {Void}
+ * Initialize application.
+ * @return {void}
  */
 const init = () => {
 	if ('chrome' in window && 'extension' in window.chrome) {
@@ -21,7 +21,7 @@ const init = () => {
 };
 
 /**
- * Whether application is enabled
+ * Whether application is enabled.
  * @return {Boolean}
  */
 const isEnabled = () => {
@@ -31,8 +31,8 @@ const isEnabled = () => {
 }
 
 /**
- * Toggle enabled
- * @return {Void}
+ * Toggle enabled.
+ * @return {void}
  */
 const toggleEnabled = ({ action }, sender, sendResponse) => {
 	const enabled = isEnabled();
@@ -52,8 +52,8 @@ const toggleEnabled = ({ action }, sender, sendResponse) => {
 }
 
 /**
- * Mount Bugbox application
- * @return {Void}
+ * Mount Bugbox application.
+ * @return {void}
  */
 const mount = () => {
 	let el = document.querySelector('#bugbox-app');
@@ -73,8 +73,8 @@ const mount = () => {
 };
 
 /**
- * Unmount Bugbox application
- * @return {Void}
+ * Unmount Bugbox application.
+ * @return {void}
  */
 const unmount = () => {
 	let el = document.querySelector('#bugbox-app');
@@ -89,8 +89,8 @@ const unmount = () => {
 }
 
 /**
- * Bind message listeners
- * @return {Void}
+ * Bind message listeners.
+ * @return {void}
  */
 const bind = () => {
 	if ('chrome' in window && 'extension' in window.chrome) {
@@ -110,6 +110,6 @@ const bind = () => {
 }
 
 /**
- * Call init
+ * Call init.
  */
 init();

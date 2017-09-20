@@ -32,14 +32,26 @@ export default {
 			'project'
 		]),
 
+		/**
+		 * Whether issues component should be visible.
+		 * @return {Boolean}
+		 */
 		issuesVisible() {
-			return this.project;
+			return !!this.project;
 		},
 
+		/**
+		 * Whether new project component should be visible.
+		 * @return {Boolean}
+		 */
 		newProjectVisible() {
 			return !this.project && this.user;
 		},
 
+		/**
+		 * Whether select project component should be visible.
+		 * @return {Boolean}
+		 */
 		selectProjectVisible() {
 			return this.status === 'await_project_selection';
 		}

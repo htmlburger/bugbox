@@ -57,6 +57,10 @@ export default {
 			'project'
 		]),
 
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		classes() {
 			return [
 				'form',
@@ -64,10 +68,18 @@ export default {
 			];
 		},
 
+		/**
+		 * Whether component is loading.
+		 * @return {Boolean}
+		 */
 		isLoading() {
 			return this.status === 'loading';
 		},
 
+		/**
+		 * Get form payload object.
+		 * @return {Object}
+		 */
 		payload() {
 			return {
 				name: this.projectName,
@@ -81,6 +93,10 @@ export default {
 			'initProject'
 		]),
 
+		/**
+		 * Handle form submit.
+		 * @return {void}
+		 */
 		handleFromSubmit() {
 			if (this.isLoading) {
 				return;

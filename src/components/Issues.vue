@@ -47,6 +47,10 @@ export default {
 			'selectedIssueId'
 		]),
 
+		/**
+		 * Get selected issue.
+		 * @return {Object}
+		 */
 		selectedIssue() {
 			return this.issues && this.issues.find(issue => issue.id === this.selectedIssueId);
 		},

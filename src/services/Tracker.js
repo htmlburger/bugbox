@@ -1,12 +1,15 @@
 import axios from 'axios';
 
 export default class Tracker {
+	/**
+	 * Create a Tracker.
+	 */
 	constructor() {
 		this.client = axios.create();
 	}
 
 	/**
-	 * Whether client is authorized
+	 * Whether client is authorized.
 	 * @return {Promise}
 	 */
 	isAuthorized() {
@@ -14,7 +17,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Authorize in tracker
+	 * Authorize in tracker.
 	 * @return {Promise}
 	 */
 	authorize() {
@@ -22,7 +25,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Destroy previous authorization in tracker
+	 * Destroy previous authorization in tracker.
 	 * @return {Promise}
 	 */
 	unauthorize() {
@@ -30,7 +33,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Get user object
+	 * Get user object.
 	 * @return {Promise}
 	 */
 	getUser() {
@@ -38,7 +41,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Find a project matching query criteria
+	 * Find a project matching query criteria.
 	 * @return {Promise}
 	 */
 	findProject() {
@@ -46,7 +49,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Get a project
+	 * Get a project.
 	 * @return {Promise}
 	 */
 	getProject() {
@@ -54,7 +57,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Initialize new project
+	 * Initialize new project.
 	 * @return {Promise}
 	 */
 	initProject() {
@@ -62,7 +65,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Add issue item
+	 * Add issue item.
 	 * @return {Promise}
 	 */
 	addIssue() {
@@ -70,7 +73,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Change issue group
+	 * Change issue group.
 	 * @return {Promise}
 	 */
 	changeIssueGroup() {
@@ -78,7 +81,7 @@ export default class Tracker {
 	}
 
 	/**
-	 * Get issue actions
+	 * Get issue actions.
 	 * @return {Promise}
 	 */
 	getIssueActions() {

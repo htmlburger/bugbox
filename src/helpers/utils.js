@@ -1,5 +1,5 @@
 /**
- * Open popup window
+ * Open a popup window.
  * @param  {String} url
  * @param  {String} name
  * @param  {Object} options
@@ -14,21 +14,21 @@ export const popupWindow = (url, name, opts = {}) => {
 };
 
 /**
- * Bind custom event
+ * Bind custom event.
  * @param  {String} eventName
  * @param  {Function} eventHandler
  * @param  {Boolean} once
- * @return {Void}
+ * @return {void}
  */
 export const onEvent = (eventName, eventHandler, once) => {
 	const handler = function(event) {
 		let details = (event || {}).detail || {};
 
-		if ( typeof details === 'string' ) {
+		if (typeof details === 'string') {
 			details = JSON.parse(details);
 		}
 
-		eventHandler.call(this,details);
+		eventHandler.call(this, details);
 
 		if (once) {
 			document.removeEventListener(eventName, handler);
@@ -39,10 +39,10 @@ export const onEvent = (eventName, eventHandler, once) => {
 };
 
 /**
- * Emit custom event
+ * Emit custom event.
  * @param  {String} eventName
  * @param  {Any} eventData
- * @return {Void}
+ * @return {void}
  */
 export const emitEvent = (eventName, eventData) => {
 	// Create Event
@@ -53,9 +53,8 @@ export const emitEvent = (eventName, eventData) => {
 	document.dispatchEvent(event);
 };
 
-
 /**
- * Get element's index in parent container
+ * Get element's index in parent container.
  * @param  {Element} element
  * @return {Number}
  */
@@ -63,10 +62,10 @@ export const getElementIndex = (element) => {
 	const elements = Array.prototype.slice.call(element.parentNode.children, 0);
 
 	return elements.indexOf(element);
-}
+};
 
 /**
- * Get element's selector
+ * Get element's CSS selector.
  * @param  {Element} element
  * @param  {String} selector
  * @return {String}
@@ -98,7 +97,7 @@ export const getElementSelector = (element, selector) => {
 };
 
 /**
- * Get element offset in page
+ * Get element offset in page.
  * @param  {Element} element
  * @return {Object}
  */
@@ -132,11 +131,10 @@ export const getElementOffset = (element) => {
 		topRel: rect.top,
 		leftRel: rect.left
 	};
-}
-
+};
 
 /**
- * Get outer html of element
+ * Get outer html of element.
  * @param  {Element} element
  * @return {String}
  */
@@ -157,8 +155,12 @@ export const getElementOuterHtml = (element) => {
 	container = null;
 
 	return html;
-}
+};
 
+/**
+ * Get browser name and version.
+ * @return {Object}
+ */
 export const getBrowserInfo = () => {
 	let userAgent = navigator.userAgent;
 	let temp;
@@ -203,10 +205,10 @@ export const getBrowserInfo = () => {
 		name: matches[0],
 		version: matches[1]
 	};
-}
+};
 
 /**
- * Get OS name
+ * Get OS name.
  * @return {String}
  */
 export const getOSName = () => {
@@ -223,10 +225,10 @@ export const getOSName = () => {
 	}
 
 	return osName;
-}
+};
 
 /**
- * Get Document Height
+ * Get document height.
  * @return {Number}
  */
 export const getDocumentHeight = () => {
@@ -234,23 +236,23 @@ export const getDocumentHeight = () => {
 	const html = document.documentElement;
 
 	return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-}
+};
 
 /**
- * Get Document Scrollbar width
+ * Get document scrollbar width.
  * @return {Number}
  */
 export const getDocumentScrollbar = () => {
 	return Math.max(0, window.innerWidth - document.getElementsByTagName('html')[0].offsetWidth)
-}
+};
 
 /**
- * Get levenshtein measuring difference between two strings
+ * Get levenshtein measuring difference between two strings.
  * @param {String} s1
  * @param {String} s2
  * @return {Number}
  */
-function levenshtein(s1, s2) {
+export const levenshtein = (s1, s2) => {
 	s1 = s1.toLowerCase();
 	s2 = s2.toLowerCase();
 
@@ -322,15 +324,15 @@ function levenshtein(s1, s2) {
 	}
 
 	return (1 - v0[s1_len] / Math.max(s1_len, s2_len));
-}
+};
 
 /**
- * Get matched element by html comparison
+ * Get matched element by html comparison.
  * @param  {Array} matchCandidates
  * @param  {Object} issue
  * @return {Element}
  */
-function matchElementByHtml(matchCandidates, outerHtml) {
+export const matchElementByHtml = (matchCandidates, outerHtml) => {
 	let bestMatch;
 	let highestRatio = 0;
 
@@ -346,10 +348,10 @@ function matchElementByHtml(matchCandidates, outerHtml) {
 	}
 
 	return bestMatch;
-}
+};
 
 /**
- * Get matched element for an issue
+ * Get matched element for an issue.
  * @param  {Object} issue
  * @return {Element}
  */
@@ -443,10 +445,10 @@ export const getMatchedElement = (issue) => {
 	}
 
 	return matchedElements;
-}
+};
 
 /**
- * Get a blob from base64 data string
+ * Get a blob from base64 data string.
  * @param  {String} dataURI
  * @return {Blob}
  */
@@ -470,10 +472,10 @@ export const dataURItoBlob = (dataURI) => {
 	}
 
 	return new Blob([ia], { type: mimeString });
-}
+};
 
 /**
- * Get a file from base64 data string
+ * Get a file from base64 data string.
  * @param  {String} dataURI
  * @param  {String} filename
  * @return {File}
@@ -482,14 +484,14 @@ export const dataURItoFile = (dataURI, filename = 'filename') => {
 	const blob = dataURItoBlob(dataURI);
 
 	return new File([blob], filename);
-}
+};
 
 /**
- * Get base64 string from file object
+ * Get base64 string from file object.
  * @param  {Event} file
- * @return {Promise}      [description]
+ * @return {Promise}
  */
-export const getBase64FromFile = file => {
+export const getBase64FromFile = (file) => {
 	return new Promise((resolve, reject) => {
 		const reader = new window.FileReader();
 
@@ -501,10 +503,10 @@ export const getBase64FromFile = file => {
 
 		reader.readAsDataURL(file);
 	});
-}
+};
 
 /**
- * Get image base64 string from input event
+ * Get image base64 string from input event.
  * @param  {Event} event
  * @return {Promise}
  */
@@ -521,10 +523,10 @@ export const getImageFromInputEvent = (event) => {
 			reject();
 		}
 	});
-}
+};
 
 /**
- * Get image base64 string from paste event
+ * Get image base64 string from paste event.
  * @param  {Event} event
  * @return {Promise}
  */
@@ -563,11 +565,10 @@ export const getImageFromPasteEvent = (event) => {
 			});
 		}
 	});
-}
-
+};
 
 /**
- * Get a hex color code from string
+ * Get a hex color code from string.
  * @param  {String} str
  * @return {String}
  */
@@ -586,4 +587,4 @@ export const stringToColour = (str) => {
 	}
 
 	return colour;
-}
+};

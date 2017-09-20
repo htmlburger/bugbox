@@ -39,10 +39,18 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get pin object.
+		 * @return {Object}
+		 */
 		pin() {
 			return this.issue.meta.pin;
 		},
 
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		classes() {
 			return [
 				'bugbox__pin',
@@ -51,6 +59,10 @@ export default {
 			];
 		},
 
+		/**
+		 * Get computed style.
+		 * @return {Object}
+		 */
 		style() {
 			return {
 				left: `${this.position.left}px`,
@@ -58,6 +70,10 @@ export default {
 			};
 		},
 
+		/**
+		 * Get issue group reference.
+		 * @return {Object}
+		 */
 		group() {
 			return this.groups.find(group => group.id === this.issue.idList);
 		}
@@ -69,7 +85,8 @@ export default {
 		]),
 
 		/**
-		 * Set pin update interval
+		 * Set pin update interval.
+		 * @return {void}
 		 */
 		setUpdateInterval() {
 			this.update = setInterval(() => {
@@ -82,8 +99,8 @@ export default {
 		},
 
 		/**
-		 * Update position data
-		 * @return {Void}
+		 * Update position data.
+		 * @return {void}
 		 */
 		updatePosition() {
 			const offset = getElementOffset(this.element);
@@ -99,8 +116,8 @@ export default {
 		},
 
 		/**
-		 * Update matched element reference data
-		 * @return {Void}
+		 * Update matched element reference data.
+		 * @return {void}
 		 */
 		updateMatchedElement() {
 			if (this.issue.meta) {
@@ -109,8 +126,8 @@ export default {
 		},
 
 		/**
-		 * Scroll page to pin position
-		 * @return {Void}
+		 * Scroll page to pin position.
+		 * @return {void}
 		 */
 		scrollInView() {
 			const scrollOffset = 50;
@@ -119,8 +136,8 @@ export default {
 		},
 
 		/**
-		 * Handle selected pin action
-		 * @return {Void}
+		 * Handle selected pin action.
+		 * @return {void}
 		 */
 		handleSelected() {
 			if (this.selected) {

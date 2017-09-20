@@ -37,6 +37,10 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get url suggestions.
+		 * @return {Array}
+		 */
 		urls() {
 			const origin = window.location.origin;
 			const paths = window.location.pathname.replace(/\/$/, '').split('/');

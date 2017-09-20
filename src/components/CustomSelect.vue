@@ -43,6 +43,10 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		classes() {
 			return [
 				'custom-select',
@@ -50,14 +54,26 @@ export default {
 			];
 		},
 
+		/**
+		 * Get selected option object.
+		 * @return {Object}
+		 */
 		selected() {
 			return this.options.find(option => option.value === this.value);
 		},
 
+		/**
+		 * Get visible options array.
+		 * @return {Array}
+		 */
 		visibleOptions() {
 			return this.options.filter(option => option.value !== this.value);
 		},
 
+		/**
+		 * Get panel iframe reference.
+		 * @return {Element}
+		 */
 		iframe() {
 			let iframe = null
 			let parent = this.$parent;
@@ -75,14 +91,28 @@ export default {
 	},
 
 	methods: {
+		/**
+		 * Toggle select dropdown expanded.
+		 * @param  {Event} event
+		 * @param  {Boolean} toggle
+		 * @return {void}
+		 */
 		toggleExpanded(event, toggle = !this.expanded) {
 			this.expanded = toggle;
 		},
 
+		/**
+		 * Expand select dropdown.
+		 * @return {void}
+		 */
 		expand() {
 			this.toggleExpanded(null, true);
 		},
 
+		/**
+		 * Collapse select dropdown.
+		 * @return {void}
+		 */
 		collapse() {
 			this.toggleExpanded(null, false);
 		}

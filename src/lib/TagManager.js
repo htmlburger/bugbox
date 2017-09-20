@@ -8,6 +8,9 @@ import {
 } from 'helpers/utils';
 
 export default class TagManager {
+	/**
+	 * Create a TagManager.
+	 */
 	constructor(options) {
 		const opts = Object.assign({
 			cover            : document,
@@ -25,9 +28,6 @@ export default class TagManager {
 		this.onTagged          = opts.onTagged;
 		this.currentElement    = null;
 
-		/**
-		 * Bind Handlers
-		 */
 		this.cancel                  = this.cancel.bind(this);
 		this.tagTargetElement        = this.tagTargetElement.bind(this);
 		this.highlightTargetElement  = this.highlightTargetElement.bind(this);
@@ -36,16 +36,16 @@ export default class TagManager {
 	}
 
 	/**
-	 * Initialize tagging
-	 * @return {Void}
+	 * Initialize tagging.
+	 * @return {void}
 	 */
 	init() {
 		this.bind();
 	}
 
 	/**
-	 * Bind handlers
-	 * @return {Void}
+	 * Bind handlers.
+	 * @return {void}
 	 */
 	bind() {
 		document.addEventListener('mousemove', this.highlightTargetElement);
@@ -59,8 +59,8 @@ export default class TagManager {
 	}
 
 	/**
-	 * Unbind handlers
-	 * @return {Void}
+	 * Unbind handlers.
+	 * @return {void}
 	 */
 	unbind() {
 		document.removeEventListener('mousemove', this.highlightTargetElement);
@@ -72,8 +72,8 @@ export default class TagManager {
 	}
 
 	/**
-	 * Cancel tagging
-	 * @return {Void}
+	 * Cancel tagging.
+	 * @return {void}
 	 */
 	cancel(event) {
 		if (event.keyCode === 27) {
@@ -84,9 +84,9 @@ export default class TagManager {
 	}
 
 	/**
-	 * Get DOM element from mouse position captured in event object
+	 * Get DOM element from mouse position captured in event object.
 	 * @param  {Event} event
-	 * @return {Void}
+	 * @return {void}
 	 */
 	getElementFromEvent(event) {
 		const x = event.clientX;
@@ -100,7 +100,7 @@ export default class TagManager {
 	}
 
 	/**
-	 * Highlight DOM element
+	 * Highlight DOM element.
 	 * @param  {[type]} event [description]
 	 * @return {[type]}       [description]
 	 */
@@ -114,7 +114,7 @@ export default class TagManager {
 	}
 
 	/**
-	 * Get screenshot area coords
+	 * Get screenshot area coords.
 	 * @return {Object}
 	 */
 	getScreenshotCoords() {
@@ -147,8 +147,8 @@ export default class TagManager {
 	}
 
 	/**
-	 * Update size of screenshot area DOM element
-	 * @return {Void}
+	 * Update size of screenshot area DOM element.
+	 * @return {void}
 	 */
 	updateScreenshotArea() {
 		if (!this.screenshotArea) {
@@ -166,9 +166,9 @@ export default class TagManager {
 	}
 
 	/**
-	 * Resize screenshot area
+	 * Resize screenshot area.
 	 * @param  {Event} event
-	 * @return {Void}
+	 * @return {void}
 	 */
 	resizeScreenshotPadding(event) {
 		if (event.ctrlKey) {
@@ -185,7 +185,7 @@ export default class TagManager {
 	}
 
 	/**
-	 * Request screenshot
+	 * Request screenshot.
 	 * @return {Promise}
 	 */
 	requestScreenshot() {
@@ -211,9 +211,9 @@ export default class TagManager {
 	}
 
 	/**
-	 * Tag element
+	 * Tag element.
 	 * @param  {Event} event
-	 * @return {Void}
+	 * @return {void}
 	 */
 	tagTargetElement(event) {
 		if (!this.currentElement) {
@@ -242,7 +242,7 @@ export default class TagManager {
 	}
 
 	/**
-	 * Get tagged element meta data
+	 * Get tagged element meta data.
 	 * @param  {Element} element
 	 * @return {Object}
 	 */
@@ -253,8 +253,8 @@ export default class TagManager {
 		const url = window.location.href.replace(/\#issue\-(.+)$/, '');
 
 		return {
-			selector: getElementSelector( element ),
-			outerHtml: getElementOuterHtml( element ).substring(0, 500),
+			selector: getElementSelector(element),
+			outerHtml: getElementOuterHtml(element).substring(0, 500),
 			url: url,
 			browser: {
 				width: window.innerWidth,

@@ -15,12 +15,20 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get computed style.
+		 * @return {Object}
+		 */
 		style() {
 			return {
 				backgroundColor: this.backgroundColor
 			};
 		},
 
+		/**
+		 * Get badge background color.
+		 * @return {String}
+		 */
 		backgroundColor() {
 			switch (this.value) {
 				case 'To Do':

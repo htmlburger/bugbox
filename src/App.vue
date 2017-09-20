@@ -54,6 +54,10 @@ export default {
 			'status'
 		]),
 
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		classes() {
 			return [
 				'bugbox',
@@ -62,6 +66,10 @@ export default {
 			];
 		},
 
+		/**
+		 * Get panel classes object.
+		 * @return {Object}
+		 */
 		panelClasses() {
 			return [
 				'bugbox__panel',
@@ -69,7 +77,11 @@ export default {
 			];
 		},
 
-		issueFromUrl() {
+		/**
+		 * Get issue id from window location.
+		 * @return {String}
+		 */
+		issueFromLocation() {
 			return (window.location.href.match(/\#issue\-(.+)$/) || [])[1];
 		},
 	},
@@ -84,14 +96,27 @@ export default {
 			'selectIssue'
 		]),
 
+		/**
+		 * Bind hotkeys.
+		 * @return {void}
+		 */
 		bindHotkeys() {
 			window.addEventListener('keydown', this.handleKeydown);
 		},
 
+		/**
+		 * Unbind hotkeys.
+		 * @return {[type]} [description]
+		 */
 		unbindHotkeys() {
 			window.removeEventListener('keydown', this.handleKeydown);
 		},
 
+		/**
+		 * Handle keydown event.
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
 		handleKeydown(event) {
 			/**
 			 * Init tagging with Ctrl+Shif+A
@@ -108,14 +133,19 @@ export default {
 			}
 		},
 
-		highlightIssueFromUrl(project) {
-			if (this.issueFromUrl && project && project.issues) {
+		/**
+		 * Highlight issue from window location.
+		 * @param  {Object} project
+		 * @return {void}
+		 */
+		highlightIssueFromLocation(project) {
+			if (this.issueFromLocation && project && project.issues) {
 				const issue = project.issues.find(issue => {
 					if (!issue.attachments || !issue.attachments.length) {
 						return false;
 					}
 
-					return issue.attachments.some(attachment => attachment.url.indexOf(this.issueFromUrl) >= 0);
+					return issue.attachments.some(attachment => attachment.url.indexOf(this.issueFromLocation) >= 0);
 				});
 
 				if (issue) {
@@ -124,6 +154,10 @@ export default {
 			}
 		},
 
+		/**
+		 * Setup TagManager instance.
+		 * @return {[type]} [description]
+		 */
 		setupTagManager() {
 			this.initTagManager({
 				cover         : this.$refs.cover,
@@ -134,6 +168,10 @@ export default {
 			});
 		},
 
+		/**
+		 * Set auto resize interval.
+		 * @return {[type]} [description]
+		 */
 		autoResizeCover() {
 			this.autoResizeInterval = setInterval(() => {
 				this.$refs.cover.style.height = '';
@@ -145,7 +183,7 @@ export default {
 	created() {
 		this.bindHotkeys();
 		this.init()
-			.then(this.highlightIssueFromUrl);
+			.then(this.highlightIssueFromLocation);
 	},
 
 	mounted() {

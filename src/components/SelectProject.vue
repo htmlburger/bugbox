@@ -43,6 +43,10 @@ export default {
 			'projectsList'
 		]),
 
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		classes() {
 			return [
 				'form',
@@ -50,6 +54,10 @@ export default {
 			];
 		},
 
+		/**
+		 * Whether component is loading.
+		 * @return {Boolean}
+		 */
 		isLoading() {
 			return this.status === 'loading';
 		}
@@ -67,6 +75,11 @@ export default {
 			'getProject'
 		]),
 
+		/**
+		 * Handle form submit.
+		 * @param  {Event} event
+		 * @return {void}
+		 */
 		handleSubmit(event) {
 			this.status = 'loading';
 

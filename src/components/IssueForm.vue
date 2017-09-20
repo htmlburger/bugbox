@@ -114,6 +114,10 @@ export default {
 			'tagged'
 		]),
 
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		classes() {
 			return [
 				'form',
@@ -122,14 +126,26 @@ export default {
 			];
 		},
 
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		isLoading() {
 			return this.status === 'loading';
 		},
 
+		/**
+		 * Get an alias for tagged computed property.
+		 * @return {Object}
+		 */
 		meta() {
 			return this.tagged;
 		},
 
+		/**
+		 * Get issue default group.
+		 * @return {Object}
+		 */
 		defaultGroup() {
 			if (!this.project.groups.length) {
 				return null;
@@ -153,10 +169,18 @@ export default {
 			'resetTagged'
 		]),
 
+		/**
+		 * Remove screenshot data.
+		 * @return {void}
+		 */
 		removeScreenshot() {
 			this.screenshot = null;
 		},
 
+		/**
+		 * Reset tagged data.
+		 * @return {void}
+		 */
 		reset() {
 			this.resetTagged();
 
@@ -168,6 +192,10 @@ export default {
 			window.focus();
 		},
 
+		/**
+		 * Update tagged data.
+		 * @return {void}
+		 */
 		updateTagged() {
 			if (this.tagged && this.tagged.screenshot) {
 				this.screenshot = this.tagged.screenshot;
@@ -181,6 +209,11 @@ export default {
 
 		},
 
+		/**
+		 * Handle issue keydown events.
+		 * @param  {Event} event
+		 * @return {void}
+		 */
 		handleIssueFormKeydown(event) {
 			/**
 			 * Cancel issue adding with Escape key
@@ -191,6 +224,11 @@ export default {
 			}
 		},
 
+		/**
+		 * Handle drag start.
+		 * @param  {Event} event
+		 * @return {void}
+		 */
 		handleDragStart(event) {
 			// this.isDragging = true;
 			this.lastPos.x = event.screenX;
@@ -213,7 +251,11 @@ export default {
 			}
 		},
 
-
+		/**
+		 * Handle drag move.
+		 * @param  {Event} event
+		 * @return {void}
+		 */
 		handleDragMove(event) {
 			const deltaX = event.screenX - this.lastPos.x;
 			const deltaY = event.screenY - this.lastPos.Y;
@@ -232,6 +274,11 @@ export default {
 			}
 		},
 
+		/**
+		 * Handle drag end.
+		 * @param  {Event} event
+		 * @return {void}
+		 */
 		handleDragEnd(event) {
 			window.removeEventListener('mousemove', this.handleDragMove);
 			window.removeEventListener('mouseup', this.handleDragEnd);
@@ -250,6 +297,11 @@ export default {
 			}
 		},
 
+		/**
+		 * Handle description paste event.
+		 * @param  {Event} event
+		 * @return {void}
+		 */
 		handleDescriptionPaste(event) {
 			getImageFromPasteEvent(event).then((result) => {
 				if (result.base64string) {
@@ -258,6 +310,11 @@ export default {
 			});
 		},
 
+		/**
+		 * Handle screenshot input change event.
+		 * @param  {Event} event
+		 * @return {vodi}
+		 */
 		handleScreenshotInputChange(event) {
 			getImageFromInputEvent(event).then((result) => {
 				if (result.base64string) {
@@ -266,6 +323,11 @@ export default {
 			});
 		},
 
+		/**
+		 * Handle form submit.
+		 * @param  {Event} event
+		 * @return {void}
+		 */
 		handleSubmit(event) {
 			if (this.isLoading) {
 				return;

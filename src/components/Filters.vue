@@ -53,6 +53,10 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		classes() {
 			return [
 				'filters',
@@ -60,6 +64,10 @@ export default {
 			];
 		},
 
+		/**
+		 * Get visibility options object.
+		 * @return {Object}
+		 */
 		visibilityOptions() {
 			return [
 				{ value: true, label: 'Current Page Issues' },
@@ -67,6 +75,10 @@ export default {
 			];
 		},
 
+		/**
+		 * Get groups options object.
+		 * @return {Object}
+		 */
 		groupsOptions() {
 			const groups = this.groups.map(group => ({
 				value: group.id,

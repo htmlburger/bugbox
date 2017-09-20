@@ -4,12 +4,12 @@ import TagManager from 'lib/TagManager';
 const tracker = new Trello();
 
 /**
- * Store actions
+ * Store actions.
  * @type {Object}
  */
 const actions = {
 	/**
-	 * Toggle panel expanded
+	 * Toggle panel expanded.
 	 * @param  {Function} options.commit
 	 * @return {Promise}
 	 */
@@ -24,7 +24,7 @@ const actions = {
 	},
 
 	/**
-	 * Store initialize action
+	 * Store initialize action.
 	 * @param  {Function} options.commit
 	 * @param  {Function} options.dispatch
 	 * @return {Promise}
@@ -41,7 +41,7 @@ const actions = {
 	},
 
 	/**
-	 * Get initial data
+	 * Get initial data.
 	 * @param  {Function} options.dispatch
 	 * @return {Promise}
 	 */
@@ -57,7 +57,7 @@ const actions = {
 	},
 
 	/**
-	 * Get authorized user data
+	 * Get authorized user data.
 	 * @param  {Function} options.commit
 	 * @return {Promise}
 	 */
@@ -72,9 +72,9 @@ const actions = {
 	},
 
 	/**
-	 * Find project related project
+	 * Find project related project.
 	 * @param  {Function} options.commit
-	 * @param  {Any} payload
+	 * @param  {mixed} payload
 	 * @return {Promise}
 	 */
 	findProject({ commit, dispatch }, payload) {
@@ -95,9 +95,9 @@ const actions = {
 	},
 
 	/**
-	 * Get a project project
+	 * Get a project project.
 	 * @param  {Function} options.commit
-	 * @param  {Any} payload
+	 * @param  {mixed} payload
 	 * @return {Promise}
 	 */
 	getProject({ commit }, payload) {
@@ -111,9 +111,9 @@ const actions = {
 	},
 
 	/**
-	 * Allow user to select different project
+	 * Allow user to select different project.
 	 * @param  {Function} options.commit
-	 * @param  {Any} payload
+	 * @param  {mixed} payload
 	 * @return {Promise}
 	 */
 	changeProject({ commit }, payload) {
@@ -124,7 +124,7 @@ const actions = {
 	},
 
 	/**
-	 * Authorize in tracker action
+	 * Authorize in tracker action.
 	 * @param  {Function} options.commit
 	 * @param  {Function} options.dispatch
 	 * @return {Promise}
@@ -139,7 +139,7 @@ const actions = {
 	},
 
 	/**
-	 * Unauthorize in tracker action
+	 * Unauthorize in tracker action.
 	 * @param  {Function} options.commit
 	 * @param  {Function} options.dispatch
 	 * @return {Promise}
@@ -153,7 +153,7 @@ const actions = {
 	},
 
 	/**
-	 * Initialize new project in tracker
+	 * Initialize new project in tracker.
 	 * @param  {Function} options.commit
 	 * @param  {Function} options.dispatch
 	 * @param  {String} payload
@@ -169,7 +169,7 @@ const actions = {
 	},
 
 	/**
-	 * Initialize TagManager instance
+	 * Initialize TagManager instance.
 	 * @param  {Function} options.commit
 	 * @param  {Object} payload
 	 * @return {Promise}
@@ -181,7 +181,7 @@ const actions = {
 	},
 
 	/**
-	 * Initialize tagging
+	 * Initialize tagging.
 	 * @param {Function} options.commit
 	 * @return {Promise}
 	 */
@@ -193,7 +193,7 @@ const actions = {
 	},
 
 	/**
-	 * Set Temp Pin
+	 * Set Temp Pin.
 	 * @param {Function} options.commit
 	 * @param {Object} payload
 	 * @return {Promise}
@@ -203,7 +203,7 @@ const actions = {
 	},
 
 	/**
-	 * Set tagged element meta data
+	 * Set tagged element meta data.
 	 * @param {Function} options.commit
 	 * @param {Object} payload
 	 * @return {Promise}
@@ -214,7 +214,7 @@ const actions = {
 	},
 
 	/**
-	 * Reset tagged element
+	 * Reset tagged element.
 	 * @param {Function} options.commit
 	 * @return {Promise}
 	 */
@@ -225,7 +225,7 @@ const actions = {
 	},
 
 	/**
-	 * Set tagged element meta data
+	 * Set tagged element meta data.
 	 * @param {Function} options.commit
 	 * @param {Object} payload
 	 * @return {Promise}
@@ -242,7 +242,7 @@ const actions = {
 	},
 
 	/**
-	 * Select issue
+	 * Select an issue.
 	 * @param {Function} options.commit
 	 * @param {String} payload
 	 * @return {Promise}
@@ -256,7 +256,7 @@ const actions = {
 	},
 
 	/**
-	 * Reset selected issue
+	 * Reset selected issue.
 	 * @param {Function} options.commit
 	 * @return {Promise}
 	 */
@@ -265,7 +265,7 @@ const actions = {
 	},
 
 	/**
-	 * Change issue group
+	 * Change issue group.
 	 * @param {Function} options.commit
 	 * @param {Object} payload
 	 * @return {Promise}
@@ -279,7 +279,7 @@ const actions = {
 	},
 
 	/**
-	 * Set filters
+	 * Set filters.
 	 * @param {Function} options.commit
 	 * @return {Promise}
 	 */

@@ -117,12 +117,20 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get issue group object.
+		 * @return {Object}
+		 */
 		group() {
 			if (this.groups) {
 				return this.groups.find(group => group.id === this.groupId);
 			}
 		},
 
+		/**
+		 * Get issue screenshots array.
+		 * @return {Array}
+		 */
 		screenshots() {
 			if (this.issue && !this.issue.attachments) {
 				return [];
@@ -133,6 +141,10 @@ export default {
 			});
 		},
 
+		/**
+		 * Whether state is changing group.
+		 * @return {Boolean} [description]
+		 */
 		isChangingGroup() {
 			return this.status === 'changing_group';
 		}
@@ -144,6 +156,11 @@ export default {
 			'changeIssueGroup'
 		]),
 
+		/**
+		 * Handle change group.
+		 * @param  {[type]} event [description]
+		 * @return {[type]}       [description]
+		 */
 		handleChangeGroup(event) {
 			this.status = 'changing_group';
 

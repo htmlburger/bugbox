@@ -21,6 +21,10 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get avatar url.
+		 * @return {String}
+		 */
 		avatar() {
 			if (this.user && this.user.avatarHash) {
 				return `http://trello-avatars.s3.amazonaws.com/${this.user.avatarHash}/50.png`;

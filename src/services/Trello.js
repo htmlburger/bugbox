@@ -3,6 +3,9 @@ import { popupWindow, dataURItoFile } from 'helpers/utils';
 import Tracker from 'services/Tracker';
 
 export default class Trello extends Tracker  {
+	/**
+	 * Create a Trello Tracker.
+	 */
 	constructor() {
 		super();
 
@@ -10,7 +13,7 @@ export default class Trello extends Tracker  {
 		const baseURL = process.env.TRELLO_API_URL;
 
 		/**
-		 * Initialize XHR client
+		 * Initialize XHR client.
 		 * @type {Object}
 		 */
 		this.getToken().then((token) => {
@@ -25,7 +28,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get local storage key for token item
+	 * Get local storage key for token item.
 	 * @return {String}
 	 */
 	getLocalStorageTokenKey() {
@@ -33,7 +36,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get trello token from local storage
+	 * Get trello token from local storage.
 	 * @return {Promise}
 	 */
 	getToken() {
@@ -60,7 +63,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Set trello token in browser and local storage
+	 * Set trello token in browser and local storage.
 	 * @param {String} token
 	 */
 	setToken(token) {
@@ -81,7 +84,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Set trello token in local storage
+	 * Set trello token in local storage.
 	 * @param {String} token
 	 */
 	setLocalToken(token) {
@@ -93,7 +96,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get session storage key for selected project id item
+	 * Get session storage key for selected project id item.
 	 * @return {String}
 	 */
 	getSessionStorageProjectKey() {
@@ -101,7 +104,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get selected project id from session storage
+	 * Get selected project id from session storage.
 	 * @return {String}
 	 */
 	getSelectedProject() {
@@ -109,7 +112,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Set trello project id in session storage
+	 * Set trello project id in session storage.
 	 * @param {String} id
 	 */
 	setSelectedProject(id) {
@@ -121,7 +124,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get local storage key for meta card cache id
+	 * Get local storage key for meta card cache id.
 	 * @return {String}
 	 */
 	getLocalStorageMetaIdCache() {
@@ -129,7 +132,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get meta card cache id from local storage
+	 * Get meta card cache id from local storage.
 	 * @return {String}
 	 */
 	getMetaIdCache() {
@@ -137,7 +140,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Set meta card cache id in local storage
+	 * Set meta card cache id in local storage.
 	 * @param {String} id
 	 */
 	setMetaIdCache(id) {
@@ -149,7 +152,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Whether client is authorized
+	 * Whether client is authorized.
 	 * @return {Promise}
 	 */
 	isAuthorized() {
@@ -157,8 +160,8 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Trigger trello authorization popup
-	 * @return {Void}
+	 * Trigger trello authorization popup.
+	 * @return {void}
 	 */
 	authorizePopup() {
 		const key = process.env.TRELLO_API_KEY;
@@ -190,7 +193,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Authorize in tracker
+	 * Authorize in tracker.
 	 * @return {Promise}
 	 */
 	authorize() {
@@ -227,7 +230,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Destroy previous authorization in tracker
+	 * Destroy previous authorization in tracker.
 	 * @return {Promise}
 	 */
 	unauthorize() {
@@ -235,7 +238,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get user object
+	 * Get user object.
 	 * @param  {String} id
 	 * @return {Promise}
 	 */
@@ -250,7 +253,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Find a project matching query criteria
+	 * Find a project matching query criteria.
 	 * @param  {String} project
 	 * @return {Promise}
 	 */
@@ -321,8 +324,8 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get a project
-	 * @param  {Any} query
+	 * Get a project.
+	 * @param  {mixed} query
 	 * @return {Promise}
 	 */
 	getProject(id) {
@@ -362,7 +365,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Map cards meta object
+	 * Map cards meta object.
 	 * @param  {Object} card
 	 * @return {Object}
 	 */
@@ -383,7 +386,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Initialize new project
+	 * Initialize new project.
 	 * @return {Promise}
 	 */
 	initProject(payload) {
@@ -400,7 +403,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Initialize list to store meta cards in trello
+	 * Initialize list to store meta cards in trello.
 	 * @param  {Object} response
 	 * @param  {String} name
 	 * @return {Promise}
@@ -417,7 +420,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Close newly created list for meta cards
+	 * Close newly created list for meta cards.
 	 * @param  {Object} response
 	 * @param  {String} name
 	 * @return {Promise}
@@ -434,7 +437,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Initialize card that contains meta data for the project
+	 * Initialize card that contains meta data for the project.
 	 * @param  {Object} response
 	 * @param  {String} name
 	 * @return {Promise}
@@ -457,7 +460,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Add issue as card in trello
+	 * Add issue as card in trello.
 	 * @param  {Object} issue
 	 * @return {Promise}
 	 */
@@ -488,7 +491,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Add issue card meta data as attachment
+	 * Add issue card meta data as attachment.
 	 * @param  {Object} card
 	 * @param  {Object} meta
 	 * @return {Promise}
@@ -512,7 +515,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Add issue screenshot as attachment
+	 * Add issue screenshot as attachment.
 	 * @param  {Object} card
 	 * @param  {String} screenshot
 	 * @return {Promise}
@@ -536,7 +539,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Change issue group
+	 * Change issue group.
 	 * @param  {String} options.cardId
 	 * @param  {String} options.listId
 	 * @return {Promise}
@@ -551,7 +554,7 @@ export default class Trello extends Tracker  {
 	}
 
 	/**
-	 * Get issue actions
+	 * Get issue actions.
 	 * @param  {String} options.cardId
 	 * @param  {String} options.listId
 	 * @return {Promise}
@@ -561,5 +564,4 @@ export default class Trello extends Tracker  {
 
 		return request.then(({ data }) => data);
 	}
-
 }

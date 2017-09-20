@@ -61,6 +61,10 @@ export default {
 			'status'
 		]),
 
+		/**
+		 * Get classes object.
+		 * @return {Object}
+		 */
 		classes() {
 			return [
 				'panel',
@@ -68,10 +72,18 @@ export default {
 			];
 		},
 
+		/**
+		 * Whether app is in authorized status.
+		 * @return {Boolean}
+		 */
 		isAuthorized() {
 			return this.status !== 'unauthorized';
 		},
 
+		/**
+		 * Whether component is loading.
+		 * @return {Boolean}
+		 */
 		isLoading() {
 			const loadingStatuses = [
 				'initilized',

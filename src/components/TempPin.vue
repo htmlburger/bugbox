@@ -17,6 +17,10 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get computed style.
+		 * @return {Object}
+		 */
 		style() {
 			return {
 				left: `${this.left}px`,

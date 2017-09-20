@@ -1,3 +1,7 @@
+/**
+ * Store initial state.
+ * @type {Object}
+ */
 const state = {
 	panelCollapsed : window.localStorage && JSON.parse(window.localStorage.getItem('BugboxCollapsed')),
 	status         : 'initilized',

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 /**
- * Store mutations
+ * Store mutations.
  * @type {Object}
  */
 const mutations = {

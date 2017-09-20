@@ -45,6 +45,10 @@ export default {
 	},
 
 	computed: {
+		/**
+		 * Get issue group object.
+		 * @return {Object}
+		 */
 		group() {
 			if (this.groups) {
 				return this.groups.find(group => group.id === this.issue.idList);
