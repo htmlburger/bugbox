@@ -2,6 +2,13 @@ import axios from 'axios';
 import { popupWindow, dataURItoFile } from 'helpers/utils';
 import Tracker from 'services/Tracker';
 
+/**
+ * Constants.
+ * @type {String}
+ */
+const META_LIST_TITLE = 'Project Meta';
+const META_URL_TITLE = 'Project Meta: URL';
+
 export default class Trello extends Tracker  {
 	/**
 	 * Create a Trello Tracker.
@@ -258,7 +265,7 @@ export default class Trello extends Tracker  {
 	 * @return {Promise}
 	 */
 	findProject(project) {
-		const query = `Project Meta: URL ${project}`;
+		const query = `"${META_URL_TITLE}" ${project}`;
 
 		const request = this.client.get('/search', {
 			params: {
@@ -272,9 +279,13 @@ export default class Trello extends Tracker  {
 
 		return request
 			.then(({ data }) => {
-				if (data.cards && data.cards.length) {
+				const cards = data.cards && data.cards.filter(card => {
+					return card.name === META_URL_TITLE;
+				});
+
+				if (cards) {
 					this.setMetaIdCache(null);
-					return data.cards;
+					return cards;
 				}
 
 				const metaIdCache = this.getMetaIdCache();
@@ -412,7 +423,7 @@ export default class Trello extends Tracker  {
 		const board = response.data;
 		const boardId = board.id;
 		const request = this.client.post(`boards/${boardId}/lists`, {
-			name: `Project Meta`,
+			name: META_LIST_TITLE,
 			closed: true,
 		});
 
@@ -446,7 +457,7 @@ export default class Trello extends Tracker  {
 		const list = response.data;
 		const listId = list.id;
 		const request = this.client.post(`lists/${listId}/cards`, {
-			name: 'Project Meta: URL',
+			name: META_URL_TITLE,
 			desc: payload.baseUrl,
 		});
 
