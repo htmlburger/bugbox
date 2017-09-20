@@ -22,6 +22,7 @@ export default class Trello extends Tracker {
 
 		this.localAuthToken = new LocalStorage('TrelloToken');
 		this.extensionAuthToken = new ExtensionStorage('TrelloToken');
+		this.localMetaIdCache = new LocalStorage('TrelloMetaIdCache');
 
 		/**
 		 * Initialize XHR client.
@@ -43,7 +44,6 @@ export default class Trello extends Tracker {
 	 * @return {Promise}
 	 */
 	getToken() {
-		this.extensionAuthToken.get().then(val => console.log(val))
 		return this.localAuthToken.has()
 			.then((hasLocalAuthToken) => {
 				if (hasLocalAuthToken) {
@@ -95,34 +95,6 @@ export default class Trello extends Tracker {
 			return window.sessionStorage.setItem(this.getSessionStorageProjectKey(), id);
 		} else {
 			return window.sessionStorage.removeItem(this.getSessionStorageProjectKey());
-		}
-	}
-
-	/**
-	 * Get local storage key for meta card cache id.
-	 * @return {String}
-	 */
-	getLocalStorageMetaIdCache() {
-		return 'BugboxTrelloMetaIdCache';
-	}
-
-	/**
-	 * Get meta card cache id from local storage.
-	 * @return {String}
-	 */
-	getMetaIdCache() {
-		return window.localStorage.getItem(this.getLocalStorageMetaIdCache());
-	}
-
-	/**
-	 * Set meta card cache id in local storage.
-	 * @param {String} id
-	 */
-	setMetaIdCache(id) {
-		if (id) {
-			return window.localStorage.setItem(this.getLocalStorageMetaIdCache(), id);
-		} else {
-			return window.localStorage.removeItem(this.getLocalStorageMetaIdCache());
 		}
 	}
 
@@ -251,26 +223,28 @@ export default class Trello extends Tracker {
 					return card.name === META_URL_TITLE;
 				});
 
-				if (cards) {
-					this.setMetaIdCache(null);
+				if (cards && cards.length) {
+					this.localMetaIdCache.set(null);
 					return cards;
 				}
 
-				const metaIdCache = this.getMetaIdCache();
+				return this.localMetaIdCache
+					.get()
+					.then((metaIdCache) => {
+						if (metaIdCache) {
+							const request = this.client.get(`/cards/${metaIdCache}`, {
+								params: {
+									fields: 'name,desc',
+									board: true,
+									list: true
+								}
+							});
 
-				if (metaIdCache) {
-					const request = this.client.get(`/cards/${metaIdCache}`, {
-						params: {
-							fields: 'name,desc',
-							board: true,
-							list: true
+							return request
+								.then(({ data }) => [data])
+								.catch((err) => null);
 						}
-					});
-
-					return request
-						.then(({ data }) => [data])
-						.catch((err) => null);
-				}
+					})
 			})
 			.then((cards) => {
 				if (!cards || !cards.length) {
@@ -431,7 +405,7 @@ export default class Trello extends Tracker {
 
 		return request.then((response) => {
 			if (response && response.data && response.data.id) {
-				this.setMetaIdCache(response.data.id);
+				this.localMetaIdCache.set(response.data.id);
 			}
 
 			return response;

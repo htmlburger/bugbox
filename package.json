@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "babel-preset-stage-2": "^6.24.1",
-    "dotenv-webpack": "^1.5.4",
     "moment": "^2.18.1",
     "scroll": "^2.0.0",
     "url-loader": "^0.5.9",
@@ -22,8 +20,10 @@
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-preset-env": "^1.5.1",
+    "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
+    "dotenv-webpack": "^1.5.4",
     "vue-loader": "^12.1.0",
     "vue-template-compiler": "^2.3.3",
     "webpack": "^2.6.1"
