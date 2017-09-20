@@ -1,5 +1,6 @@
 import Tracker from 'services/Tracker';
 import LocalStorage from 'services/LocalStorage';
+import SessionStorage from 'services/SessionStorage';
 import ExtensionStorage from 'services/ExtensionStorage';
 import axios from 'axios';
 import { popupWindow, dataURItoFile } from 'helpers/utils';
@@ -20,9 +21,10 @@ export default class Trello extends Tracker {
 		const key = process.env.TRELLO_API_KEY;
 		const baseURL = process.env.TRELLO_API_URL;
 
-		this.localAuthToken = new LocalStorage('TrelloToken');
-		this.extensionAuthToken = new ExtensionStorage('TrelloToken');
-		this.localMetaIdCache = new LocalStorage('TrelloMetaIdCache');
+		this.localAuthToken       = new LocalStorage('TrelloToken');
+		this.extensionAuthToken   = new ExtensionStorage('TrelloToken');
+		this.localMetaIdCache     = new LocalStorage('TrelloMetaIdCache');
+		this.sessionTrelloProject = new SessionStorage('TrelloProject');
 
 		/**
 		 * Initialize XHR client.
@@ -251,28 +253,34 @@ export default class Trello extends Tracker {
 					return [];
 				}
 
-				const location = window.location.href;
-				const selectedProjectIndex = cards.findIndex(card => card.board.id === this.getSelectedProject());
-				const hasSelectedProject = selectedProjectIndex >= 0;
+				return this.sessionTrelloProject
+					.get()
+					.then(selectedProjectId => {
+						const location = window.location.href;
+						const selectedProjectIndex = cards.findIndex(
+							card => card.board.id === selectedProjectId
+						);
+						const hasSelectedProject = selectedProjectIndex >= 0;
 
-				const result = {
-					matches: [],
-					selected: null
-				};
+						const result = {
+							matches: [],
+							selected: null
+						};
 
-				result['matches'] = cards
-					.filter(card => location.indexOf(card.desc) >= 0)
-					.map(card => card.board);
+						result['matches'] = cards
+							.filter(card => location.indexOf(card.desc) >= 0)
+							.map(card => card.board);
 
-				if (hasSelectedProject) {
-					result['selected'] = cards
-						.filter(card => card.board.id === this.getSelectedProject())
-						.map(card => card.board)[0];
-				} else if (result['matches'].length === 1) {
-					result['selected'] = result['matches'][0];
-				}
+						if (hasSelectedProject) {
+							result['selected'] = cards
+								.filter(card => card.board.id === selectedProjectId)
+								.map(card => card.board)[0];
+						} else if (result['matches'].length === 1) {
+							result['selected'] = result['matches'][0];
+						}
 
-				return result;
+						return result;
+					});
 			});
 	}
 
@@ -310,7 +318,7 @@ export default class Trello extends Tracker {
 						members
 					};
 
-					this.setSelectedProject(id);
+					this.sessionTrelloProject.set(id);
 					resolve(project);
 				})
 				.catch(error => reject(error));
