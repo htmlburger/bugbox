@@ -89,7 +89,7 @@ export default class Trello extends Tracker {
 		const authorizeURL = process.env.TRELLO_API_URL + 'authorize';
 
 		const origin = window.location.origin;
-		const name = 'Bugbox';
+		const name = 'BugBox';
 
 		const urlParams = {
 			return_url: origin,
@@ -134,7 +134,7 @@ export default class Trello extends Tracker {
 						/**
 						 * Create new dummy window that can be closed
 						 */
-						popup = popupWindow('about:blank', 'Bugbox');
+						popup = popupWindow('about:blank', 'BugBox');
 						popup.close();
 
 						if (token) {
@@ -324,7 +324,7 @@ export default class Trello extends Tracker {
 	 */
 	initProject(payload) {
 		const request = this.client.post('boards/', {
-			name: `Bugbox: ${payload.name}`,
+			name: `BugBox: ${payload.name}`,
 			defaultLists: true,
 			defaultLabels: true,
 		});
