@@ -73,34 +73,6 @@ export default class Trello extends Tracker {
 	}
 
 	/**
-	 * Get session storage key for selected project id item.
-	 * @return {String}
-	 */
-	getSessionStorageProjectKey() {
-		return 'BugboxTrelloProject';
-	}
-
-	/**
-	 * Get selected project id from session storage.
-	 * @return {String}
-	 */
-	getSelectedProject() {
-		return window.sessionStorage.getItem(this.getSessionStorageProjectKey());
-	}
-
-	/**
-	 * Set trello project id in session storage.
-	 * @param {String} id
-	 */
-	setSelectedProject(id) {
-		if (id) {
-			return window.sessionStorage.setItem(this.getSessionStorageProjectKey(), id);
-		} else {
-			return window.sessionStorage.removeItem(this.getSessionStorageProjectKey());
-		}
-	}
-
-	/**
 	 * Whether client is authorized.
 	 * @return {Promise}
 	 */
