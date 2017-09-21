@@ -622,7 +622,7 @@ h6 { font-weight: normal; }
 
 .issue-details .issue__screenshots strong { display: block; margin-bottom: 4px; }
 .issue-details .issue__screenshots ul { list-style: none outside none; }
-.issue-details .issue__screenshots li { display: inline-block; vertical-align: top; width: 100px; height: 60px; margin-right: 10px; border: 1px solid #ededed; transition: all .2s; }
+.issue-details .issue__screenshots li { display: inline-block; vertical-align: top; width: 100px; height: 60px; margin-right: 10px; border: 1px solid #ededed; overflow: hidden; transition: all .2s; }
 .issue-details .issue__screenshots li:hover { border-color: #dddddd; }
 .issue-details .issue__screenshots a { display: block; }
 .issue-details .issue__screenshots img { width: 100%; height: auto; }
@@ -637,7 +637,6 @@ h6 { font-weight: normal; }
 \* ------------------------------------------------------------ */
 
 .badge { display: inline-block; vertical-align: middle; padding: 2px 8px; background: #ccc; border-radius: 5px; font-size: 10px; color: #fff; font-weight: bold; line-height: 1.2; }
-
 
 /* ------------------------------------------------------------ *\
 	Call to Action
