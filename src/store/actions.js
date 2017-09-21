@@ -292,6 +292,16 @@ const actions = {
 	},
 
 	/**
+	 * Update issue.
+	 * @param {Function} options.commit
+	 * @param {Object} payload
+	 * @return {Promise}
+	 */
+	updateIssue({ commit }, payload) {
+		return commit('UPDATE_ISSUE', payload);
+	},
+
+	/**
 	 * Change issue group.
 	 * @param {Function} options.commit
 	 * @param {Object} payload

@@ -588,3 +588,26 @@ export const stringToColour = (str) => {
 
 	return colour;
 };
+
+
+/**
+ * Throttle a function.
+ * @param  {Function} callback
+ * @param  {int}   timeout
+ * @return {Function}
+ */
+export const throttle = (callback, timeout) => {
+    let wait = false;
+
+    return () => {
+        if (!wait) {
+            callback.call();
+
+            wait = true;
+
+            setTimeout(() => {
+                wait = false;
+            }, timeout);
+        }
+    }
+}

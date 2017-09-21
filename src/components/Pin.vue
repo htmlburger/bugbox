@@ -4,7 +4,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { getMatchedElement, getElementOffset } from 'helpers/utils';
+import { getMatchedElement, getElementOffset, throttle } from 'helpers/utils';
 import scroll from 'animated-scroll-to';
 
 export default {
@@ -81,8 +81,24 @@ export default {
 
 	methods: {
 		...mapActions([
-			'selectIssue'
+			'selectIssue',
+			'updateIssue'
 		]),
+
+		/**
+		 * Update matched element flag.
+		 * @return {void}
+		 */
+		updateMatchedElementFlag() {
+			const hasMatched = !!this.element;
+
+			if (this.issue.hasMatched === undefined || this.issue.hasMatched !== hasMatched) {
+				const issue = Object.assign({}, this.issue);
+
+				issue.hasMatched = hasMatched;
+				this.updateIssue(issue);
+			}
+		},
 
 		/**
 		 * Set pin update interval.
@@ -95,6 +111,8 @@ export default {
 				} else {
 					this.updateMatchedElement();
 				}
+
+				this.updateMatchedElementFlag();
 			}, 100);
 		},
 

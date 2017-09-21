@@ -31,6 +31,10 @@
 				</div>
 			</div>
 
+			<div v-if="!issue.hasMatched" class="issue__section">
+				<div class="issue__error">* Can't match with element in the current page context.</div>
+			</div>
+
 			<div class="issue__section">
 				<h5 class="issue__section-title">Change group:</h5>
 
@@ -80,8 +84,6 @@
 					</ul>
 				</div>
 			</div>
-
-			{{currentUrl}}
 
 			<div v-if="!isOnCurrentPage" class="issue__section">
 				<h5 class="issue__section-title">Issue Origin</h5>

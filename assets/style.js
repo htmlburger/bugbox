@@ -632,6 +632,8 @@ h6 { font-weight: normal; }
 .issue-details .issue__link img { display: inline-block; vertical-align: middle; width: 14px; margin-right: 5px; }
 .issue-details .issue__origin i { margin-right: 5px; }
 
+.issue-details .issue__error {font-style: italic; font-size: .75em; opacity: .7; }
+
 .issue-details .issue__screenshots { margin-bottom: 12px; }
 
 .issue-details .issue__screenshots strong { display: block; margin-bottom: 4px; }
