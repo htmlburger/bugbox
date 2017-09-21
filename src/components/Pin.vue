@@ -5,7 +5,7 @@
 <script>
 import { mapActions } from 'vuex';
 import { getMatchedElement, getElementOffset } from 'helpers/utils';
-import scroll from 'scroll';
+import scroll from 'animated-scroll-to';
 
 export default {
 	name: 'pin',
@@ -132,7 +132,7 @@ export default {
 		scrollInView() {
 			const scrollOffset = 50;
 
-			scroll.top(document.body, this.position.top - scrollOffset);
+			scroll(this.position.top - scrollOffset, { speed: 1000 });
 		},
 
 		/**

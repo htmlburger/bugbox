@@ -9,9 +9,9 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "animated-scroll-to": "^1.1.6",
     "axios": "^0.16.2",
     "moment": "^2.18.1",
-    "scroll": "^2.0.0",
     "url-loader": "^0.5.9",
     "vue": "^2.4.2",
     "vuex": "^2.3.1"
