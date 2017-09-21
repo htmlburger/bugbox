@@ -169,6 +169,22 @@ const actions = {
 	},
 
 	/**
+	 * Setup with existing project in tracker.
+	 * @param  {Function} options.commit
+	 * @param  {Function} options.dispatch
+	 * @param  {String} payload
+	 * @return {Promise}
+	 */
+	setupProject({ commit, dispatch }, { data, payload }) {
+		return tracker.setupProject(data, payload)
+			.then((response) => {
+				if (response.data && response.data.idBoard) {
+					return dispatch('getProject', response.data.idBoard)
+				}
+			});
+	},
+
+	/**
 	 * Initialize TagManager instance.
 	 * @param  {Function} options.commit
 	 * @param  {Object} payload

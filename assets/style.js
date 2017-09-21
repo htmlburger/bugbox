@@ -391,6 +391,19 @@ h6 { font-weight: normal; }
 
 .form .form__screenshot .form__file { flex: 1 1 auto; margin-left: 15px; }
 
+.form .form__stack { display: flex; }
+
+.form .form__stack-item { flex: 1 1 auto; }
+.form .form__stack-addon { flex: 0 0 auto; }
+
+.form .form__stack-item,
+.form .form__stack-addon { margin-right: 10px; }
+
+.form .form__stack-item:last-child,
+.form .form__stack-addon:last-child { margin-right: 0; }
+
+.form .form__actions .list-options { margin-bottom: 10px; }
+
 .form .form__btn { margin-right: 10px; }
 .form .form__btn:last-child { margin-right: 0; }
 

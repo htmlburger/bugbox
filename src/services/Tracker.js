@@ -65,6 +65,14 @@ export default class Tracker {
 	}
 
 	/**
+	 * Setup project.
+	 * @return {Promise<Object>}
+	 */
+	setupProject() {
+		throw new Error('Please implement me.');
+	}
+
+	/**
 	 * Add issue item.
 	 * @return {Promise<Object>}
 	 */

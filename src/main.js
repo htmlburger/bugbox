@@ -25,7 +25,7 @@ const init = () => {
  * @return {Boolean}
  */
 const isEnabled = () => {
-	const bugboxEnabled = window.localStorage.getItem('BugboxEnabled');
+	const bugboxEnabled = window.localStorage.getItem('BugBoxEnabled');
 
 	return bugboxEnabled && JSON.parse(bugboxEnabled);
 }
@@ -36,7 +36,7 @@ const isEnabled = () => {
  */
 const toggleEnabled = ({ action }, sender, sendResponse) => {
 	const enabled = isEnabled();
-	window.localStorage.setItem('BugboxEnabled', !enabled);
+	window.localStorage.setItem('BugBoxEnabled', !enabled);
 
 	if (!enabled) {
 		mount();

@@ -165,7 +165,11 @@ export default class Trello extends Tracker {
 	 */
 	getUser(id = 'me') {
 		return new Promise((resolve, reject) => {
-			const request = this.client.get(`/members/${id}`);
+			const request = this.client.get(`/members/${id}`, {
+				params: {
+					boards: 'all'
+				}
+			});
 
 			return request
 				.then(({ data }) => resolve(data))
@@ -331,6 +335,16 @@ export default class Trello extends Tracker {
 
 		return request
 			.then((response) => this.initMetaList(response, payload))
+			.then((response) => this.closeMetaList(response, payload))
+			.then((response) => this.initMetaCard(response, payload));
+	}
+
+	/**
+	 * Setup project.
+	 * @return {Promise<Object>}
+	 */
+	setupProject(data, payload) {
+		return this.initMetaList(data, payload)
 			.then((response) => this.closeMetaList(response, payload))
 			.then((response) => this.initMetaCard(response, payload));
 	}

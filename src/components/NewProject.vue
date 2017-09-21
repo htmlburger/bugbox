@@ -2,7 +2,7 @@
 	<div :class="classes">
 		<loader v-if="isLoading" />
 
-		<form @submit.prevent="handleFromSubmit">
+		<form @submit.prevent="handleFormSubmit">
 			<div class="form__row">
 				<label class="form__label">Project Name:</label>
 
@@ -24,9 +24,36 @@
 			</div>
 
 			<div class="form__actions">
-				<button type="submit" class="btn">Create New Project</button>
+				<ul class="list-options">
+					<li>
+						<label class="radio">
+							<input v-model="type" value="new" class="radio__input" type="radio" name="type">
+
+							<span class="radio__label">Create New Project</span>
+						</label>
+					</li>
+
+					<li>
+						<label class="radio">
+							<input v-model="type" value="existing" class="radio__input" type="radio" name="type">
+
+							<span class="radio__label">Setup Existing Project</span>
+						</label>
+					</li>
+				</ul>
+
+				<div class="form__stack">
+					<div v-if="type === 'existing'" class="select form__stack-item">
+						<select v-model="boardId">
+							<option v-for="board in boards" :value="board.id">{{board.name}}</option>
+						</select>
+					</div>
+
+					<button type="submit" class="btn form__stack-addon">{{buttonLabel}}</button>
+				</div><!-- /.form__stack -->
 			</div>
 		</form>
+
 	</div>
 </template>
 
@@ -48,12 +75,15 @@ export default {
 			status: '',
 			canChange: false,
 			projectName: document.title,
-			baseUrl: window.location.origin
+			baseUrl: window.location.origin,
+			type: 'new',
+			boardId: null
 		};
 	},
 
 	computed: {
 		...mapGetters([
+			'user',
 			'project'
 		]),
 
@@ -77,6 +107,20 @@ export default {
 		},
 
 		/**
+		 * Get button label based on the selected type.
+		 * @return {String}
+		 */
+		buttonLabel() {
+			if (this.type === 'new') {
+				return 'Create';
+			} else if (this.type === 'existing') {
+				return 'Setup';
+			} else {
+				return 'Submit';
+			}
+		},
+
+		/**
 		 * Get form payload object.
 		 * @return {Object}
 		 */
@@ -85,28 +129,49 @@ export default {
 				name: this.projectName,
 				baseUrl: this.baseUrl
 			};
+		},
+
+		/**
+		 * Get current user boards,
+		 * @return {Array}
+		 */
+		boards() {
+			return (this.user && this.user.boards) || [];
 		}
 	},
 
 	methods: {
 		...mapActions([
-			'initProject'
+			'initProject',
+			'setupProject',
 		]),
 
 		/**
 		 * Handle form submit.
 		 * @return {void}
 		 */
-		handleFromSubmit() {
+		handleFormSubmit() {
 			if (this.isLoading) {
 				return;
 			}
 
 			this.status = 'loading';
-			this.initProject(this.payload)
-				.then((response) => {
-					this.status = '';
-				});
+
+			if (this.type === 'new') {
+				this.initProject(this.payload)
+					.then((response) => {
+						this.status = '';
+					});
+			} else if (this.type === 'existing') {
+				const board = this.boards.find(board => board.id === this.boardId);
+				const data = { data: board };
+				const payload = this.payload;
+
+				this.setupProject({ data, payload })
+					.then((response) => {
+						this.status = '';
+					});
+			}
 		}
 	}
 }
