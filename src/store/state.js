@@ -3,6 +3,7 @@
  * @type {Object}
  */
 const state = {
+	currentUrl     : window.location.href,
 	panelCollapsed : window.localStorage && JSON.parse(window.localStorage.getItem('BugboxCollapsed')),
 	status         : 'initilized',
 	user           : null,

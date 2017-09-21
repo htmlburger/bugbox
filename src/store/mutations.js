@@ -5,6 +5,10 @@ import Vue from 'vue';
  * @type {Object}
  */
 const mutations = {
+	SET_CURRENT_URL(state, payload) {
+		state.currentUrl = payload;
+	},
+
 	TOGGLE_PANEL_COLLAPSED(state, payload) {
 		state.panelCollapsed = payload;
 	},

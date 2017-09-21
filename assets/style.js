@@ -630,6 +630,7 @@ h6 { font-weight: normal; }
 .issue-details .issue__meta { margin-bottom: 10px; }
 
 .issue-details .issue__link img { display: inline-block; vertical-align: middle; width: 14px; margin-right: 5px; }
+.issue-details .issue__origin i { margin-right: 5px; }
 
 .issue-details .issue__screenshots { margin-bottom: 12px; }
 

@@ -44,7 +44,7 @@
 			</div>
 
 			<div v-if="issue.meta && issue.meta.browser" class="issue__section">
-				<h5 class="issue__section-title">Meta:</h5>
+				<h5 class="issue__section-title">Meta</h5>
 
 				<div class="table issue__meta">
 					<table>
@@ -67,7 +67,7 @@
 			</div>
 
 			<div v-if="screenshots.length" class="issue__section">
-				<h5 class="issue__section-title">Screenshot:</h5>
+				<h5 class="issue__section-title">Screenshot</h5>
 
 				<div class="issue__screenshots">
 					<ul>
@@ -80,12 +80,22 @@
 					</ul>
 				</div>
 			</div>
+
+			{{currentUrl}}
+
+			<div v-if="!isOnCurrentPage" class="issue__section">
+				<h5 class="issue__section-title">Issue Origin</h5>
+
+				<a :href="issue.meta.url" class="issue__origin" target="_top">
+					<i class="ico-link"></i>Issue Origin URL
+				</a>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { fromNow } from 'helpers/filters';
 import Loader from 'components/Loader.vue';
 import Badge from 'components/Badge.vue';
@@ -111,12 +121,15 @@ export default {
 	data() {
 		return {
 			status: '',
-			groupId: this.issue && this.issue.idList,
-			actions: null,
+			groupId: this.issue && this.issue.idList
 		};
 	},
 
 	computed: {
+		...mapGetters([
+			'currentUrl'
+		]),
+
 		/**
 		 * Get issue group object.
 		 * @return {Object}
@@ -147,6 +160,21 @@ export default {
 		 */
 		isChangingGroup() {
 			return this.status === 'changing_group';
+		},
+
+		/**
+		 * Whether issue was tagged on the current active page
+		 * @return {Boolean}
+		 */
+		isOnCurrentPage() {
+			if (!this.issue.meta || !this.issue.meta.url) {
+				return true;
+			}
+
+			const issueUrl = this.issue.meta.url.replace(/\/$/, '');
+			const currentUrl = this.currentUrl.replace(/\/?\#issue\-\w+$/, '');
+
+			return issueUrl === currentUrl;
 		}
 	},
 

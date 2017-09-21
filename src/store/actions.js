@@ -9,6 +9,16 @@ const tracker = new Trello();
  */
 const actions = {
 	/**
+	 * Update current url.
+	 * @param  {Function} options.commit
+	 * @param  {String} payload
+	 * @return {Promise}
+	 */
+	updateCurrentUrl({ commit }, payload = window.location.href) {
+		return commit('SET_CURRENT_URL', payload);
+	},
+
+	/**
 	 * Toggle panel expanded.
 	 * @param  {Function} options.commit
 	 * @return {Promise}

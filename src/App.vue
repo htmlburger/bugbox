@@ -94,7 +94,8 @@ export default {
 			'initTagging',
 			'setTempPin',
 			'setTagged',
-			'selectIssue'
+			'selectIssue',
+			'updateCurrentUrl'
 		]),
 
 		/**
@@ -180,6 +181,15 @@ export default {
 				this.$refs.cover.style.height = getDocumentHeight() + 'px';
 			}, 100)
 		},
+
+		/**
+		 * Handle hash change event.
+		 * @param  {Event} event
+		 * @return {void}
+		 */
+		handleHashChange(event) {
+			this.updateCurrentUrl();
+		}
 	},
 
 	created() {
@@ -194,11 +204,15 @@ export default {
 
 		this.setupTagManager();
 		this.autoResizeCover();
+
+		window.addEventListener('hashchange', this.handleHashChange);
 	},
 
 	beforeDestroy() {
 		this.unbindHotkeys();
 		clearInterval(this.autoResizeInterval);
+
+		window.removeEventListener('hashchange', this.handleHashChange);
 	}
 }
 </script>

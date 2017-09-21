@@ -3,6 +3,10 @@
  * @type {Object}
  */
 const getters = {
+	currentUrl(state, getters) {
+		return state.currentUrl;
+	},
+
 	panelCollapsed(state, getters) {
 		return state.panelCollapsed;
 	},
@@ -47,9 +51,9 @@ const getters = {
 					return false;
 				}
 
-				const currentPageUrl = window.location.href.replace(/\#issue\-(.+)$/, '');
+				const currentUrl = getters.currentUrl.replace(/\#issue\-(.+)$/, '');
 
-				return currentPageUrl === issue.meta.url;
+				return currentUrl === issue.meta.url;
 			});
 		}
 
