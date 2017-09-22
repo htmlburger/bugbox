@@ -28,7 +28,7 @@ const actions = {
 			payload = !state.panelCollapsed;
 		}
 
-		window.localStorage && window.localStorage.setItem('BugboxCollapsed', payload);
+		window.localStorage && window.localStorage.setItem('BugBoxCollapsed', payload);
 
 		return commit('TOGGLE_PANEL_COLLAPSED', payload);
 	},

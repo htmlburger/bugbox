@@ -4,7 +4,7 @@
  */
 const state = {
 	currentUrl     : window.location.href,
-	panelCollapsed : window.localStorage && JSON.parse(window.localStorage.getItem('BugboxCollapsed')),
+	panelCollapsed : window.localStorage && JSON.parse(window.localStorage.getItem('BugBoxCollapsed')),
 	status         : 'initilized',
 	user           : null,
 	project        : null,
