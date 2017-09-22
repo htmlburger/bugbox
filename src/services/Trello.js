@@ -334,9 +334,7 @@ export default class Trello extends Tracker {
 		});
 
 		return request
-			.then((response) => this.initMetaList(response, payload))
-			.then((response) => this.closeMetaList(response, payload))
-			.then((response) => this.initMetaCard(response, payload));
+			.then((response) => this.setupProject(response, payload));
 	}
 
 	/**
