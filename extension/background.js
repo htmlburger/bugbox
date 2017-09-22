@@ -1,4 +1,19 @@
 /**
+ * Migrate to new storage keys
+ */
+(() => {
+	chrome.storage.sync.get(['BugBoxTrelloToken', 'BugboxTrelloToken'], (items) => {
+		if (!items['BugBoxTrelloToken'] && !!items['BugboxTrelloToken']) {
+			const setPayload = {};
+			setPayload['BugBoxTrelloToken'] = items['BugboxTrelloToken'];
+
+			chrome.storage.sync.set(setPayload);
+		}
+	});
+})();
+
+
+/**
  * Normalize screenshot dimension.
  * @param  {Object} dimensions
  * @return {Object}

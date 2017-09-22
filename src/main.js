@@ -2,6 +2,11 @@ import Vue from 'vue';
 import App from 'app';
 import store from 'store';
 
+/**
+ * Migrate to new storage keys
+ */
+import migrate from 'helpers/migrate';
+
 let app;
 
 /**
