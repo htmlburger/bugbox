@@ -1,7 +1,7 @@
 {
   "name": "bugbox",
   "description": "On-site Issue Reporting",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "htmlBurger <info@htmlburger.com>",
   "private": true,
   "scripts": {
