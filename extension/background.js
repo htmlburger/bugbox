@@ -12,7 +12,6 @@
 	});
 })();
 
-
 /**
  * Normalize screenshot dimension.
  * @param  {Object} dimensions

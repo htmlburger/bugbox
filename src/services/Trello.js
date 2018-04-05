@@ -183,7 +183,7 @@ export default class Trello extends Tracker {
 	 * @return {Promise}
 	 */
 	findProject(project) {
-		const query = `"${META_URL_TITLE}" ${project}`;
+		const query = `${META_URL_TITLE} ${project}`;
 
 		const request = this.client.get('/search', {
 			params: {
